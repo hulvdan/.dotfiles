@@ -1,0 +1,1 @@
+ln -s -f $(pwd)/zsh/.zshrc.symlink ~/.zshrc

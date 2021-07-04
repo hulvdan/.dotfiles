@@ -1,0 +1,1 @@
+ln -s -f $(pwd)/vim/.vimrc.linux.symlink ~/.vimrc
