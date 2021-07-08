@@ -12,6 +12,7 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'tmux-plugins/tmux-online-status'
 
 
 # ---------------------------------- General -----------------------------------
@@ -64,7 +65,10 @@ set -g @batt_icon_status_charged '🌟'
 set -g @batt_icon_status_charging '⚡'
 set -g @batt_icon_status_discharging '🔋'
 
-set -g status-right '#[fg=colour028]#{battery_icon_status}#{battery_percentage} #[fg=colour027]#{cpu_percentage} #[fg=colour118]#{ram_percentage} #[fg=colour014]%H:%M'
+set -g @online_icon '🌐'
+set -g @offline_icon '⭕'
+
+set -g status-right '#{online_status} #[fg=colour028]#{battery_icon_status}#{battery_percentage} #[fg=colour027]#{cpu_percentage} #[fg=colour118]#{ram_percentage} #[fg=colour014]%H:%M'
 set -g status-left '#{prefix_highlight}'
 setw -g window-status-format '#[fg=colour235,bg=colour234,nobold,nounderscore,noitalics] #[default]#[fg=colour243]#I #W '
 setw -g window-status-current-format '#[fg=colour222,bg=colour238] #I #W '
