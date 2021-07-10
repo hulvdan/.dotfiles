@@ -78,6 +78,9 @@ setw -g message-style 'fg=colour231,bg=colour04'
 
 # --------------------------------- Navigation ---------------------------------
 
+unbind n
+unbind p
+
 # create session
 bind C-c new-session
 

@@ -128,6 +128,7 @@ alias codejupiter="code ~/dev/codejupiter/"
 alias dnfupgrade="sudo dnf upgrade -y"
 alias zshrc="code ~/.zshrc"
 alias psh="poetry shell"
+alias tm="tmux attach || tmux"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
