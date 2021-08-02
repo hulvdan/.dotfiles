@@ -73,16 +73,9 @@ ZSH_THEME="robbyrussell"
 plugins=(
     colored-man-pages
     dnf
-    docker
-    docker-compose
     git
-    pip
-    postgres
-    pyenv
-    python
     tmux
     wd
-    yarn
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -142,3 +135,8 @@ gffs() {
 gfff() {
     git flow feature finish
 }
+
+# Подгрузка локальной для ОС конфигурации
+if [ -L "$HOME/.zshrc.local" ]; then
+    source "$HOME/.zshrc.local"
+fi
