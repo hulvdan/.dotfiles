@@ -116,16 +116,12 @@ eval "$(pyenv virtualenv-init -)"
 CFLAGS='-O2'
 
 alias lla="ll -AX"
-alias codejupiter="code ~/dev/codejupiter/"
-alias dnfupgrade="sudo dnf upgrade -y"
 alias zshrc="code ~/.zshrc"
 alias psh="poetry shell"
 alias tm="tmux attach || tmux"
+alias pcr="pre-commit run --all-files"
 
 export PATH="$HOME/.poetry/bin:$PATH"
-
-# Adding Go!
-export PATH=$PATH:/usr/local/go/bin
 
 gffs() {
     git flow feature start "$1"
