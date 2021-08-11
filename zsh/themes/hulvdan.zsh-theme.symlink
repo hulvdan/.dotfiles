@@ -188,8 +188,8 @@ prompt_hg() {
 # Dir: current working directory
 prompt_dir() {
   local -a symbols
-  [[ $RETVAL -ne 0 ]] && prompt_segment red $CURRENT_FG '%~'
-  [[ $RETVAL == 0 ]] && prompt_segment blue $CURRENT_FG '%~'
+  [[ $RETVAL -ne 0 ]] && prompt_segment red $CURRENT_FG '%c'
+  [[ $RETVAL == 0 ]] && prompt_segment blue $CURRENT_FG '%c'
 }
 
 # Virtualenv: current working virtualenv
