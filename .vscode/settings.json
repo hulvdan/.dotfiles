@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        ".vimrc.symlink": "viml",
-        "*.symlink": "shellscript"
-    }
-}
