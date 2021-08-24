@@ -1,5 +1,5 @@
 if ! [ -x "$(command -v tmux)" ]; then
-  echo 'Error: TMUX не установлен!' >&2
+  echo 'ERROR: TMUX не установлен!' >&2
   exit 1
 fi
 
