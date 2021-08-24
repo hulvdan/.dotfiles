@@ -78,6 +78,7 @@ setw -g window-status-current-format '#[fg=brightyellow,bg=terminal] #I #W '
 set -g @prefix_highlight_prefix_prompt '💀'
 setw -g message-style 'fg=black,bg=brightmagenta'
 
+
 # --------------------------------- Navigation ---------------------------------
 
 unbind n
@@ -94,7 +95,17 @@ bind - split-window -v
 # split current window vertically
 bind _ split-window -h
 
+# resizing
+bind -r C-Up    resize-pane -U
+bind -r C-Down  resize-pane -D
+bind -r C-Left  resize-pane -L
+bind -r C-Right resize-pane -R
+
 # pane navigation
+bind Up    select-pane -U # select pane above
+bind Down  select-pane -D # select pane below
+bind Left  select-pane -L # select pane to the left
+bind Right select-pane -R # select pane to the right
 bind > swap-pane -D       # swap current pane with the next one
 bind < swap-pane -U       # swap current pane with the previous one
 
