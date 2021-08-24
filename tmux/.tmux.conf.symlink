@@ -45,12 +45,12 @@ bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
 bind-key x kill-pane  # disable confirmation on kill pane
 
 # Fade not active windows
-set -g window-style 'fg=colour247,bg=colour234'
+set -g window-style 'fg=colour247,bg=brightblack'
 set -g window-active-style 'fg=white,bg=black'
 
 # Pane borders conf
-set -g pane-border-style 'fg=colour240'
-set -g pane-active-border-style 'fg=colour240'
+set -g pane-border-style 'fg=black,bg=brightblack'
+set -g pane-active-border-style 'fg=black,bg=brightblack'
 
 # Status bar configuration
 set -g status-right '%H:%M'
