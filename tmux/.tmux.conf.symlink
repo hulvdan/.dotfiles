@@ -47,16 +47,16 @@ bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
 bind-key x kill-pane  # disable confirmation on kill pane
 
 # Fade not active windows
-set -g window-style 'fg=colour247,bg=brightblack'
-set -g window-active-style 'fg=white,bg=black'
+set -g window-style 'fg=colour247,bg=black'
+set -g window-active-style 'fg=white,bg=terminal'
 
 # Pane borders conf
-set -g pane-border-style 'fg=black,bg=brightblack'
-set -g pane-active-border-style 'fg=black,bg=brightblack'
+set -g pane-border-style 'fg=brightblack,bg=black'
+set -g pane-active-border-style 'fg=brightblack,bg=black'
 
 # Status bar configuration
 set -g status-right '%H:%M'
-set -g status-bg 'colour234'
+set -g status-bg 'terminal'
 set -g status-justify 'left'
 set -g status-left-length '100'
 set -g status 'on'
@@ -72,11 +72,11 @@ set -g @offline_icon '⭕'
 
 set -g status-right '#{online_status} #[fg=colour028]#{battery_icon_status}#{battery_percentage} #[fg=colour027]#{cpu_percentage} #[fg=colour118]#{ram_percentage} #[fg=colour014]%H:%M'
 set -g status-left '#{prefix_highlight}'
-setw -g window-status-format '#[fg=colour235,bg=colour234,nobold,nounderscore,noitalics] #[default]#[fg=colour243]#I #W '
-setw -g window-status-current-format '#[fg=colour222,bg=colour238] #I #W '
+setw -g window-status-format '#[fg=colour235,bg=terminal,nobold,nounderscore,noitalics] #[default]#[fg=colour243]#I #W '
+setw -g window-status-current-format '#[fg=brightyellow,bg=terminal] #I #W '
 
 set -g @prefix_highlight_prefix_prompt '💀'
-setw -g message-style 'fg=colour231,bg=colour04'
+setw -g message-style 'fg=black,bg=brightmagenta'
 
 # --------------------------------- Navigation ---------------------------------
 
