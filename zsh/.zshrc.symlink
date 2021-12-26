@@ -78,6 +78,7 @@ plugins=(
     wd
     zsh-autosuggestions
     zsh-syntax-highlighting
+    pyenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,11 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
-# https://github.com/pyenv/pyenv/wiki/common-build-problems
 # Make your pythons a little faster
 # You can set your CFLAGS to accepted safe values to help get
 # a little more speed.
@@ -122,6 +119,11 @@ alias zshrc="code ~/.zshrc"
 alias psh="poetry shell"
 alias tm="tmux attach || tmux"
 alias pcr="pre-commit run --all-files"
+
+alias gits="git stash --include-untracked"
+alias gitsp="git stash pop"
+alias gitsa="git stash apply"
+alias lg="lazygit"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
@@ -137,3 +139,7 @@ gfff() {
 if [ -L "$HOME/.zshrc.local" ]; then
     source "$HOME/.zshrc.local"
 fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
