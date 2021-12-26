@@ -59,8 +59,10 @@ nmap <F1> :NERDTreeToggle<CR>
 :nnoremap Q <Nop>
 
 " Disable Arrow keys in Normal mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+" map <up> <nop>
+" map <down> <nop>
+" map <left> <nop>
+" map <right> <nop>
 
+set ts=4 sw=4
+set clipboard=unnamedplus
