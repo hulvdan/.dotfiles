@@ -4,3 +4,7 @@ if ! [ -x "$(command -v tmux)" ]; then
 fi
 
 ln -s -f $(pwd)/tmux/.tmux.conf.symlink ~/.tmux.conf
+
+# tmux-yank
+# https://github.com/tmux-plugins/tmux-yank
+tmux set-option -g -s set-clipboard on

@@ -118,8 +118,7 @@ bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
 # --------------------------------- Clipboard ----------------------------------
 
 set -g @plugin 'tmux-plugins/tmux-yank'
-bind -T copy-mode    C-c send -X copy-pipe-no-clear "xsel -i --clipboard"
-bind -T copy-mode-vi C-c send -X copy-pipe-no-clear "xsel -i --clipboard"
+set -g @override_copy_command 'xsel -ipsb'
 
 
 # ---------------------------------- Display -----------------------------------
