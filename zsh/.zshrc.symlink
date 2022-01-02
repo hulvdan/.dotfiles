@@ -79,6 +79,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     pyenv
+    dirhistory
 )
 
 source $ZSH/oh-my-zsh.sh
