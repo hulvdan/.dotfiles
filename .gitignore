@@ -1,2 +1,4 @@
-*.local.symlink
 .vscode/
+.idea/
+
+zsh/zshrc.local.zsh
