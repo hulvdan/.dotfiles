@@ -10,6 +10,11 @@ OS configuration essentials
 
 Находясь в папке проекта, выполните скрипт `tmux/install.sh`.
 
+При запуске tmux
+
+[C-a]+I
+[C-a]+U
+
 ## VIM
 
 ### Быстрая конфигурация VIM
