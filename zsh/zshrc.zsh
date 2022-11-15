@@ -3,10 +3,19 @@ local REPO_ZSH_DIR=$(readlink -f ~/.zshrc | sed 's|\(.*\)/.*|\1|')
 # Theme
 source $REPO_ZSH_DIR/theme.zsh
 
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "$key[Up]" up-line-or-beginning-search
+bindkey "$key[Down]" down-line-or-beginning-search
+
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=100000000
 SAVEHIST=100000000
+setopt inc_append_history
+setopt share_history
 
 # Loading Plugins
 plugins=(
@@ -43,3 +52,4 @@ alias szsh="source ~/.zshrc"
 
 # Local configuration that is not included in git
 [ -f "$REPO_ZSH_DIR/zshrc.local.zsh" ] && source "$REPO_ZSH_DIR/zshrc.local.zsh"
+
