@@ -45,3 +45,14 @@ echo DEFAULT_USER=$(whoami) >> zsh/zshrc.local.zsh
 Находясь в папке проекта,  выполните скрипт `zsh/install.sh`.
 
 Создастся symlink на конфигурацию `~/.zshrc`.
+
+## GIT
+
+```bash
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+```
+
+```bash
+git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/
+```
+
