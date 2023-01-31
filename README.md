@@ -56,3 +56,10 @@ git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/
 ```
 
+## SSH
+
+Конвертнуть PuTTY ppk в openssh https://superuser.com/questions/232362/how-to-convert-ppk-key-to-openssh-key-under-linux
+
+```bash
+puttygen id_dsa.ppk -O public-openssh -o id_dsa.pub
+```
