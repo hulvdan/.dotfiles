@@ -26,6 +26,7 @@ plugins=(
 )
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source $REPO_ZSH_DIR/plugins/load.zsh
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Loading Application Configs
 for f in $(
