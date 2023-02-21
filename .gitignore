@@ -2,3 +2,5 @@
 .idea/
 
 zsh/zshrc.local.zsh
+nvim/plugin/packer_compiled.lua
+
