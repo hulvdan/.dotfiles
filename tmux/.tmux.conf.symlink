@@ -3,17 +3,12 @@
 if "test ! -d ~/.tmux/plugins/tpm" \
    "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
 
-
 # ------------------------------ TPM Installation ------------------------------
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-cpu'
-set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-set -g @plugin 'tmux-plugins/tmux-online-status'
-
 
 # ---------------------------------- General -----------------------------------
 # https://github.com/gpakosz/.tmux/blob/master/.tmux.conf
@@ -36,15 +31,12 @@ setw -q -g utf8 on
 
 set -g history-limit 10000                # boost history
 
-# edit configuration
-bind e new-window -n "~/.tmux.conf" "EDITOR=\${EDITOR//mvim/vim} && EDITOR=\${EDITOR//gvim/vim} && \${EDITOR:-vim} ~/.tmux.conf.local && tmux source ~/.tmux.conf && tmux display \"~/.tmux.conf sourced\""
-
 # reload configuration
 bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
 
 # -- My config
-
 bind-key x kill-pane  # disable confirmation on kill pane
+bind-key C-x kill-pane  # disable confirmation on kill pane
 
 # Fade not active windows
 set -g window-style 'fg=colour247,bg=default'
@@ -62,15 +54,7 @@ set -g status-left-length '100'
 set -g status 'on'
 setw -g window-status-separator ''
 set -g status-left ''
-
-# set -g @batt_icon_status_charged '🌟'
-# set -g @batt_icon_status_charging '⚡'
-# set -g @batt_icon_status_discharging '🔋'
-
-# set -g @online_icon '🌐'
-# set -g @offline_icon '⭕'
-
-set -g status-right '#[fg=colour027]#{cpu_percentage} #[fg=colour118]#{ram_percentage}'
+set -g status-right ''
 set -g status-left '#{prefix_highlight}'
 setw -g window-status-format '#[fg=colour235,bg=terminal,nobold,nounderscore,noitalics] #[default]#[fg=colour243]#I #W '
 setw -g window-status-current-format '#[fg=brightyellow,bg=terminal] #I #W '
@@ -78,34 +62,35 @@ setw -g window-status-current-format '#[fg=brightyellow,bg=terminal] #I #W '
 set -g @prefix_highlight_prefix_prompt ' '
 setw -g message-style 'fg=black,bg=brightmagenta'
 
-
 # --------------------------------- Navigation ---------------------------------
 
 unbind n
 unbind p
 
-# create session
-bind C-c new-session
-
-# find session
-bind C-f command-prompt -p find-session 'switch-client -t %%'
-
-# split current window horizontally
-bind - split-window -v
-# split current window vertically
-bind _ split-window -h
+bind C-c new-session -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+bind _ split-window -h -c "#{pane_current_path}"
 
 # resizing
 bind -r C-Up    resize-pane -U
 bind -r C-Down  resize-pane -D
 bind -r C-Left  resize-pane -L
 bind -r C-Right resize-pane -R
+bind -r C-k     resize-pane -U
+bind -r C-j     resize-pane -D
+bind -r C-h     resize-pane -L
+bind -r C-l     resize-pane -R
 
 # pane navigation
 bind -r Up    select-pane -U # select pane above
 bind -r Down  select-pane -D # select pane below
 bind -r Left  select-pane -L # select pane to the left
 bind -r Right select-pane -R # select pane to the right
+bind -r k     select-pane -U # select pane above
+bind -r j     select-pane -D # select pane below
+bind -r h     select-pane -L # select pane to the left
+bind -r l     select-pane -R # select pane to the right
 bind > swap-pane -D       # swap current pane with the next one
 bind < swap-pane -U       # swap current pane with the previous one
 
@@ -113,13 +98,12 @@ bind < swap-pane -U       # swap current pane with the previous one
 bind + run 'cut -c3- ~/.tmux.conf | sh -s _maximize_pane "#{session_name}" #D'
 
 # pane movement
-bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
+# bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
 
 # --------------------------------- Clipboard ----------------------------------
 
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @override_copy_command 'xsel -ipsb'
-
 
 # ---------------------------------- Display -----------------------------------
 # https://github.com/gpakosz/.tmux/blob/master/.tmux.conf
@@ -144,7 +128,6 @@ bind -n C-l send-keys C-l \; run 'sleep 0.1' \; clear-history
 set -g monitor-activity off
 set -g visual-activity off
 
-
 # --------------------- Saving & restoring current session ---------------------
 # https://andrewjamesjohnson.com/restoring-tmux-sessions/
 
@@ -153,8 +136,8 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 
 set -g @continuum-restore 'on'
 
-
 # --------------------- Keep this line at the very bottom ----------------------
 
 # Initialize TMUX plugin manager
 run '~/.tmux/plugins/tpm/tpm'
+
