@@ -54,4 +54,4 @@ alias szsh="source ~/.zshrc"
 # Local configuration that is not included in git
 [ -f "$REPO_ZSH_DIR/zshrc.local.zsh" ] && source "$REPO_ZSH_DIR/zshrc.local.zsh"
 
-alias qd='cd ~$(ls -ld1 ~/dev/home/*/ ~/dev/work/*/ | sed "s/\/Users\/user//g" | fzf)'
+alias qd='cd ~$(ls -ld1 ~/Downloads ~/dev/home/*/ ~/dev/work/*/ ~/dev/home/ ~/dev/work/ | sed "s/\/Users\/user//g" | fzf)'
