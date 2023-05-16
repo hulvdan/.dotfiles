@@ -41,5 +41,6 @@ yabai -m rule --add app="^(iTerm2)$" space=1
 yabai -m rule --add app="^(PyCharm|JetBrains Rider)$" space=3
 yabai -m rule --add app="^(Telegram)$" space=5
 yabai -m rule --add app="^(FortiClient)$" space=6 manage=off
+yabai -m rule --add app="Unity" title!="^.*Personal.*$" manage=off
 
 echo "yabai configuration loaded.."
