@@ -24,8 +24,6 @@ set belloff=all
 set termguicolors
 set hidden
 
-
-
 " Tabs and indent settings
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -68,23 +66,25 @@ nnoremap <Esc> :noh <CR>
 
 set wrap
 
-" Switch buffers using keys
-nnoremap <silent> [b :bprevious<cr>
-nnoremap <silent> ]b :bnext<cr>
-nnoremap <silent> [B :bfirst<cr>
-nnoremap <silent> ]B :blast<cr>
+" ===== Greatest Remaps Ever =====
+" Yank + Paste to the OS clipboard
+noremap <leader>y "+y
+noremap <leader>p "+p
+noremap <leader>P "+P
 
-nnoremap <silent> [q :cprevious<cr>
-nnoremap <silent> ]q :cnext<cr>
-nnoremap <silent> [Q :cfirst<cr>
-nnoremap <silent> ]Q :clast<cr>
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
 
-nnoremap <silent> [l :lprevious<cr>
-nnoremap <silent> ]l :lnext<cr>
-nnoremap <silent> [L :lfirst<cr>
-nnoremap <silent> ]L :llast<cr>
+" Joining string without moving screen
+nnoremap J mzJ`z
+
+" Move lines up / down in visual mode
+vnoremap J Vdp
+vnoremap K VdkP
 
 " :h matchit
+
+" ===== Other stuff =====
 
 set langmap=йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,ж\\;,э',ё\\,яz,чx,сc,мv,иb,тn,ьm,б\\,,ю.,ЙQ,ЦW,УE,КR,ЕT,НY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж:,Э\\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>,Ё/|
 
