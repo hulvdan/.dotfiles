@@ -35,8 +35,6 @@ map <leader>fd <Action>(HelpDiagnosticTools)
 map <leader>ft <Action>(ActivateTODOToolWindow)
 
 " Debug
-map <leader>Db <Action>(ToggleLineBreakpoint)
-map <leader>DB <Action>(ToggleLineBreakpoint)
 map <F6> <Action>(Debug)
 map <F6> <Action>(EvaluateExpression)
 map <F8> <Action>(StepOver)
