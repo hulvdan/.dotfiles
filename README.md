@@ -63,3 +63,15 @@ git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org
 ```bash
 puttygen id_dsa.ppk -O public-openssh -o id_dsa.pub
 ```
+
+## Idea
+
+### Windows
+
+We need to create 2 hard links inside the **home** directory.
+One for `.ideavimrc` and another for `.vimrc`
+
+```
+mklink /H .vimrc C:\Users\User\dev\.dotfiles\idea\.vimrc
+mklink /H .ideavimrc C:\Users\User\dev\.dotfiles\idea\.ideavimrc
+```

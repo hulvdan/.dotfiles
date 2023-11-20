@@ -1,0 +1,105 @@
+" Copied from https://github.com/IlyasYOY/dotfiles/blob/master/.ideavimrc
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+source ~/.vimrc
+
+set clipboard+=unnamed
+
+" Do incremental searching.
+set ideajoin
+set idearefactormode=keep
+set ideamarkset
+
+" Plugins
+Plug 'preservim/nerdtree'
+Plug 'machakann/vim-highlightedyank'
+
+let g:highlightedyank_highlight_duration = "250"
+let g:highlightedyank_highlight_color = "rgba(160, 160, 0, 155)"
+
+" Mappings
+map <leader>e <Action>(ActivateProjectToolWindow)
+
+map [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+
+" Search
+map <leader>fa <Action>(SearchEverywhere)
+
+amap <leader>fn <Action>(GotoFile)
+amap <leader>fg <Action>(FindInPath)
+amap <leader>fc <Action>(FindInPath)
+amap <leader>fs <Action>(GotoSymbol)
+amap <leader>fb <Action>(RecentFiles)
+amap <leader>fd <Action>(HelpDiagnosticTools)
+amap <leader>ft <Action>(ActivateTODOToolWindow)
+
+" Debug
+amap <leader>Db <Action>(ToggleLineBreakpoint)
+map <leader>DB <Action>(ToggleLineBreakpoint)
+map <F5> <Action>(Debug)
+map <F6> <Action>(EvaluateExpression)
+map <F10> <Action>(StepOver)
+map <F11> <Action>(StepInto)
+map <F12> <Action>(StepOut)
+
+xmap gc <Action>(CommentByLineComment)
+
+" Test
+map <leader>ct <Action>(GenerateTestMethod)
+map <leader>C <Action>(Generate)
+map <leader>tt <Action>(RunClass)
+
+" Completion
+imap <C-f> <Action>(CodeCompletion)
+
+" LSP
+map gD <Action>(GotoTypeDeclaration)
+map gd <Action>(GotoDeclaration)
+map gi <Action>(GotoImplementation)
+map gr <Action>(GotoDeclaration)
+map <leader>rn <Action>(RenameElement)
+
+map <leader>oc <Action>(ReformatCode)
+map <leader>oi <Action>(OptimizeImports)
+map <leader>oa <Action>(ReformatCode)<Action>(OptimizeImports)
+map <leader>jev <Action>(IntroduceVariable)
+map <leader>jec <Action>(IntroduceConstant)
+map <leader>jem <Action>(ExtractMethod)
+
+map <leader>k <Action>(QuickJavaDoc)
+imap <C-s> <Action>(ParameterInfo)
+map <C-s> <Action>(ParameterInfo)
+map <leader>s <Action>(GotoSymbol)
+map <leader>S <Action>(GotoSymbol)
+
+map <leader>a <Action>(ShowIntentionActions)
+map <leader><leader>T <Action>(VimFindActionIdAction)
+
+" Navigation
+nmap [b <Action>(PreviousTab)
+nmap ]b <Action>(NextTab)
+nmap <leader>v <Action>(PreviousTab)
+nmap <leader>m <Action>(NextTab)
+
+map <leader>s <Action>(FileStructurePopup)
+
+" Save With Space-W
+noremap <leader>w :w<cr>
+
+" Hardmode
+nnoremap <Left> <Nop>
+vnoremap <Left> <Nop>
+inoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+vnoremap <Right> <Nop>
+inoremap <Right> <Nop>
+nnoremap <Down> <Nop>
+vnoremap <Down> <Nop>
+inoremap <Down> <Nop>
+nnoremap <Up> <Nop>
+vnoremap <Up> <Nop>
+inoremap <Up> <Nop>
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
