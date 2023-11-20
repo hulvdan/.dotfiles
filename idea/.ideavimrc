@@ -3,13 +3,10 @@
 " Find more examples here: https://jb.gg/share-ideavimrc
 source ~/.vimrc
 
-set clipboard+=unnamed
-
 " Do incremental searching.
 set ideajoin
 set idearefactormode=keep
 set ideamarkset
-" set easymotion 
 
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
@@ -18,6 +15,9 @@ let g:highlightedyank_highlight_duration = "250"
 let g:highlightedyank_highlight_color = "rgba(160, 160, 0, 155)"
 
 " Mappings
+vmap K <Action>(MoveLineUp)
+vmap J <Action>(MoveLineDown)
+
 map <leader>e <Action>(ActivateProjectToolWindow)
 
 map [d <Action>(GotoPreviousError)
@@ -26,22 +26,22 @@ map ]d <Action>(GotoNextError)
 " Search
 map <leader>fa <Action>(SearchEverywhere)
 
-amap <leader>fn <Action>(GotoFile)
-amap <leader>fg <Action>(FindInPath)
-amap <leader>fc <Action>(FindInPath)
-amap <leader>fs <Action>(GotoSymbol)
-amap <leader>fb <Action>(RecentFiles)
-amap <leader>fd <Action>(HelpDiagnosticTools)
-amap <leader>ft <Action>(ActivateTODOToolWindow)
+map <leader>fn <Action>(GotoFile)
+map <leader>fg <Action>(FindInPath)
+map <leader>fc <Action>(FindInPath)
+map <leader>fs <Action>(GotoSymbol)
+map <leader>fb <Action>(RecentFiles)
+map <leader>fd <Action>(HelpDiagnosticTools)
+map <leader>ft <Action>(ActivateTODOToolWindow)
 
 " Debug
-amap <leader>Db <Action>(ToggleLineBreakpoint)
+map <leader>Db <Action>(ToggleLineBreakpoint)
 map <leader>DB <Action>(ToggleLineBreakpoint)
-map <F5> <Action>(Debug)
+map <F6> <Action>(Debug)
 map <F6> <Action>(EvaluateExpression)
-map <F10> <Action>(StepOver)
-map <F11> <Action>(StepInto)
-map <F12> <Action>(StepOut)
+map <F8> <Action>(StepOver)
+map <F7> <Action>(StepInto)
+map <F9> <Action>(StepOut)
 
 xmap gc <Action>(CommentByLineComment)
 
