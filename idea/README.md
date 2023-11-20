@@ -1,5 +1,11 @@
 # ideavimconfig
 
+## 0. Personally Overridden
+
+| shortcut    | action    |
+| ----------- | --------- |
+| `<leader>w` | save file |
+
 ## 1. Insert mode                                          *insert-index*
 
 | tag               | char                     | action                                                                        |
