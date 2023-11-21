@@ -28,10 +28,10 @@ map <leader>fa <Action>(SearchEverywhere)
 
 map <leader>fn <Action>(GotoFile)
 map <leader>fg <Action>(FindInPath)
-map <leader>fc <Action>(FindInPath)
+map <leader>fc <Action>(GotoClass)
 map <leader>fs <Action>(GotoSymbol)
-map <leader>fb <Action>(RecentFiles)
-map <leader>fd <Action>(HelpDiagnosticTools)
+map <leader>fr <Action>(RecentFiles)
+" map <leader>fd <Action>(HelpDiagnosticTools)
 map <leader>ft <Action>(ActivateTODOToolWindow)
 
 " Debug
