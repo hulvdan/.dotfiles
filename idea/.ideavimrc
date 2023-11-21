@@ -11,6 +11,14 @@ set ideamarkset
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 
+" Old text                  Command     New text ~
+" "Hello *world!"           ds"         Hello world!
+" [123+4*56]/2              cs])        (123+456)/2
+" "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
+" if *x>3 {                 ysW(        if ( x>3 ) {
+" my $str = *whee!;         vllllS'     my $str = 'whee!';
+Plug 'tpope/vim-surround'
+
 let g:highlightedyank_highlight_duration = "250"
 let g:highlightedyank_highlight_color = "rgba(160, 160, 0, 155)"
 
