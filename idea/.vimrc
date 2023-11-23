@@ -82,7 +82,8 @@ nnoremap J mzJ`z
 vnoremap J Vdp
 vnoremap K VdkP
 
-" :h matchit
+" Toggle case and start typing. E.g. `<leader>iget`: `property` -> `getProperty`
+map <leader>i ~hi
 
 " ===== Other stuff =====
 

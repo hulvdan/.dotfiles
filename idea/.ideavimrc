@@ -11,6 +11,18 @@ set ideamarkset
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 
+" Plug 'terryma/vim-multiple-cursors'
+" " Default mapping
+" let g:multi_cursor_use_default_mapping=0
+" let g:multi_cursor_start_word_key      = '<C-n>'
+" let g:multi_cursor_select_all_word_key = '<A-n>'
+" let g:multi_cursor_start_key           = 'g<C-n>'
+" let g:multi_cursor_select_all_key      = 'g<A-n>'
+" let g:multi_cursor_next_key            = '<C-n>'
+" let g:multi_cursor_prev_key            = '<C-p>'
+" let g:multi_cursor_skip_key            = '<C-x>'
+" let g:multi_cursor_quit_key            = '<Esc>'
+
 " Old text                  Command     New text ~
 " "Hello *world!"           ds"         Hello world!
 " [123+4*56]/2              cs])        (123+456)/2
@@ -22,7 +34,15 @@ Plug 'tpope/vim-surround'
 let g:highlightedyank_highlight_duration = "250"
 let g:highlightedyank_highlight_color = "rgba(160, 160, 0, 155)"
 
-" Mappings
+" ==============================
+" - Mappings -
+" ==============================
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \E :e ~/.vimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+
+" --- Git Blame
+map <leader><leader>g <Action>(Annotate)
 vmap K <Action>(MoveLineUp)
 vmap J <Action>(MoveLineDown)
 
@@ -72,6 +92,7 @@ map <leader>oa <Action>(ReformatCode)<Action>(OptimizeImports)
 map <leader>jev <Action>(IntroduceVariable)
 map <leader>jec <Action>(IntroduceConstant)
 map <leader>jem <Action>(ExtractMethod)
+map <leader>jen <Action>(Inline)
 
 map <leader>k <Action>(QuickJavaDoc)
 imap <C-s> <Action>(ParameterInfo)
@@ -89,6 +110,9 @@ nmap <leader>v <Action>(PreviousTab)
 nmap <leader>m <Action>(NextTab)
 
 map <leader>s <Action>(FileStructurePopup)
+
+map <C-S-J> <Action>(EditorCloneCaretBelow)
+map <leader>q <Action>(CloseEditor)
 
 " Hardmode
 nnoremap <Left> <Nop>
