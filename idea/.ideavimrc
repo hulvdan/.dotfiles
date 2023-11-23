@@ -111,6 +111,7 @@ nmap <leader>m <Action>(NextTab)
 
 map <leader>s <Action>(FileStructurePopup)
 
+map <C-S-K> <Action>(EditorCloneCaretAbove)
 map <C-S-J> <Action>(EditorCloneCaretBelow)
 map <leader>q <Action>(CloseEditor)
 
