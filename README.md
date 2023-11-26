@@ -72,6 +72,6 @@ We need to create 2 hard links inside the **home** directory.
 One for `.ideavimrc` and another for `.vimrc`
 
 ```
-mklink /H .vimrc C:\Users\User\dev\.dotfiles\idea\.vimrc
-mklink /H .ideavimrc C:\Users\User\dev\.dotfiles\idea\.ideavimrc
+ni C:\Users\user\.vimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.vimrc"
+ni C:\Users\user\.ideavimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.ideavimrc"
 ```
