@@ -117,6 +117,9 @@ map <C-S-J> <Action>(EditorCloneCaretBelow)
 map <leader>q <Action>(CloseEditor)
 map <leader>z <Action>(ToggleDistractionFreeMode)
 
+" Reload file from disk
+map <C-r> <Action>(SynchronizeCurrentFile)
+
 " Hardmode
 nnoremap <Left> <Nop>
 vnoremap <Left> <Nop>
