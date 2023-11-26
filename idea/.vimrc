@@ -72,8 +72,12 @@ noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
 
-nnoremap <C-d> <C-d>zz
+" Copy line after spaces till the end not including \n character
+nnoremap <S-y> mz^v$y`z
+
+" Keeping cursor in the middle when moving up / down
 nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
 
 " Joining string without moving screen
 nnoremap J mzJ`z
