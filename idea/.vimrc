@@ -8,19 +8,14 @@ set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
 let mapleader = " "
 let mapleaderlocal = " "
 
-autocmd VimEnter * :clearjumps
-
-" Allow me to use custom vimrc from the current folder
+" Allows me to use custom vimrc from the current folder
 set exrc
 
-" Numbers settings
+" Essential shiet
 set nu
 set relativenumber
-
-" Bells
 set noerrorbells
 set belloff=all
-
 set termguicolors
 set hidden
 
@@ -38,7 +33,6 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
-" Shows the search before we
 set incsearch
 
 " Number of lines to keep above/below the cursor
@@ -50,8 +44,6 @@ set foldcolumn=1
 
 " Line length column
 set colorcolumn=80
-
-" heps me to find a current line
 set cursorline
 
 " autocomplete for command mode
