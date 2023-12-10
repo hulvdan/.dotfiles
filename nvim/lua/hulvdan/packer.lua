@@ -18,8 +18,8 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('mbbill/undotree')
 
-  use("gbprod/yanky.nvim")
-  require("yanky").setup({
+  use('gbprod/yanky.nvim')
+  require('yanky').setup({
     highlight = {
       on_put = true,
       on_yank = true,

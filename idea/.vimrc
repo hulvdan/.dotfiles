@@ -63,6 +63,7 @@ set wrap
 noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
+" xmap <leader>p "_dP
 
 " Copy line after spaces till the end not including \n character
 nnoremap <S-y> mz^v$y`z
