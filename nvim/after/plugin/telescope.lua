@@ -1,3 +1,18 @@
+require('telescope').setup {
+  defaults = {
+    file_ignore_patterns = {
+      "__pycache__",
+      ".git",
+      ".idea",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".venv",
+      "node_modules",
+      "venv",
+    }
+  }
+}
+
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
