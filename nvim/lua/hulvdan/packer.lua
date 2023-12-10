@@ -12,8 +12,9 @@ return require('packer').startup(function(use)
 
   use { "ellisonleao/gruvbox.nvim" }
 
+  -- TODO: CHECK ON OTHER DEVICES!
   require 'nvim-treesitter.install'.prefer_git = false
-  require 'nvim-treesitter.install'.compilers = { "gcc" }
+
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('mbbill/undotree')
   use('tpope/vim-fugitive')

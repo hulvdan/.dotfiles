@@ -1,3 +1,6 @@
+-- TODO: CHECK ON OTHER DEVICES!
+vim.api.nvim_command('source ~/.vimrc')
+
 -- Essential shiet
 vim.opt.nu = true
 vim.opt.relativenumber = true
