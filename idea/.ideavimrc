@@ -94,6 +94,7 @@ map <leader>jev <Action>(IntroduceVariable)
 map <leader>jec <Action>(IntroduceConstant)
 map <leader>jem <Action>(ExtractMethod)
 map <leader>jen <Action>(Inline)
+map <leader>jeo <Action>(OverrideMethods)
 
 map <leader>k <Action>(QuickJavaDoc)
 imap <C-s> <Action>(ParameterInfo)
