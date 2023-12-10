@@ -9,6 +9,9 @@ require('telescope').setup {
       ".venv",
       "node_modules",
       "venv",
+      "%.meta",
+      "%.csproj",
+      "%.sln",
     }
   }
 }
