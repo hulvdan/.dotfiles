@@ -1,18 +1,6 @@
 -- vim.keymap.set("n", "<leader>v", ":BufferPrevious<CR>")
 -- vim.keymap.set("n", "<leader>m", ":BufferNext<CR>")
 
-function NrBufs()
-  local i = vim.fn.bufnr('$')
-  local j = 0
-  while (i >= 1) do
-    if vim.fn.buflisted(i) then
-      j = j + 1
-    end
-    i = i - 1
-  end
-  return j
-end
-
 function tablelength(T)
   local count = 0
   for _ in pairs(T) do
