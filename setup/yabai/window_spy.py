@@ -1,3 +1,9 @@
+"""
+This is a program that upon invokation displays
+the current window data as a notification on MacOS.
+
+It uses yabai under the hood is was used by Hulvdan for configuring yabai.
+"""
 import json
 import subprocess
 from typing import TypedDict, Optional
