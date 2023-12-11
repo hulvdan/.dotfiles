@@ -102,8 +102,16 @@ return require('packer').startup(function(use)
       -- Snippets
       { 'L3MON4D3/LuaSnip' },             -- Required
       { 'rafamadriz/friendly-snippets' }, -- Optional
-    }
+    },
   }
+
+  require('mason').setup()
+  require('mason-lspconfig').setup({
+    handlers = {
+      require('lsp-zero').default_setup,
+    },
+  })
 
   use { 'ThePrimeagen/vim-be-good' }
 end)
+
