@@ -82,9 +82,6 @@ return require('packer').startup(function(use)
 
   use('gpanders/editorconfig.nvim')
 
-  use('rcarriga/nvim-notify')
-  vim.notify = require("notify")
-
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
