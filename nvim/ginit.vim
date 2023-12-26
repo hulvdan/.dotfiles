@@ -1,10 +1,11 @@
-let s:fontsize = 18
+let s:fontsize = 14
 function! AdjustFontSize(amount)
   let s:fontsize = s:fontsize+a:amount
-  :execute "GuiFont! InputMono:h" . s:fontsize
+  :execute "GuiFont! For use only at ilovetypography.com:h" . s:fontsize .":wb"
 endfunction
 
 noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
 noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
 inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
+
