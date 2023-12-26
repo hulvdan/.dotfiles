@@ -54,7 +54,7 @@ set wildmode=full
 set history=50
 
 " noh - no highlight
-nnoremap <Esc> :noh <CR>
+nnoremap <Esc> <silent>:noh <CR>
 
 set wrap
 
