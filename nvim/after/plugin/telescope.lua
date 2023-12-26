@@ -12,6 +12,12 @@ require('telescope').setup {
       "%.meta",
       "%.csproj",
       "%.sln",
+      ".vs\\main",
+      "%.pdb",
+      "%.lib",
+      "%.o",
+      "%.so",
+      "%.exe",
     }
   }
 }
