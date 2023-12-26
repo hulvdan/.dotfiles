@@ -7,10 +7,7 @@ function tablelength(T)
   return count
 end
 
-vim.keymap.set("n", "C-S-T", ":BufferRestore<CR>")
-vim.keymap.set("n", "<leader>q", ":BufferClose<CR>")
-
-vim.keymap.set("n", "<leader>v", function()
+function select_previous_tab()
   local current = vim.api.nvim_get_current_buf()
   local state = require('barbar.state')
   local count = tablelength(state.buffers)
@@ -31,9 +28,9 @@ vim.keymap.set("n", "<leader>v", function()
       break
     end
   end
-end)
+end
 
-vim.keymap.set("n", "<leader>m", function()
+function select_next_tab()
   local current = vim.api.nvim_get_current_buf()
   local state = require('barbar.state')
   local count = tablelength(state.buffers)
@@ -53,7 +50,14 @@ vim.keymap.set("n", "<leader>m", function()
       vim.cmd(string.format("BufferGoto %s", i), false)
     end
   end
-end)
+end
 
+-- Bindings
+vim.keymap.set("n", "C-S-T", ":BufferRestore<CR>")
+vim.keymap.set("t", "C-S-T", ":BufferRestore<CR>")
+vim.keymap.set("n", "<leader>q", ":BufferClose<CR>")
+vim.keymap.set("t", "<leader>q", ":BufferClose<CR>")
 
+vim.keymap.set("n", "<leader>v", select_previous_tab)
+vim.keymap.set("n", "<leader>m", select_next_tab)
 

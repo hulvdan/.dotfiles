@@ -58,7 +58,7 @@ return require('packer').startup(function(use)
         -- Requires `nvim-web-devicons` if `true`
         enabled = false,
       },
-      separator = {left = '▎', right = ''},
+      separator = {left = '', right = ''},
 
       -- If true, add an additional separator at the end of the buffer list
       separator_at_end = true,
@@ -81,6 +81,9 @@ return require('packer').startup(function(use)
   })
 
   use('gpanders/editorconfig.nvim')
+
+  use('rcarriga/nvim-notify')
+  vim.notify = require("notify")
 
   use {
     'VonHeikemen/lsp-zero.nvim',
