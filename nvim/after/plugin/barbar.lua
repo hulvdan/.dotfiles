@@ -53,11 +53,12 @@ function select_next_tab()
 end
 
 -- Bindings
-vim.keymap.set("n", "C-S-T", ":BufferRestore<CR>")
-vim.keymap.set("t", "C-S-T", ":BufferRestore<CR>")
-vim.keymap.set("n", "<leader>q", ":bdelete!<CR>")
-vim.keymap.set("t", "<leader>q", ":bdelete!<CR>")
+local opts = { remap = false, silent = true }
+vim.keymap.set("n", "<C-S-T>", ":BufferRestore<CR>", opts)
+vim.keymap.set("t", "<C-S-T>", ":BufferRestore<CR>", opts)
+vim.keymap.set("n", "<leader>q", ":bdelete!<CR>", opts)
+vim.keymap.set("t", "<leader>q", ":bdelete!<CR>", opts)
 
-vim.keymap.set("n", "<leader>v", select_previous_tab)
-vim.keymap.set("n", "<leader>m", select_next_tab)
+vim.keymap.set("n", "<leader>v", select_previous_tab, opts)
+vim.keymap.set("n", "<leader>m", select_next_tab, opts)
 
