@@ -55,8 +55,8 @@ end
 -- Bindings
 vim.keymap.set("n", "C-S-T", ":BufferRestore<CR>")
 vim.keymap.set("t", "C-S-T", ":BufferRestore<CR>")
-vim.keymap.set("n", "<leader>q", ":BufferClose<CR>")
-vim.keymap.set("t", "<leader>q", ":BufferClose<CR>")
+vim.keymap.set("n", "<leader>q", ":bdelete!<CR>")
+vim.keymap.set("t", "<leader>q", ":bdelete!<CR>")
 
 vim.keymap.set("n", "<leader>v", select_previous_tab)
 vim.keymap.set("n", "<leader>m", select_next_tab)
