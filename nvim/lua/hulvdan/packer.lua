@@ -114,14 +114,12 @@ return require('packer').startup(function(use)
     })
 
     local api = require('Comment.api')
-    vim.keymap.set(
-        'n', '<C-/>', api.call('toggle.linewise', 'g@'),
-        { expr = true }
-    )
-    vim.keymap.set(
-        'n', '<C-?>', api.call('toggle.linewise.current', 'g@$'),
-        { expr = true }
-    )
+    vim.keymap.set({'n', 'v'}, '<C-/>', api.call('toggle.linewise', 'g@'), { expr = true })
+    vim.keymap.set({'n', 'v'}, '<C-?>', api.call('toggle.linewise.current', 'g@$'), { expr = true })
+    -- vim.keymap.set('n', '<C-/>', api.call('toggle.linewise', 'g@'), { expr = true })
+    -- vim.keymap.set('n', '<C-?>', api.call('toggle.linewise.current', 'g@$'), { expr = true })
+    -- vim.keymap.set('v', '<C-/>', function() api.call('toggle.linewise', 'g@') end, {remap=false, silent=true})
+    -- vim.keymap.set('v', '<C-?>', function() api.call('toggle.linewise.current', 'g@$') end, { expr = true })
 
     require('mason').setup()
     require('mason-lspconfig').setup({
