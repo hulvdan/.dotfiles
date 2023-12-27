@@ -10,4 +10,7 @@ noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
 noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
 inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
+nnoremap <C-S-_> :call AdjustFontSize(-1)<CR>
+nnoremap <C-S-=> :call AdjustFontSize(1)<CR>
+
 
