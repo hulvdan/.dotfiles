@@ -6,10 +6,19 @@
 -- It should not highlight TODO keyword here
 -- It should not highlight TODO keyword here: and here. But now I don't give a shit
 -- @TODO: Fix upper thingy
--- It should not highlight TODO keyword here. But now I don't give a shit
+--
+-- It should not highlight TODO keyword here: But now I don't give a shit
 -- @TODO: Fix upper thingy
 --
--- It should not highlight todo keyword
+-- NOTE: Test great color
+--
+-- FIX: Test great color
+--
+-- TEST: Test great color
+-- PERF: Test great color
+-- HACK: Test great color
+--
+-- It should not highlight todo keywors
 --
 -- It should not highlight NOTE keyword
 --
@@ -29,13 +38,18 @@ require("todo-comments").setup({
         max_line_len = 200, -- ignore lines longer than this
         exclude = {}, -- list of file types to exclude highlighting
     },
-    colors = {
-        -- TODO: Colors
-        -- error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
-        -- warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-        -- info = { "DiagnosticInfo", "#2563EB" },
-        -- hint = { "DiagnosticHint", "#10B981" },
-        -- default = { "Identifier", "#7C3AED" },
-        -- test = { "Identifier", "#FF00FF" }
+    keywords = {
+        FIX = {
+            icon = " ", -- icon used for the sign, and in search results
+            color = "error", -- can be a hex color, or a named color (see below)
+            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+            -- signs = false, -- configure signs for some keywords individually
+        },
+        TODO = { icon = " ", color = "warning" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", color = "warning", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },
 })

@@ -11,7 +11,7 @@ vim.keymap.set("n", "Q", "<nop>", opts)
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", opts)
 
 vim.keymap.set("n", "<C-S-g>l", function()
-    -- TODO: Make it os agnostic
+    -- TODO: Make it OS agnostic
     -- TODO: Focus if it's already running (based on the window's title - there's a path displayed)
     vim.fn.system("start /MAX lazygit")
 end, opts)
