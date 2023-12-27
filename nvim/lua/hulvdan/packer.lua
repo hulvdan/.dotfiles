@@ -129,5 +129,14 @@ return require('packer').startup(function(use)
     })
 
     use { 'ThePrimeagen/vim-be-good' }
+    require("gruvbox").setup({
+        italic = {
+            strings = false,
+            emphasis = false,
+            comments = false,
+            operators = false,
+            folds = false,
+        },
+    })
 end)
 
