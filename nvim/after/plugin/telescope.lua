@@ -22,9 +22,3 @@ require('telescope').setup {
   }
 }
 
-local builtin = require('telescope.builtin')
-
-local opts = { remap = false, silent = true }
-vim.keymap.set('n', '<leader>fn', builtin.find_files, opts)
-vim.keymap.set('n', '<C-p>', builtin.git_files, opts)
-
