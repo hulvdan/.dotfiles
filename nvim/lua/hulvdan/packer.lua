@@ -119,6 +119,13 @@ return require('packer').startup(function(use)
         },
     }
 
+    use({
+      "cappyzawa/trim.nvim",
+      config = function()
+        require("trim").setup({})
+      end
+    })
+
     use { 'numToStr/Comment.nvim' }
     require('Comment').setup({
         toggler = {
