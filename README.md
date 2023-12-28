@@ -56,6 +56,12 @@ git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/
 ```
 
+Setup global Windows gitignore
+
+```
+git config --global core.excludesFile "%USERPROFILE%\dev\.dotfiles\git\gitignore_global"
+```
+
 ## SSH
 
 Конвертнуть PuTTY ppk в openssh https://superuser.com/questions/232362/how-to-convert-ppk-key-to-openssh-key-under-linux
