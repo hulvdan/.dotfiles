@@ -93,7 +93,8 @@ return require('packer').startup(function(use)
     vim.g.bookmark_sign= '📘'
     use('MattesGroeger/vim-bookmarks')
 
-    use('gpanders/editorconfig.nvim')
+    use('editorconfig/editorconfig-vim')
+    -- require(")
 
     use {
         'VonHeikemen/lsp-zero.nvim',
