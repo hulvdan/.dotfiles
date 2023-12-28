@@ -32,6 +32,11 @@ return require('packer').startup(function(use)
     require('barbar').setup({
         animation = false,
         auto_hide = 1,
+        maximum_padding = 1,
+        minimum_padding = 1,
+        semantic_letters = false,
+        highlight_inactive_file_icons = false,
+        tabpages = false,
         icons = {
             -- Configure the base icons on the bufferline.
             -- Valid options to display the buffer index and -number are `true`, 'superscript' and 'subscript'
@@ -40,7 +45,7 @@ return require('packer').startup(function(use)
             button = '',
             -- Enables / disables diagnostic symbols
             diagnostics = {
-              [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'E'},
+              [vim.diagnostic.severity.ERROR] = {enabled = false, icon = 'E'},
               [vim.diagnostic.severity.WARN] = {enabled = false},
               [vim.diagnostic.severity.INFO] = {enabled = false},
               [vim.diagnostic.severity.HINT] = {enabled = false},
@@ -58,10 +63,10 @@ return require('packer').startup(function(use)
               -- Requires `nvim-web-devicons` if `true`
               enabled = false,
             },
-            separator = {left = '', right = ''},
+            separator = {left = '▎', right = ''},
 
             -- If true, add an additional separator at the end of the buffer list
-            separator_at_end = true,
+            separator_at_end = false,
 
             -- Configure the icons on the bufferline when modified or pinned.
             -- Supports all the base icon options.
