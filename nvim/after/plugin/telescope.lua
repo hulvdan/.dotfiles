@@ -1,4 +1,4 @@
-require('telescope').setup {
+require('telescope').setup({
   defaults = {
     file_ignore_patterns = {
       "__pycache__",
@@ -20,5 +20,5 @@ require('telescope').setup {
       "%.exe",
     }
   }
-}
+})
 

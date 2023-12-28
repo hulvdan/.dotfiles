@@ -29,7 +29,14 @@ end, opts)
 -- TELESCOPE --
 -- ========= --
 local telescope_builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fn', telescope_builtin.find_files, opts)
+vim.keymap.set('n', '<leader>fn', function()
+  vim.fn.execute('Telescope find_files hidden=true')
+end, opts)
+
 vim.keymap.set('n', '<C-p>', telescope_builtin.git_files, opts)
 vim.keymap.set('n', '<C-S-f>', telescope_builtin.live_grep, opts)
+
+vim.keymap.set('n', '<A-j>', function() vim.fn.execute(':BookmarkPrev') end, opts)
+vim.keymap.set('n', '<A-l>', function() vim.fn.execute(':BookmarkNext') end, opts)
+vim.keymap.set('n', '<A-k>', function() vim.fn.execute(':BookmarkToggle') end, opts)
 
