@@ -2,8 +2,8 @@
 vim.api.nvim_command('source ~/.vimrc')
 
 -- Essential shiet
-vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.nu = false
+vim.opt.relativenumber = false
 vim.opt.errorbells = false
 vim.opt.belloff = "all"
 vim.opt.termguicolors = true
@@ -43,3 +43,5 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "100"
 
 vim.opt.wrap = true
+
+vim.wo.signcolumn = "yes:1"

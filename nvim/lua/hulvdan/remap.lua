@@ -26,6 +26,12 @@ vim.keymap.set("n", "<C-S-g>d", function()
     vim.fn.system("github")
 end, opts)
 
+-- Skipping blocks of code but making it more convenient for my keyboard setup
+vim.keymap.set({"n", "v"}, "<C-J>", "}", opts)
+vim.keymap.set({"n", "v"}, "<C-K>", "{", opts)
+vim.keymap.set({"n", "v"}, "<C-S-J>", ")", opts)
+vim.keymap.set({"n", "v"}, "<C-S-K>", "(", opts)
+
 -- TELESCOPE --
 -- ========= --
 local telescope_builtin = require('telescope.builtin')
@@ -36,6 +42,8 @@ end, opts)
 vim.keymap.set('n', '<C-p>', telescope_builtin.git_files, opts)
 vim.keymap.set('n', '<C-S-f>', telescope_builtin.live_grep, opts)
 
+-- BOOKMARKS --
+-- ========= --
 vim.keymap.set('n', '<A-j>', function() vim.fn.execute(':BookmarkPrev') end, opts)
 vim.keymap.set('n', '<A-l>', function() vim.fn.execute(':BookmarkNext') end, opts)
 vim.keymap.set('n', '<A-k>', function() vim.fn.execute(':BookmarkToggle') end, opts)
