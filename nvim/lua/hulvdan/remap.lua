@@ -54,6 +54,17 @@ vim.keymap.set({"n", "t"}, "<leader>q", function()
     end
 end, opts)
 
+vim.keymap.set('n', '<f2>', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<S-f2>', vim.diagnostic.goto_prev, opts)
+
+vim.keymap.set("n", "<C-\\>", function()
+    vim.fn.execute("vs")
+end, opts)
+vim.keymap.set("n", "<C-S-\\>", function()
+    vim.fn.execute("vs")
+    vim.fn.execute("wincmd l")
+end, opts)
+
 -- TELESCOPE --
 -- ========= --
 local telescope_builtin = require('telescope.builtin')
@@ -69,4 +80,3 @@ vim.keymap.set('n', '<C-S-f>', telescope_builtin.live_grep, opts)
 vim.keymap.set('n', '<A-j>', function() vim.fn.execute(':BookmarkPrev') end, opts)
 vim.keymap.set('n', '<A-l>', function() vim.fn.execute(':BookmarkNext') end, opts)
 vim.keymap.set('n', '<A-k>', function() vim.fn.execute(':BookmarkToggle') end, opts)
-

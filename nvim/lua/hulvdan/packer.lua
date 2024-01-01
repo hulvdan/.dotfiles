@@ -98,7 +98,7 @@ return require("packer").startup(function(use)
     vim.g.bookmark_auto_save = 1
     vim.g.bookmark_sign = '📘'
     use("MattesGroeger/vim-bookmarks")
-    -- use("mfussenegger/nvim-lint")
+    use("mfussenegger/nvim-lint")
 
     use("editorconfig/editorconfig-vim")
 
