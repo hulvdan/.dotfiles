@@ -32,6 +32,28 @@ vim.keymap.set({"n", "v"}, "<C-K>", "{", opts)
 vim.keymap.set({"n", "v"}, "<C-S-J>", ")", opts)
 vim.keymap.set({"n", "v"}, "<C-S-K>", "(", opts)
 
+function WindowsCount()
+    local count = 0
+    for _, a in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        count = count + 1
+    end
+    return count
+end
+
+-- vim.keymap.set("n", "<leader>q", ":bdelete!<CR>", opts)
+-- vim.keymap.set("t", "<leader>q", ":bdelete!<CR>", opts)
+
+vim.keymap.set({"n", "t"}, "<leader>q", function()
+    local count = WindowsCount()
+
+    local is_term = vim.api.nvim_buf_get_name(0):find("term://", 1, true) == 1
+    if count == 1 or is_term then
+        vim.fn.execute(":bdelete!")
+    else
+        vim.fn.execute(":q")
+    end
+end, opts)
+
 -- TELESCOPE --
 -- ========= --
 local telescope_builtin = require('telescope.builtin')
