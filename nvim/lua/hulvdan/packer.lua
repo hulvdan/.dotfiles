@@ -164,6 +164,16 @@ return require("packer").startup(function(use)
 
     use { "folke/todo-comments.nvim" }
 
+    use({
+        "kylechui/nvim-surround",
+        tag = "v2.1.4", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
+
     use {
         "ellisonleao/gruvbox.nvim",
         config = function()
