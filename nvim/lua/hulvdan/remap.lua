@@ -80,3 +80,10 @@ vim.keymap.set('n', '<C-S-f>', telescope_builtin.live_grep, opts)
 vim.keymap.set('n', '<A-j>', function() vim.fn.execute(':BookmarkPrev') end, opts)
 vim.keymap.set('n', '<A-l>', function() vim.fn.execute(':BookmarkNext') end, opts)
 vim.keymap.set('n', '<A-k>', function() vim.fn.execute(':BookmarkToggle') end, opts)
+
+function OpenNotes()
+    local notes_path = [[~/GoogleDrive/Media/Documents/notes.md]]
+    vim.fn.execute("e " .. notes_path)
+end
+
+vim.keymap.set('n', '<leader>n', OpenNotes, opts)
