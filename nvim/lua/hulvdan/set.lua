@@ -1,5 +1,5 @@
 -- TODO: CHECK ON OTHER DEVICES!
-vim.api.nvim_command('source ~/.vimrc')
+vim.api.nvim_command("source ~/.vimrc")
 
 -- Essential shiet
 vim.opt.nu = false
@@ -40,7 +40,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "100"
+-- vim.opt.colorcolumn = "100"
 
 vim.opt.wrap = true
 
