@@ -25,6 +25,10 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+" Wrapped lines get indented
+set breakindent
+set breakindentopt=shift:2
+
 " Swap files
 set noswapfile
 set nobackup
