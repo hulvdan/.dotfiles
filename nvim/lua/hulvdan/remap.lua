@@ -9,6 +9,11 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
 
 -- The best remap ever
 vim.keymap.set("n", "Q", "<nop>", opts)
+vim.keymap.set("n", "<f1>", "<nop>", opts)
+vim.keymap.set("i", "<f20>", "<nop>", opts)
+vim.keymap.set("i", "<f24>", "<nop>", opts)
+vim.keymap.set("i", "<f20><space>", " ", opts)
+vim.keymap.set("i", "<f24><space>"," ", opts)
 
 -- Bind Ctrl+\ Ctrl+N to ESC. Makes it able to leave terminal mode
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", opts)
@@ -27,10 +32,10 @@ vim.keymap.set("n", "<C-S-g>d", function()
 end, opts)
 
 -- Skipping blocks of code but making it more convenient for my keyboard setup
-vim.keymap.set({"n", "v"}, "<C-J>", "}", opts)
-vim.keymap.set({"n", "v"}, "<C-K>", "{", opts)
-vim.keymap.set({"n", "v"}, "<C-S-J>", ")", opts)
-vim.keymap.set({"n", "v"}, "<C-S-K>", "(", opts)
+vim.keymap.set({"n", "v"}, "<C-J>", ":keepjumps norm! }<CR>", opts)
+vim.keymap.set({"n", "v"}, "<C-K>", ":keepjumps norm! {<CR>", opts)
+vim.keymap.set({"n", "v"}, "<C-S-J>", ":keepjumps norm! )<CR>", opts)
+vim.keymap.set({"n", "v"}, "<C-S-K>", ":keepjumps norm! (<CR>", opts)
 
 function WindowsCount()
     local count = 0
