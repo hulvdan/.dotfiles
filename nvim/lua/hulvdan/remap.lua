@@ -3,20 +3,21 @@
 vim.g.mapleader = " "
 local opts = { remap = false, silent = true }
 
--- Moving lines updown with Shift-K / Shift-J in the visual move
+-- Moving lines updown with Shift-K / Shift-J in the visual mode
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
 
 -- The best remap ever
 vim.keymap.set("n", "Q", "<nop>", opts)
-vim.keymap.set("n", "<f1>", "<nop>", opts)
+vim.keymap.set("n", "<f1>", "@a", opts)
 vim.keymap.set("i", "<f20>", "<nop>", opts)
 vim.keymap.set("i", "<f24>", "<nop>", opts)
 vim.keymap.set("i", "<f20><space>", " ", opts)
 vim.keymap.set("i", "<f24><space>"," ", opts)
+vim.keymap.set("n", "<C-l>", "<nop>", opts)
 
--- Bind Ctrl+\ Ctrl+N to ESC. Makes it able to leave terminal mode
-vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", opts)
+-- Binding Ctrl+\ Ctrl+N to ESC makes us able to leave the terminal mode
+vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], opts)
 
 -- Binding Git functions
 -- Ctrl-Shift-G + l - Opens lazygit
@@ -31,11 +32,16 @@ vim.keymap.set("n", "<C-S-g>d", function()
     vim.fn.system("github")
 end, opts)
 
--- Skipping blocks of code but making it more convenient for my keyboard setup
-vim.keymap.set({"n", "v"}, "<C-J>", ":keepjumps norm! }<CR>", opts)
-vim.keymap.set({"n", "v"}, "<C-K>", ":keepjumps norm! {<CR>", opts)
-vim.keymap.set({"n", "v"}, "<C-S-J>", ":keepjumps norm! )<CR>", opts)
-vim.keymap.set({"n", "v"}, "<C-S-K>", ":keepjumps norm! (<CR>", opts)
+-- Skipping blocks of code but making it more convenient for my keyboard setup.
+-- Also, in normal mode these jumps don't pollute the jumps list
+vim.keymap.set("n", "<C-J>", ":keepjumps norm! }<CR>", opts)
+vim.keymap.set("n", "<C-K>", ":keepjumps norm! {<CR>", opts)
+vim.keymap.set("n", "<C-S-J>", ":keepjumps norm! )<CR>", opts)
+vim.keymap.set("n", "<C-S-K>", ":keepjumps norm! (<CR>", opts)
+vim.keymap.set("v", "<C-J>", "}", opts)
+vim.keymap.set("v", "<C-K>", "{", opts)
+vim.keymap.set("v", "<C-S-J>", ")", opts)
+vim.keymap.set("v", "<C-S-K>", "(", opts)
 
 function WindowsCount()
     local count = 0
@@ -59,36 +65,40 @@ vim.keymap.set({"n", "t"}, "<leader>q", function()
     end
 end, opts)
 
-vim.keymap.set('n', '<f2>', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<S-f2>', vim.diagnostic.goto_prev, opts)
+vim.keymap.set("n", "<f2>", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<S-f2>", vim.diagnostic.goto_prev, opts)
 
-vim.keymap.set("n", "<C-\\>", function()
+vim.keymap.set("n", [[<C-\>]], function()
     vim.fn.execute("vs")
 end, opts)
-vim.keymap.set("n", "<C-S-\\>", function()
+vim.keymap.set("n", [[<C-S-\>]], function()
     vim.fn.execute("vs")
     vim.fn.execute("wincmd l")
 end, opts)
 
 -- TELESCOPE --
 -- ========= --
-local telescope_builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fn', function()
-  vim.fn.execute('Telescope find_files hidden=true')
+local telescope_builtin = require("telescope.builtin")
+local telescope = require("telescope")
+vim.keymap.set("n", "<leader>fn", function()
+  vim.fn.execute("Telescope find_files hidden=true")
 end, opts)
 
-vim.keymap.set('n', '<C-p>', telescope_builtin.git_files, opts)
-vim.keymap.set('n', '<C-S-f>', telescope_builtin.live_grep, opts)
+vim.keymap.set("n", "<C-p>", telescope_builtin.git_files, opts)
+-- vim.keymap.set("n", "<C-S-f>", telescope_builtin.live_grep, opts)
+vim.keymap.set("n", "<C-S-f>", function()
+    telescope.extensions.live_grep_args.live_grep_args()
+end, opts)
 
 -- BOOKMARKS --
 -- ========= --
-vim.keymap.set('n', '<A-j>', function() vim.fn.execute(':BookmarkPrev') end, opts)
-vim.keymap.set('n', '<A-l>', function() vim.fn.execute(':BookmarkNext') end, opts)
-vim.keymap.set('n', '<A-k>', function() vim.fn.execute(':BookmarkToggle') end, opts)
+vim.keymap.set("n", "<A-j>", function() vim.fn.execute(":BookmarkPrev") end, opts)
+vim.keymap.set("n", "<A-l>", function() vim.fn.execute(":BookmarkNext") end, opts)
+vim.keymap.set("n", "<A-k>", function() vim.fn.execute(":BookmarkToggle") end, opts)
 
 function OpenNotes()
     local notes_path = [[~/GoogleDrive/Media/Documents/notes.md]]
     vim.fn.execute("e " .. notes_path)
 end
 
-vim.keymap.set('n', '<leader>n', OpenNotes, opts)
+vim.keymap.set("n", "<leader>n", OpenNotes, opts)

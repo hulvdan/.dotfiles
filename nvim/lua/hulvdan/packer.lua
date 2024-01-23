@@ -13,7 +13,11 @@ return require("packer").startup(function(use)
         requires = {
             { "nvim-lua/plenary.nvim" },
             { "BurntSushi/ripgrep" }, -- Optional
-        }
+            { "nvim-telescope/telescope-live-grep-args.nvim" }, -- Optional
+        },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end
     }
 
     use("mbbill/undotree")
