@@ -1,3 +1,23 @@
+-- HACKS for nvui
+function EnableAnimations_()
+    vim.fn.execute("NvuiScrollAnimationDuration 0.16")
+end
+
+function EnableAnimations()
+    vim.defer_fn(EnableAnimations_, 1)
+end
+
+function DisableAnimations_()
+    vim.fn.execute("NvuiScrollAnimationDuration 0.03")
+end
+
+function DisableAnimations()
+    DisableAnimations_()
+end
+
+vim.g.hulvdan_DisableAnimations = DisableAnimations
+vim.g.hulvdan_EnableAnimations = EnableAnimations
+
 -- TODO: CHECK ON OTHER DEVICES!
 vim.api.nvim_command("source ~/.vimrc")
 

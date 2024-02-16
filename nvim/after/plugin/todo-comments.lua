@@ -17,6 +17,7 @@
 -- TEST: Test great color
 -- PERF: Test great color
 -- HACK: Test great color
+-- SHIT: Test great color
 --
 -- It should not highlight todo keywors
 --
@@ -41,6 +42,9 @@ require("todo-comments").setup({
         max_line_len = 200, -- ignore lines longer than this
         exclude = {}, -- list of file types to exclude highlighting
     },
+    colors = {
+        shit = { "ShitError", "ShitMsg", "#7F4E2B" }
+    },
     keywords = {
         FIX = {
             icon = " ", -- icon used for the sign, and in search results
@@ -54,5 +58,6 @@ require("todo-comments").setup({
         PERF = { icon = " ", color = "warning", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
         NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
         TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+        SHIT = { icon = "", color = "shit" },
     },
 })

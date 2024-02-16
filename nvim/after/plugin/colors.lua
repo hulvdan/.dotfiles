@@ -8,4 +8,3 @@ end
 
 SetTheme()
 vim.fn.execute("hi NonText guifg=black")
-
