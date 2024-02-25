@@ -7,7 +7,6 @@ function tablelength(T)
   return count
 end
 
-
 function select_previous_tab()
     vim.g.hulvdan_DisableAnimations()
 
@@ -72,3 +71,5 @@ vim.keymap.set("t", "<C-S-T>", ":BufferRestore<CR>", opts)
 -- vim.keymap.set("n", "<leader>m", select_next_tab, opts)
 vim.keymap.set("n", "<A-v>", select_previous_tab, opts)
 vim.keymap.set("n", "<A-m>", select_next_tab, opts)
+vim.keymap.set("n", "<A-S-v>", ":BufferMovePrevious<CR>", opts)
+vim.keymap.set("n", "<A-S-m>", ":BufferMoveNext<CR>", opts)
