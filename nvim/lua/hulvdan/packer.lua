@@ -185,7 +185,7 @@ return require("packer").startup(function(use)
                 -- terminal_colors = false, -- add neovim terminal colors
                 -- undercurl = true,
                 -- underline = true,
-                -- bold = false,
+                bold = false,
                 italic = {
                     strings = false,
                     emphasis = false,

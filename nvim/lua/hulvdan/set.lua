@@ -4,7 +4,9 @@ function EnableAnimations_()
 end
 
 function EnableAnimations()
-    vim.defer_fn(EnableAnimations_, 1)
+    if vim.g.hulvdan_is_nvui then
+        vim.defer_fn(EnableAnimations_, 1)
+    end
 end
 
 function DisableAnimations_()
@@ -12,7 +14,9 @@ function DisableAnimations_()
 end
 
 function DisableAnimations()
-    DisableAnimations_()
+    if vim.g.hulvdan_is_nvui then
+        DisableAnimations_()
+    end
 end
 
 vim.g.hulvdan_DisableAnimations = DisableAnimations

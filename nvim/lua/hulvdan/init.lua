@@ -3,7 +3,10 @@ require("hulvdan/packer")
 require("hulvdan/remap")
 require("hulvdan/chtsh")
 
-local is_nvui = vim.fn.exists(":NvuiToggleFullscreen")
-if is_nvui then
+if vim.g.hulvdan_is_nvui then
     require("hulvdan/nvui")
+end
+
+if vim.g.hulvdan_is_neovide then
+    require("hulvdan/neovide")
 end
