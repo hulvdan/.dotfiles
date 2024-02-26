@@ -2,5 +2,5 @@
 
 pushd c:\Users\user\dev\.dotfiles
 
-start /MAX nvui --ext_multigrid .
+start c:\Users\user\Downloads\neovide.exe\neovide.exe .
 sleep 2

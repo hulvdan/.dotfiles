@@ -1,22 +1,38 @@
 -- HACKS for nvui
 function EnableAnimations_()
-    vim.fn.execute("NvuiScrollAnimationDuration 0.16")
+    if vim.g.hulvdan_is_nvui then
+        vim.fn.execute("NvuiScrollAnimationDuration 0.16")
+    end
+
+    -- if vim.g.hulvdan_is_neovide then
+    --     vim.g.neovide_scroll_animation_length = 0.13
+    --     vim.g.neovide_cursor_animation_length = 0.08
+    --     vim.g.neovide_scroll_animation_far_lines = 1
+    --     vim.g.neovide_cursor_trail_size = 0.6
+    -- end
 end
 
 function EnableAnimations()
+    -- if vim.g.hulvdan_is_nvui or vim.g.hulvdan_is_neovide then
     if vim.g.hulvdan_is_nvui then
         vim.defer_fn(EnableAnimations_, 1)
     end
 end
 
 function DisableAnimations_()
-    vim.fn.execute("NvuiScrollAnimationDuration 0.03")
+    if vim.g.hulvdan_is_nvui then
+        vim.fn.execute("NvuiScrollAnimationDuration 0.03")
+    end
+
+    -- if vim.g.hulvdan_is_neovide then
+    --     vim.g.neovide_scroll_animation_length = 0.018
+    --     vim.g.neovide_cursor_animation_length = 0
+    --     vim.g.neovide_scroll_animation_far_lines = 1
+    -- end
 end
 
 function DisableAnimations()
-    if vim.g.hulvdan_is_nvui then
-        DisableAnimations_()
-    end
+    DisableAnimations_()
 end
 
 vim.g.hulvdan_DisableAnimations = DisableAnimations
