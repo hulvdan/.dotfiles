@@ -167,6 +167,15 @@ return require("packer").startup(function(use)
 
 
     use { "folke/todo-comments.nvim" }
+    use { "wsdjeg/vim-fetch" }
+    use { "bogado/file-line" }
+
+    use {
+        "stevearc/overseer.nvim",
+        config = function()
+            require("overseer").setup()
+        end
+    }
 
     use({
         "kylechui/nvim-surround",

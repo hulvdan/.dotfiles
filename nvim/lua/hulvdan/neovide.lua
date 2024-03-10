@@ -2,6 +2,7 @@ vim.g.hulvdan_fontsize = 13
 vim.g.neovide_scroll_animation_length = 0.16
 vim.g.neovide_hide_mouse_when_typing = true
 
+
 function AdjustFontSize(amount)
     vim.g.hulvdan_fontsize = vim.g.hulvdan_fontsize + amount
     local f = "For use only at ilovetypography.com"
@@ -19,3 +20,4 @@ vim.keymap.set("n", "<C-_>", function() AdjustFontSize(-font_step) end, opts)
 vim.keymap.set("n", "<C-+>", function() AdjustFontSize(font_step) end, opts)
 
 AdjustFontSize(0)
+vim.fn.execute("set linespace=-1")
