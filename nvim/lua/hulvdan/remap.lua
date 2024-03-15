@@ -153,3 +153,17 @@ function OpenNotes()
 end
 
 vim.keymap.set("n", "<leader>n", OpenNotes, opts)
+
+-- SPECTRE --
+-- ======= --
+vim.keymap.set('n', '<C-S-f>', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+vim.keymap.set('v', '<C-S-f>', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+
+-- VIM-VISUAL-MULTI --
+-- ================ --
+vim.keymap.set("n", '<A-J>', '<C-Down>', {silent=true, remap=true})
+vim.keymap.set("n", '<A-K>', '<C-Up>', {silent=true, remap=true})
