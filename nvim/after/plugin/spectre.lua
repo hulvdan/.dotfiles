@@ -9,6 +9,7 @@ function patched_open(opts)
         opts = {path = last_search_path}
     end
     opts.path = last_search_path
+    opts.cwd = ""
     remembered_open(opts)
 end
 spectre.open = patched_open
