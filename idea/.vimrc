@@ -12,15 +12,16 @@ let mapleaderlocal = " "
 set exrc
 
 " Essential shiet
-set nu
-set relativenumber
+set nonumber
+set norelativenumber
 set noerrorbells
 set belloff=all
 set termguicolors
 set hidden
 
 " Tabs and indent settings
-set tabstop=4 softtabstop=4
+set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
@@ -39,15 +40,19 @@ set undofile
 
 set incsearch
 
+set ignorecase
+set smartcase
+
 " Number of lines to keep above/below the cursor
 set scrolloff=8
 
 " Column with extra info
-set signcolumn=yes
-set foldcolumn=1
+" set signcolumn=yes
+set signcolumn=no
+set foldcolumn=0
 
 " Line length column
-set colorcolumn=80
+set colorcolumn=
 set cursorline
 
 " autocomplete for command mode
@@ -56,6 +61,8 @@ set wildmode=full
 
 " increase history size
 set history=50
+
+set matchpairs+=<:>
 
 " noh - no highlight
 nnoremap <Esc> <silent>:noh <CR>
@@ -91,12 +98,17 @@ nmap <C-S-d> ggVGd
 
 " ===== Other stuff =====
 
-set langmap=йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,ж\\;,э',ё\\,яz,чx,сc,мv,иb,тn,ьm,б\\,,ю.,ЙQ,ЦW,УE,КR,ЕT,НY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж:,Э\\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>,Ё/|
+" Save With Space-W
+noremap <leader>w :w<cr>
+noremap <leader>ц :w<cr>
+noremap <leader>q :wq<cr>
+noremap <leader>й :wq<cr>
+noremap <C-К> :redo<cr>
 
 imap <C-ц> <C-w>
 imap <C-х> <C-[>
 imap <C-щ> <C-o>
+noremap <C-г> <C-u>
+noremap <C-в> <C-d>
 
-" Save With Space-W
-noremap <leader>w :w<cr>
-noremap <leader>q :wq<cr>
+set langmap=йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,ж\\;,э',ё\\,яz,чx,сc,мv,иb,тn,ьm,б\\,,ю.,ЙQ,ЦW,УE,КR,ЕT,НY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж:,Э\\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>,Ё/|
