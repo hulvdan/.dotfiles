@@ -40,6 +40,7 @@ let g:highlightedyank_highlight_color = "rgba(160, 160, 0, 155)"
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \E :e ~/.vimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+nnoremap <esc> <esc>
 
 " --- Git Blame
 map <leader><leader>g <Action>(Annotate)
