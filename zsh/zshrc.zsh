@@ -50,6 +50,7 @@ alias la="ls -A"
 alias lla="ls -lA"
 alias gss="git status -s"
 alias szsh="source ~/.zshrc"
+alias dps="docker ps --format 'table {{.Names}}\t{{.ID}}\t{{.Ports}}'"
 
 # Local configuration that is not included in git
 [ -f "$REPO_ZSH_DIR/zshrc.local.zsh" ] && source "$REPO_ZSH_DIR/zshrc.local.zsh"
