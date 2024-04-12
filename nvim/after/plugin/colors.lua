@@ -8,3 +8,5 @@ end
 
 SetTheme()
 vim.fn.execute("hi NonText guifg=black")
+vim.fn.execute("hi EndOfBuffer guifg=black")
+vim.fn.execute("hi Comment guifg=#a38a46")

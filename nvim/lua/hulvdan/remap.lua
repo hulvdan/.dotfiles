@@ -120,7 +120,7 @@ vim.keymap.set("n", [[<C-\>]], function()
     vim.fn.execute("wincmd h")
     vim.g.hulvdan_EnableAnimations()
 end, opts)
-vim.keymap.set("n", [[<C-S-\>]], function()
+vim.keymap.set("n", [[<C-|>]], function()
     vim.g.hulvdan_DisableAnimations()
     vim.fn.execute("vs")
     vim.g.hulvdan_EnableAnimations()
@@ -154,16 +154,14 @@ end
 
 vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 
--- SPECTRE --
--- ======= --
-vim.keymap.set('n', '<C-S-f>', '<cmd>lua require("spectre").toggle()<CR>', {
-    desc = "Toggle Spectre"
-})
-vim.keymap.set('v', '<C-S-f>', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-    desc = "Search current word"
-})
-
 -- VIM-VISUAL-MULTI --
 -- ================ --
 vim.keymap.set("n", '<A-J>', '<C-Down>', {silent=true, remap=true})
 vim.keymap.set("n", '<A-K>', '<C-Up>', {silent=true, remap=true})
+
+vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
+vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
+
+vim.keymap.set("n", "<M-[>", function()
+    require("tree-climber").goto_parent()
+end, { silent = true })

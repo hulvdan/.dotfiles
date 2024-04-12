@@ -9,7 +9,7 @@ return require("packer").startup(function(use)
 
     use {
         "nvim-telescope/telescope.nvim", tag = "0.1.5",
-        -- or                            , branch = '0.1.x',
+        -- or                            , branch = "0.1.x",
         requires = {
             { "nvim-lua/plenary.nvim" },
             { "BurntSushi/ripgrep" }, -- Optional
@@ -20,8 +20,68 @@ return require("packer").startup(function(use)
         end
     }
 
+    use("ixru/nvim-markdown") -- https://github.com/ixru/nvim-markdown
     use("mbbill/undotree")
     use("preservim/nerdtree")
+    use("jansedivy/jai.vim")
+    use("drybalka/tree-climber.nvim")
+
+    use {
+        "nvim-focus/focus.nvim",
+        config = function()
+            require("focus").setup({
+                enable = true, -- Enable module
+                commands = true, -- Create Focus commands
+                autoresize = {
+                    enable = true, -- Enable or disable auto-resizing of splits
+                    width = 92, -- Force width for the focused window
+                    -- height = 0, -- Force height for the focused window
+                    -- minwidth = 10, -- Force minimum width for the unfocused window
+                    -- minheight = 0, -- Force minimum height for the unfocused window
+                    height_quickfix = 10, -- Set the height of quickfix panel
+                },
+                -- split = {
+                --     bufnew = false, -- Create blank buffer for new split windows
+                --     tmux = false, -- Create tmux splits instead of neovim splits
+                -- },
+                ui = {
+                    -- number = false, -- Display line numbers in the focussed window only
+                    -- relativenumber = false, -- Display relative line numbers in the focussed window only
+                    -- hybridnumber = false, -- Display hybrid line numbers in the focussed window only
+                    -- absolutenumber_unfocussed = false, -- Preserve absolute numbers in the unfocussed windows
+                    --
+                    cursorline = false, -- Display a cursorline in the focussed window only
+                    -- cursorcolumn = false, -- Display cursorcolumn in the focussed window only
+                    -- colorcolumn = {
+                    --     enable = false, -- Display colorcolumn in the foccused window only
+                    --     list = "+1", -- Set the comma-saperated list for the colorcolumn
+                    -- },
+                    signcolumn = false, -- Display signcolumn in the focussed window only
+                    winhighlight = true, -- Auto highlighting for focussed/unfocussed windows
+                }
+            })
+        end
+    }
+    use {
+        "nvim-treesitter/nvim-treesitter-context",
+        config = function()
+            require("treesitter-context").setup({
+                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+                -- min_window_height = 1, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+                -- line_numbers = true,
+                multiline_threshold = 1, -- Maximum number of lines to show for a single context
+                -- trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
+                mode = "cursor",  -- Line used to calculate context. Choices: "cursor", "topline"
+                -- -- Separator between context and content. Should be a single character string, like "-".
+                -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+                -- separator = "-",
+                -- zindex = 20, -- The Z-index of the context window
+                -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+            })
+            vim.fn.execute("hi TreesitterContext guibg=#3c3836")
+        end
+    }
 
     use {
         "gbprod/yanky.nvim",
@@ -51,10 +111,10 @@ return require("packer").startup(function(use)
                 tabpages = false,
                 icons = {
                     -- Configure the base icons on the bufferline.
-                    -- Valid options to display the buffer index and -number are `true`, 'superscript' and 'subscript'
+                    -- Valid options to display the buffer index and -number are `true`, "superscript" and "subscript"
                     buffer_index = false,
                     buffer_number = false,
-                    button = '',
+                    button = "",
                     -- Enables / disables diagnostic symbols
                     diagnostics = {
                         [vim.diagnostic.severity.ERROR] = { enabled = false, icon = "E" },
@@ -102,38 +162,35 @@ return require("packer").startup(function(use)
 
     vim.g.bookmark_save_per_working_dir = 1
     vim.g.bookmark_auto_save = 1
-    vim.g.bookmark_sign = '📘'
+    vim.g.bookmark_sign = "📘"
     use("MattesGroeger/vim-bookmarks")
     use("mfussenegger/nvim-lint")
 
     use("editorconfig/editorconfig-vim")
 
+    -- Coq
+    vim.g.coq_settings = {
+        auto_start = "shut-up",
+        limits = {
+            tokenization_limit = 3000,
+        },
+    }
+
     use {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v1.x",
         requires = {
-            -- LSP Support
-            { "neovim/nvim-lspconfig" },             -- Required
-            { "williamboman/mason.nvim" },           -- Optional
-            { "williamboman/mason-lspconfig.nvim" }, -- Optional
-
-            -- Autocompletion
-            { "hrsh7th/nvim-cmp" },         -- Required
-            { "hrsh7th/cmp-nvim-lsp" },     -- Required
-            { "hrsh7th/cmp-buffer" },       -- Optional
-            { "hrsh7th/cmp-path" },         -- Optional
-            { "saadparwaiz1/cmp_luasnip" }, -- Optional
-            { "hrsh7th/cmp-nvim-lua" },     -- Optional
-
-            -- Snippets
-            { "L3MON4D3/LuaSnip" },             -- Required
-            { "rafamadriz/friendly-snippets" }, -- Optional
+            { "neovim/nvim-lspconfig" },
+            { "williamboman/mason-lspconfig.nvim" },
+            { "williamboman/mason.nvim" },
+            { "ms-jpq/coq_nvim", branch = "coq" },
+            { "ms-jpq/coq.artifacts", after = "coq_nvim", branch = "artifacts" },
         },
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
                 handlers = {
-                    require('lsp-zero').default_setup,
+                    require("lsp-zero").default_setup,
                 },
             })
         end
@@ -162,10 +219,10 @@ return require("packer").startup(function(use)
         end
     }
 
-    -- vim.keymap.set('n', '<C-/>', api.call('toggle.linewise', 'g@'), { expr = true })
-    -- vim.keymap.set('n', '<C-?>', api.call('toggle.linewise.current', 'g@$'), { expr = true })
-    -- vim.keymap.set('v', '<C-/>', function() api.call('toggle.linewise', 'g@') end, {remap=false, silent=true})
-    -- vim.keymap.set('v', '<C-?>', function() api.call('toggle.linewise.current', 'g@$') end, { expr = true })
+    -- vim.keymap.set("n", "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
+    -- vim.keymap.set("n", "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
+    -- vim.keymap.set("v", "<C-/>", function() api.call("toggle.linewise", "g@") end, {remap=false, silent=true})
+    -- vim.keymap.set("v", "<C-?>", function() api.call("toggle.linewise.current", "g@$") end, { expr = true })
 
 
     use { "folke/todo-comments.nvim" }
@@ -187,153 +244,6 @@ return require("packer").startup(function(use)
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
-            })
-        end
-    })
-
-    use({
-        "windwp/nvim-spectre",
-        requires = {
-            { "nvim-lua/plenary.nvim" },
-        },
-        config = function()
-            require("spectre").setup({
-                color_devicons = true,
-                open_cmd = "vnew",
-                live_update = true, -- auto execute search again when you write to any file in vim
-                lnum_for_results = true, -- show line number for search/replace results
-                line_sep_start = "",
-                result_padding = "",
-                line_sep       = "",
-                highlight = {
-                    ui = "String",
-                    search = "DiffChange",
-                    replace = "DiffDelete"
-                },
-                mapping = {
-                    ["tab"] = {
-                        map = "<Tab>",
-                        cmd = "<cmd>lua require('spectre').tab()<cr>",
-                        desc = "next query"
-                    },
-                    ["shift-tab"] = {
-                        map = "<S-Tab>",
-                        cmd = "<cmd>lua require('spectre').tab_shift()<cr>",
-                        desc = "previous query"
-                    },
-                    ["toggle_line"] = {
-                        map = "dd",
-                        cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
-                        desc = "toggle item"
-                    },
-                    ["enter_file"] = {
-                        map = "<cr>",
-                        cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
-                        desc = "open file"
-                    },
-                    ["send_to_qf"] = {
-                        map = "<C-S-q>",
-                        cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-                        desc = "send all items to quickfix"
-                    },
-                    ["replace_cmd"] = {
-                        map = "<leader>c",
-                        cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
-                        desc = "input replace command"
-                    },
-                    -- ["show_option_menu"] = {
-                    --     map = "<leader>o",
-                    --     cmd = "<cmd>lua require('spectre').show_options()<CR>",
-                    --     desc = "show options"
-                    -- },
-                    ["run_current_replace"] = {
-                        map = "<leader>rc",
-                        cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
-                        desc = "replace current line"
-                    },
-                    ["run_replace"] = {
-                        map = "<leader>R",
-                        cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
-                        desc = "replace all"
-                    },
-                    -- ["change_view_mode"] = {
-                    --     map = "<leader>v",
-                    --     cmd = "<cmd>lua require('spectre').change_view()<CR>",
-                    --     desc = "change result view mode"
-                    -- },
-                    -- ["change_replace_sed"] = {
-                    --     map = "trs",
-                    --     cmd = "<cmd>lua require('spectre').change_engine_replace('sed')<CR>",
-                    --     desc = "use sed to replace"
-                    -- },
-                    -- ["change_replace_oxi"] = {
-                    --     map = "tro",
-                    --     cmd = "<cmd>lua require('spectre').change_engine_replace('oxi')<CR>",
-                    --     desc = "use oxi to replace"
-                    -- },
-                    -- ["toggle_live_update"]={
-                    --     map = "tu",
-                    --     cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
-                    --     desc = "update when vim writes to file"
-                    -- },
-                    ["toggle_ignore_case"] = {
-                        map = "<A-c>",
-                        cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
-                        desc = "toggle ignore case"
-                    },
-                    ["toggle_ignore_hidden"] = {
-                        map = "<A-h>",
-                        cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
-                        desc = "toggle search hidden"
-                    },
-                    ["resume_last_search"] = {
-                        map = "<leader>l",
-                        cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
-                        desc = "repeat last search"
-                    },
-                    -- you can put your mapping here it only use normal mode
-                },
-                find_engine = {
-                    -- rg is map with finder_cmd
-                    ["rg"] = {
-                        cmd = "rg",
-                        -- default args
-                        args = {
-                            "--color=never",
-                            "--no-heading",
-                            "--with-filename",
-                            "--line-number",
-                            "--column",
-                        } ,
-                        options = {
-                            ["ignore-case"] = {
-                                value= "--ignore-case",
-                                icon="[I]",
-                                desc="ignore case"
-                            },
-                            ["hidden"] = {
-                                value="--hidden",
-                                desc="hidden file",
-                                icon="[H]"
-                            },
-                            -- you can put any rg search option you want here it can toggle with
-                            -- show_option function
-                        }
-                    },
-                },
-                -- replace_engine={
-                --     ["sed"]={
-                --         cmd = "sed",
-                --         args = nil,
-                --         options = {
-                --             ["whole-words"] = {
-                --                 value= "--ignore-case",
-                --                 icon="[W]",
-                --                 desc="whole words"
-                --             },
-                --         }
-                --     },
-                -- },
             })
         end
     })
@@ -364,51 +274,6 @@ return require("packer").startup(function(use)
                 -- overrides = {},
                 -- dim_inactive = true,
                 -- transparent_mode = false,
-            })
-        end
-    }
-    use {
-        "navarasu/onedark.nvim",
-        config = function()
-            require("onedark").setup({
-                -- Main options --
-                ---- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-                style = 'deep',
-                transparent = false,  -- Show/hide background
-                term_colors = true, -- Change terminal color as per the selected theme style
-                ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-                cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
-
-                -- toggle theme style ---
-                -- toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-                -- toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
-
-                -- Change code style ---
-                -- Options are italic, bold, underline, none
-                -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
-                code_style = {
-                    comments = 'none',
-                    keywords = 'none',
-                    functions = 'none',
-                    strings = 'none',
-                    variables = 'none'
-                },
-
-                -- Lualine options --
-                lualine = {
-                    transparent = false, -- lualine center bar transparency
-                },
-
-                -- Custom Highlights --
-                colors = {}, -- Override default colors
-                highlights = {}, -- Override highlight groups
-
-                -- Plugins Config --
-                diagnostics = {
-                    darker = true, -- darker colors for diagnostic
-                    undercurl = true,   -- use undercurl instead of underline for diagnostics
-                    background = true,    -- use background color for virtual text
-                },
             })
         end
     }
