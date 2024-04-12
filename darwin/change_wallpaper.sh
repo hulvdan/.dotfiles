@@ -9,7 +9,9 @@ fi
 string=$(cat << EOF
 repeat 9 times
     tell application "System Events" to tell every desktop to set picture to "/Users/user/Pictures/Wallpapers/Collection/$wallpaper_name"
-    delay 0.5
+    delay 0.3
+    tell application "System Events" to tell every desktop to set picture to "/Users/user/Pictures/Wallpapers/Collection/$wallpaper_name"
+    delay 0.3
     tell application "System Events" to keystroke (ASCII character 29) using {control down}
     delay 1
 end
