@@ -18,7 +18,7 @@
 // m $
 
 {
-  "description": "New Rule (change left_shift+caps_lock to page_down, right_shift+caps_lock to left_command+mission_control)",
+  "description": "Hulvdan's Caps Layer",
   "manipulators": [
     {
       "type": "basic",
