@@ -39,9 +39,7 @@ set undodir=~/.vim/undodir
 set undofile
 
 set incsearch
-
-set ignorecase
-set smartcase
+set ignorecase smartcase
 
 " Number of lines to keep above/below the cursor
 set scrolloff=8

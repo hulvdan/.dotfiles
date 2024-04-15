@@ -136,6 +136,10 @@ nnoremap <Up> <Nop>
 vnoremap <Up> <Nop>
 inoremap <Up> <Nop>
 
+vmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
+xmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
+nmap <C-/> mz<Action>(CommentByLineComment)`zj^
+
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
