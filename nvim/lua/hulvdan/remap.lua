@@ -10,7 +10,6 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
 
 -- The best remap ever
 vim.keymap.set("n", "Q", "<nop>", opts)
-vim.keymap.set("n", "<f1>", "@a", opts)
 vim.keymap.set("i", "<f20>", "<nop>", opts)
 vim.keymap.set("i", "<f24>", "<nop>", opts)
 vim.keymap.set("i", "<f20><space>", " ", opts)

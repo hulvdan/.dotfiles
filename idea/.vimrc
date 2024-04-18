@@ -102,6 +102,7 @@ noremap <leader>ц :w<cr>
 noremap <leader>q :wq<cr>
 noremap <leader>й :wq<cr>
 noremap <C-К> :redo<cr>
+noremap <f1> @a
 
 imap <C-ц> <C-w>
 imap <C-х> <C-[>
