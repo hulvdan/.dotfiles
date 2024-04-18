@@ -14,14 +14,11 @@
 // o /
 // o [
 
-// v ^
-// m $
 
 {
   "description": "Hulvdan's Caps Layer",
   "manipulators": [
-    {
-      "type": "basic",
+    { "type": "basic",
       "from": { "key_code": "f20" },
       "to": [
         {
@@ -43,99 +40,289 @@
     // }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "o" },
       "to": [ { "key_code": "slash" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "i" },
       "to": [ { "key_code": "8", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "u" },
       "to": [ { "key_code": "backslash" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "e" },
       "to": [ { "key_code": "hyphen" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "w" },
       "to": [ { "key_code": "equal_sign", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "l" },
       "to": [ { "key_code": "close_bracket" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "k" },
       "to": [ { "key_code": "close_bracket", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "j" },
       "to": [ { "key_code": "0", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "h" },
       "to": [ { "key_code": "equal_sign" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "g" },
       "to": [ { "key_code": "7", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "f" },
       "to": [ { "key_code": "9", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "d" },
       "to": [ { "key_code": "open_bracket", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "s" },
       "to": [ { "key_code": "open_bracket" } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "v" },
       "to": [ { "key_code": "6", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic", "conditions": [ { "type": "variable_if", "name": "caps_pressed", "value": 1 } ],
+      "type": "basic", "conditions": [
+        { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "m" },
       "to": [ { "key_code": "4", "modifiers": [ "shift" ] } ]
     }
     ,
     {
-      "type": "basic",
+      "type": "basic", "conditions": [
+        { "type": "input_source_if", "input_sources": [ { "language": "en" } ] }
+      ],
       "from": { "key_code": "open_bracket" },
       "to": [ { "key_code": "hyphen", "modifiers": [ "shift" ] } ]
     }
+
+
+
+    // --- TODO: RUSSIAN ---
+    // &[]{}^$
+
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "o" },
+    //   "to": [ { "key_code": "backslash", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "i" },
+    //   "to": [ { "key_code": "8", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "u" },
+    //   "to": [ { "key_code": "backslash" } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "e" },
+    //   "to": [ { "key_code": "hyphen" } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "w" },
+    //   "to": [ { "key_code": "equal_sign", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "l" },
+    //   "to": [ { "key_code": "close_bracket" } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "k" },
+    //   "to": [ { "key_code": "close_bracket", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "j" },
+    //   "to": [ { "key_code": "0", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "h" },
+    //   "to": [ { "key_code": "equal_sign" } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "g" },
+    //   "to": [
+    //     { "key_code": "4", "modifiers": [ "option" ] }
+    //   ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "f" },
+    //   "to": [ { "key_code": "9", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "d" },
+    //   "to": [ { "key_code": "open_bracket", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "s" },
+    //   "to": [ { "key_code": "open_bracket" } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "v" },
+    //   "to": [ { "key_code": "6", "modifiers": [ "shift" ] } ]
+    // }
+    // ,
+    // {
+    //   "type": "basic", "conditions": [
+    //     { "type": "variable_if", "name": "caps_pressed", "value": 1 },
+    //     { "type": "input_source_if", "input_sources": [ { "language": "ru" } ] }
+    //   ],
+    //   "from": { "key_code": "m" },
+    //   "to": [ { "key_code": "4", "modifiers": [ "shift" ] } ]
+    // }
   ]
 }
