@@ -25,6 +25,7 @@ return require("packer").startup(function(use)
     use("preservim/nerdtree")
     use("jansedivy/jai.vim")
     use("drybalka/tree-climber.nvim")
+    use("xiyaowong/nvim-cursorword")
 
     use {
         "nvim-focus/focus.nvim",
