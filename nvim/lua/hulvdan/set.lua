@@ -51,19 +51,6 @@ vim.opt.incsearch = true
 -- Number of lines to keep above/below the cursor
 vim.opt.scrolloff = 8
 
--- Column with extra info
-vim.opt.signcolumn = "yes"
-vim.opt.foldcolumn = "0"
-
-vim.opt.termguicolors = true
-
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
-
--- vim.opt.colorcolumn = ""
-
-vim.opt.wrap = true
-
--- vim.wo.signcolumn = "yes:1"
-vim.wo.signcolumn = "no"

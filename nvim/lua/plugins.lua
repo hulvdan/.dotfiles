@@ -1,34 +1,59 @@
-vim.cmd [[packadd packer.nvim]]
+return {
+    -- { "folke/neoconf.nvim", cmd = "Neoconf" },
+    -- "folke/neodev.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    {
+        "nvim-telescope/telescope.nvim", branch = "0.1.x",
+        lazy=false,
 
-return require("packer").startup(function(use)
-    -- Packer can manage itself
-    use "wbthomason/packer.nvim"
-
-    -- TODO: CHECK ON OTHER DEVICES!
-    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-
-    use {
-        "nvim-telescope/telescope.nvim", tag = "0.1.5",
-        -- or                            , branch = "0.1.x",
-        requires = {
+        dependencies = {
             { "nvim-lua/plenary.nvim" },
             { "BurntSushi/ripgrep" }, -- Optional
             { "nvim-telescope/telescope-live-grep-args.nvim" }, -- Optional
         },
         config = function()
-            require("telescope").load_extension("live_grep_args")
-        end
-    }
-
-    use("ixru/nvim-markdown") -- https://github.com/ixru/nvim-markdown
-    use("mbbill/undotree")
-    use("preservim/nerdtree")
-    use("jansedivy/jai.vim")
-    use("drybalka/tree-climber.nvim")
-    use("xiyaowong/nvim-cursorword")
-
-    use {
+            telescope = require("telescope")
+            telescope.setup({
+                defaults = {
+                    layout_config = {
+                        vertical = { width = 1.0 }
+                    },
+                },
+            })
+            telescope.load_extension("live_grep_args")
+        end,
+    },
+    {
+        "ixru/nvim-markdown",
+        lazy = false,
+    },
+    {
+        "mbbill/undotree",
+        lazy = false,
+    },
+    {
+        "preservim/nerdtree",
+        lazy = false,
+    },
+    {
+        "jansedivy/jai.vim",
+        lazy = false,
+    },
+    {
+        "drybalka/tree-climber.nvim",
+        lazy = false,
+    },
+    {
+        "xiyaowong/nvim-cursorword",
+        lazy = false,
+        init = function()
+            vim.g.cursorword_min_width = 1
+            vim.g.cursorword_max_width = 50
+        end,
+    },
+    {
         "nvim-focus/focus.nvim",
+        lazy = false,
         config = function()
             require("focus").setup({
                 enable = true, -- Enable module
@@ -37,14 +62,14 @@ return require("packer").startup(function(use)
                     enable = true, -- Enable or disable auto-resizing of splits
                     width = 92, -- Force width for the focused window
                     -- height = 0, -- Force height for the focused window
-                    -- minwidth = 10, -- Force minimum width for the unfocused window
+                    -- minwidth = 92, -- Force minimum width for the unfocused window
                     -- minheight = 0, -- Force minimum height for the unfocused window
                     height_quickfix = 10, -- Set the height of quickfix panel
                 },
-                -- split = {
-                --     bufnew = false, -- Create blank buffer for new split windows
-                --     tmux = false, -- Create tmux splits instead of neovim splits
-                -- },
+                split = {
+                    bufnew = false, -- Create blank buffer for new split windows
+                    tmux = false, -- Create tmux splits instead of neovim splits
+                },
                 ui = {
                     -- number = false, -- Display line numbers in the focussed window only
                     -- relativenumber = false, -- Display relative line numbers in the focussed window only
@@ -62,9 +87,10 @@ return require("packer").startup(function(use)
                 }
             })
         end
-    }
-    use {
+    },
+    {
         "nvim-treesitter/nvim-treesitter-context",
+        lazy = false,
         config = function()
             require("treesitter-context").setup({
                 enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -82,10 +108,10 @@ return require("packer").startup(function(use)
             })
             vim.fn.execute("hi TreesitterContext guibg=#3c3836")
         end
-    }
-
-    use {
+    },
+    {
         "gbprod/yanky.nvim",
+        lazy = false,
         config = function()
             require("yanky").setup({
                 highlight = {
@@ -95,92 +121,45 @@ return require("packer").startup(function(use)
                 },
             })
         end
-    }
-
-    use { "mg979/vim-visual-multi" }
-
-    use {
-        "romgrk/barbar.nvim",
-        config = function()
-            require("barbar").setup({
-                animation = false,
-                auto_hide = 1,
-                maximum_padding = 1,
-                minimum_padding = 1,
-                semantic_letters = false,
-                highlight_inactive_file_icons = false,
-                tabpages = false,
-                icons = {
-                    -- Configure the base icons on the bufferline.
-                    -- Valid options to display the buffer index and -number are `true`, "superscript" and "subscript"
-                    buffer_index = false,
-                    buffer_number = false,
-                    button = "",
-                    -- Enables / disables diagnostic symbols
-                    diagnostics = {
-                        [vim.diagnostic.severity.ERROR] = { enabled = false, icon = "E" },
-                        [vim.diagnostic.severity.WARN] = { enabled = false },
-                        [vim.diagnostic.severity.INFO] = { enabled = false },
-                        [vim.diagnostic.severity.HINT] = { enabled = false },
-                    },
-                    gitsigns = {
-                        added = { enabled = false, icon = "+" },
-                        changed = { enabled = false, icon = "~" },
-                        deleted = { enabled = false, icon = "-" },
-                    },
-                    filetype = {
-                        -- Sets the icon's highlight group.
-                        -- If false, will use nvim-web-devicons colors
-                        custom_colors = false,
-
-                        -- Requires `nvim-web-devicons` if `true`
-                        enabled = false,
-                    },
-                    separator = { left = "▎", right = "" },
-
-                    -- If true, add an additional separator at the end of the buffer list
-                    separator_at_end = false,
-
-                    -- Configure the icons on the bufferline when modified or pinned.
-                    -- Supports all the base icon options.
-                    modified = { button = "" },
-                    pinned = { button = "●", filename = true },
-
-                    -- Use a preconfigured buffer appearance— can be "default", "powerline", or "slanted"
-                    preset = "default",
-
-                    -- Configure the icons on the bufferline based on the visibility of a buffer.
-                    -- Supports all the base icon options, plus `modified` and `pinned`.
-                    alternate = { filetype = { enabled = false } },
-                    current = { buffer_index = false },
-                    inactive = { button = "" },
-                    visible = { modified = { buffer_number = false } },
+    },
+    {
+        "mg979/vim-visual-multi",
+        lazy = false,
+    },
+    {
+        "MattesGroeger/vim-bookmarks",
+        lazy = false,
+        init = function()
+            vim.g.bookmark_save_per_working_dir = 1
+            vim.g.bookmark_auto_save = 1
+            vim.g.bookmark_sign = "📘"
+        end,
+    },
+    {
+        "mfussenegger/nvim-lint",
+        lazy = false,
+    },
+    {
+        "editorconfig/editorconfig-vim",
+        lazy = false,
+    },
+    {
+        "ms-jpq/coq_nvim", branch = "coq",
+        lazy = false,
+        init = function()
+            vim.g.coq_settings = {
+                auto_start = "shut-up",
+                limits = {
+                    tokenization_limit = 3000,
                 },
-            })
-        end
-    }
-
-
-    vim.g.bookmark_save_per_working_dir = 1
-    vim.g.bookmark_auto_save = 1
-    vim.g.bookmark_sign = "📘"
-    use("MattesGroeger/vim-bookmarks")
-    use("mfussenegger/nvim-lint")
-
-    use("editorconfig/editorconfig-vim")
-
-    -- Coq
-    vim.g.coq_settings = {
-        auto_start = "shut-up",
-        limits = {
-            tokenization_limit = 3000,
-        },
-    }
-
-    use {
+            }
+        end,
+    },
+    {
         "VonHeikemen/lsp-zero.nvim",
+        lazy = false,
         branch = "v1.x",
-        requires = {
+        dependencies = {
             { "neovim/nvim-lspconfig" },
             { "williamboman/mason-lspconfig.nvim" },
             { "williamboman/mason.nvim" },
@@ -195,17 +174,14 @@ return require("packer").startup(function(use)
                 },
             })
         end
-    }
-
-    use({
+    },
+    {
         "cappyzawa/trim.nvim",
-        config = function()
-            require("trim").setup({})
-        end
-    })
-
-    use {
+        lazy = false,
+    },
+    {
         "numToStr/Comment.nvim",
+        lazy = false,
         config = function()
             require("Comment").setup({
                 toggler = {
@@ -218,39 +194,37 @@ return require("packer").startup(function(use)
             vim.keymap.set({ "n", "v" }, "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
             vim.keymap.set({ "n", "v" }, "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
         end
-    }
-
-    -- vim.keymap.set("n", "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
-    -- vim.keymap.set("n", "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
-    -- vim.keymap.set("v", "<C-/>", function() api.call("toggle.linewise", "g@") end, {remap=false, silent=true})
-    -- vim.keymap.set("v", "<C-?>", function() api.call("toggle.linewise.current", "g@$") end, { expr = true })
-
-
-    use { "folke/todo-comments.nvim" }
-    use { "wsdjeg/vim-fetch" }
-    use { "bogado/file-line" }
-
-    use {
+    },
+    {
+        "wsdjeg/vim-fetch",
+        lazy = false,
+    },
+    {
+        "bogado/file-line",
+        lazy = false,
+    },
+    {
         "stevearc/overseer.nvim",
+        lazy = false,
         config = function()
             require("overseer").setup({
                 templates = { "builtin" },
             })
         end
-    }
-
-    use({
+    },
+    {
         "kylechui/nvim-surround",
+        lazy = false,
         tag = "v2.1.4", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
         end
-    })
-
-    use {
+    },
+    {
         "ellisonleao/gruvbox.nvim",
+        lazy = false,
         config = function()
             require("gruvbox").setup({
                 -- terminal_colors = false, -- add neovim terminal colors
@@ -277,5 +251,67 @@ return require("packer").startup(function(use)
                 -- transparent_mode = false,
             })
         end
+    },
+    {
+        "romgrk/barbar.nvim",
+        lazy = false,
+        init = function()
+            vim.g.barbar_auto_setup = false
+        end,
+        opts = {
+            animation = false,
+            auto_hide = 1,
+            maximum_padding = 1,
+            minimum_padding = 1,
+            semantic_letters = false,
+            highlight_inactive_file_icons = false,
+            tabpages = false,
+            icons = {
+                -- Configure the base icons on the bufferline.
+                -- Valid options to display the buffer index and -number are `true`, "superscript" and "subscript"
+                buffer_index = false,
+                buffer_number = false,
+                button = "",
+                -- Enables / disables diagnostic symbols
+                diagnostics = {
+                    [vim.diagnostic.severity.ERROR] = { enabled = false, icon = "E" },
+                    [vim.diagnostic.severity.WARN] = { enabled = false },
+                    [vim.diagnostic.severity.INFO] = { enabled = false },
+                    [vim.diagnostic.severity.HINT] = { enabled = false },
+                },
+                gitsigns = {
+                    added = { enabled = false, icon = "+" },
+                    changed = { enabled = false, icon = "~" },
+                    deleted = { enabled = false, icon = "-" },
+                },
+                filetype = {
+                    -- Sets the icon's highlight group.
+                    -- If false, will use nvim-web-devicons colors
+                    custom_colors = false,
+
+                    -- Requires `nvim-web-devicons` if `true`
+                    enabled = false,
+                },
+                separator = { left = "▎", right = "" },
+
+                -- If true, add an additional separator at the end of the buffer list
+                separator_at_end = false,
+
+                -- Configure the icons on the bufferline when modified or pinned.
+                -- Supports all the base icon options.
+                modified = { button = "" },
+                pinned = { button = "●", filename = true },
+
+                -- Use a preconfigured buffer appearance— can be "default", "powerline", or "slanted"
+                preset = "default",
+
+                -- Configure the icons on the bufferline based on the visibility of a buffer.
+                -- Supports all the base icon options, plus `modified` and `pinned`.
+                alternate = { filetype = { enabled = false } },
+                current = { buffer_index = false },
+                inactive = { button = "" },
+                visible = { modified = { buffer_number = false } },
+            },
+        },
     }
-end)
+}

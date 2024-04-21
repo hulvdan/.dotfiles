@@ -12,6 +12,7 @@ let mapleaderlocal = " "
 set exrc
 
 " Essential shiet
+" set splitkeep=
 set nonumber
 set norelativenumber
 set noerrorbells
@@ -45,7 +46,6 @@ set ignorecase smartcase
 set scrolloff=8
 
 " Column with extra info
-" set signcolumn=yes
 set signcolumn=no
 set foldcolumn=0
 
