@@ -38,9 +38,6 @@ end
 vim.g.hulvdan_DisableAnimations = DisableAnimations
 vim.g.hulvdan_EnableAnimations = EnableAnimations
 
--- TODO: CHECK ON OTHER DEVICES!
-vim.api.nvim_command("source ~/.vimrc")
-
 -- Undo files
 vim.opt.undodir = vim.fn.expand("$HOME") .. "/.vim/undodir/"
 vim.opt.undofile = true
