@@ -107,10 +107,8 @@ map <leader>a <Action>(ShowIntentionActions)
 map <leader><leader>T <Action>(VimFindActionIdAction)
 
 " Navigation
-nmap [b <Action>(PreviousTab)
-nmap ]b <Action>(NextTab)
-nmap <leader>v <Action>(PreviousTab)
-nmap <leader>m <Action>(NextTab)
+nmap <A-v> <Action>(PreviousTab)
+nmap <A-m> <Action>(NextTab)
 
 map <leader>s <Action>(FileStructurePopup)
 
