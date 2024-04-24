@@ -61,10 +61,7 @@ function WindowsCount()
     return count
 end
 
--- vim.keymap.set("n", "<leader>q", ":bdelete!<CR>", opts)
--- vim.keymap.set("t", "<leader>q", ":bdelete!<CR>", opts)
-
-vim.keymap.set({"n", "t"}, "<leader>q", function()
+vim.keymap.set({"n", "t"}, "<A-q>", function()
     local count = WindowsCount()
 
     local bufname = vim.api.nvim_buf_get_name(0)

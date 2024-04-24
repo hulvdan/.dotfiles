@@ -114,7 +114,7 @@ map <leader>s <Action>(FileStructurePopup)
 
 map <C-S-K> <Action>(EditorCloneCaretAbove)
 map <C-S-J> <Action>(EditorCloneCaretBelow)
-map <leader>q <Action>(CloseEditor)
+map <A-q> <Action>(CloseEditor)
 map <leader>z <Action>(ToggleDistractionFreeMode)
 
 " Reload file from disk
