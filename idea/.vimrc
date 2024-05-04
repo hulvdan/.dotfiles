@@ -99,7 +99,7 @@ nmap <C-S-d> ggVGd
 " Save With Space-W
 noremap <leader>w :w<cr>
 noremap <leader>ц :w<cr>
-noremap <leader>q :wq<cr>
+noremap <A-q> :w!<cr>q!<cr>
 noremap <leader>й :wq<cr>
 noremap <C-К> :redo<cr>
 noremap <f1> @a

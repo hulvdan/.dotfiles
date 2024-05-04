@@ -61,55 +61,7 @@ function WindowsCount()
     return count
 end
 
--- vim.keymap.set("n", "<leader>q", ":bdelete!<CR>", opts)
--- vim.keymap.set("t", "<leader>q", ":bdelete!<CR>", opts)
-
-vim.keymap.set({"n", "t"}, "<leader>q", ":bdelete!<CR>")
--- vim.keymap.set({"n", "t"}, "<leader>q", function()
---     local count = WindowsCount()
-
---     local bufname = vim.api.nvim_buf_get_name(0)
---     local is_term = bufname:find("term://", 1, true) == 1
-
---     local there_is_the_same_term = false;
-
---     -- NVIM BULLSHIET
---     if is_term then
---         local listed_buffers_count = 1
---         local current_buf_number = -1
---         for buffer_number = 1, vim.fn.bufnr("$") do
---             if vim.fn.buflisted(buffer_number) == 1 then
---                 local listed_name = vim.api.nvim_buf_get_name(listed_buffers_count)
---                 if listed_name == bufname then
---                     current_buf_number = buffer_number
---                 end
---             end
-
---             listed_buffers_count = listed_buffers_count + 1
---         end
-
---         local found = false
---         for _, window_number in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
---             local ass_buffer = vim.fn.winbufnr(window_number)
---             if ass_buffer == current_buf_number then
---                 if found then
---                     there_is_the_same_term = true
---                 end
-
---                 if not found then
---                     found = true
---                 end
---             end
---         end
---     end
---     -- NVIM BULLSHIET END
-
---     if count == 1 or (is_term and not there_is_the_same_term) then
---         vim.fn.execute(":bdelete!")
---     else
---         vim.fn.execute(":q")
---     end
--- end, opts)
+vim.keymap.set({"n", "t"}, "<A-q>", function()
 
 vim.keymap.set("n", "<f2>", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<S-f2>", vim.diagnostic.goto_prev, opts)
