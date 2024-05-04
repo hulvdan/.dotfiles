@@ -61,7 +61,7 @@ function WindowsCount()
     return count
 end
 
-vim.keymap.set({"n", "t"}, "<A-q>", function()
+vim.keymap.set({"n", "t"}, "<A-q>", ":bdelete!<CR>")
 
 vim.keymap.set("n", "<f2>", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<S-f2>", vim.diagnostic.goto_prev, opts)

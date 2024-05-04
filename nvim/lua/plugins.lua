@@ -330,6 +330,11 @@ return {
                     show_close_icon = false,
                     show_buffer_close_icons = false,
                     tab_size = 5,
+                    buffer_close_icon = '',
+                    modified_icon = '',
+                    close_icon = '',
+                    left_trunc_marker = '',
+                    right_trunc_marker = '',
                 },
             })
 
