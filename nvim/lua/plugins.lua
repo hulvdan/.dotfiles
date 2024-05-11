@@ -41,6 +41,18 @@ return {
                 },
             })
             telescope.load_extension("live_grep_args")
+
+            local telescope_builtin = require("telescope.builtin")
+            vim.keymap.set("n", "<leader>ff", function()
+                vim.g.hulvdan_DisableAnimations()
+                vim.fn.execute("Telescope find_files hidden=true")
+                vim.g.hulvdan_EnableAnimations()
+            end, opts)
+
+            vim.keymap.set("n", "<leader>fn", telescope_builtin.git_files, opts)
+            vim.keymap.set("n", "<C-S-f>", function()
+                telescope.extensions.live_grep_args.live_grep_args()
+            end, opts)
         end,
     },
 
@@ -412,7 +424,7 @@ return {
             end)
             require("ibl").setup({
                 indent = {
-                    char = "▏",
+                    -- char = "▏",
                     highlight = { "Indent" },
                 },
                 scope = {
@@ -420,7 +432,10 @@ return {
                     highlight = { "Indent" },
                 },
             })
+
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
+            hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
         end
     },
 
