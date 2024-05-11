@@ -134,7 +134,8 @@ return {
                     },
                 })
 
-                vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal<CR>", { silent = true, remap = false })
+                -- vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal<CR>", { silent = true, remap = false })
+                vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal reveal_force_cwd<CR><C-w>l:Neotree reveal reveal_force_cwd<CR>", { silent = true, remap = false })
             end,
         },
 
