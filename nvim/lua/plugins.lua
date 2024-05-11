@@ -1,3 +1,5 @@
+local background_color = "#0c1016"
+
 return {
     "nvim-treesitter/nvim-treesitter",
 
@@ -263,11 +265,12 @@ return {
                 -- whether to map keybinds or not. default true
                 default_mappings = false,
                 -- which builtin marks to show. default {}
-                builtin_marks = { ".", "<", ">", "^" },
+                -- builtin_marks = { ".", "<", ">", "^" },
+                builtin_marks = {},
                 -- whether movements cycle back to the beginning/end of buffer. default true
                 cyclic = true,
                 -- whether the shada file is updated after modifying uppercase marks. default false
-                force_write_shada = false,
+                force_write_shada = true,
                 -- how often (in ms) to redraw signs/recompute mark positions.
                 -- higher values will have better performance but may cause visual lag,
                 -- while lower values may cause performance penalties. default 150.
@@ -297,9 +300,9 @@ return {
                     next_bookmark0 = "<A-l>",
                     prev_bookmark0 = "<A-j>",
                     toggle_bookmark0 = "<A-k>",
-                    -- delete_bookmark0 = "<С-A-k>",
                 },
             })
+            vim.fn.execute("hi MarkVirtTextHL guibg=" .. background_color .. " guifg=#8ec07c")
         end,
     },
 
@@ -400,6 +403,28 @@ return {
     },
 
     {
+        "lukas-reineke/indent-blankline.nvim",
+        lazy = false,
+        config = function()
+            local hooks = require("ibl.hooks")
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                vim.api.nvim_set_hl(0, "Indent", { fg = "#1c3349" })
+            end)
+            require("ibl").setup({
+                indent = {
+                    char = "▏",
+                    highlight = { "Indent" },
+                },
+                scope = {
+                    enabled = false,
+                    highlight = { "Indent" },
+                },
+            })
+            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+        end
+    },
+
+    {
         "ellisonleao/gruvbox.nvim",
         lazy = false,
         config = function()
@@ -438,7 +463,6 @@ return {
         config = function()
             vim.opt.termguicolors = true
             bufferline = require("bufferline")
-            background_color = "#0c1016"
             buffer_color = "#8ec07c"
             buffer_selected_color = "#fabd2f"
             bufferline.setup({
