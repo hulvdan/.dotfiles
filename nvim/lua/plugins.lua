@@ -14,8 +14,28 @@ return {
             telescope.setup({
                 defaults = {
                     layout_config = {
-                        vertical = { width = 1.0 }
+                        -- vertical = { width = 1.0, height = 1.0 },
+                        horizontal = { width = 0.99, height = 10000 },
                     },
+                },
+                file_ignore_patterns = {
+                    "__pycache__$",
+                    ".git$",
+                    ".idea$",
+                    ".mypy_cache$",
+                    ".pytest_cache$",
+                    ".venv$",
+                    "node_modules$",
+                    "venv$",
+                    "%.meta$",
+                    "%.csproj$",
+                    "%.sln$",
+                    ".vs\\main$",
+                    "%.pdb$",
+                    "%.lib$",
+                    "%.o$",
+                    "%.so$",
+                    "%.exe$",
                 },
             })
             telescope.load_extension("live_grep_args")
