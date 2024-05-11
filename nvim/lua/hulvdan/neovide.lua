@@ -19,6 +19,7 @@ function AdjustFontSize(amount)
     -- local f = "Comic Mono"
     f = f:gsub("% ", "\\ ")
     vim.fn.execute([[set guifont=]] .. f .. ":h" .. vim.g.hulvdan_fontsize)
+    vim.fn.execute([[set cmdheight=1]])
 end
 
 local opts = { remap = false, silent = true }
