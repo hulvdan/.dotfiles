@@ -1,4 +1,9 @@
 local background_color = "#0c1016"
+local buffer_color = "#689d6a"
+local buffer_selected_color = "#fabd2f"
+local cursor_line_bg_color = "#1c3349"
+local comments_fg_color = "#a38a46"
+local cursor_word_bg_color = "#10409d"
 
 return {
     "nvim-treesitter/nvim-treesitter",
@@ -157,12 +162,10 @@ return {
                             -- ['<key>'] = function(state, scroll_padding) ... end,
                         },
                     },
-
                     -- Add a custom command or override a global one using the same function name
                     commands = {}
                 },
             })
-
             -- vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal<CR>", { silent = true, remap = false })
             vim.keymap.set({ "n", "v" }, "<leader>e", function()
                 if vim.o.filetype == "neo-tree" then
@@ -420,7 +423,7 @@ return {
         config = function()
             local hooks = require("ibl.hooks")
             hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, "Indent", { fg = "#1c3349" })
+                vim.api.nvim_set_hl(0, "Indent", { fg = cursor_line_bg_color })
             end)
             require("ibl").setup({
                 indent = {
@@ -432,7 +435,6 @@ return {
                     highlight = { "Indent" },
                 },
             })
-
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
             hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
@@ -467,6 +469,16 @@ return {
                 -- dim_inactive = true,
                 -- transparent_mode = false,
             })
+            theme = theme or "gruvbox"
+            vim.cmd.colorscheme(theme)
+            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+            vim.fn.execute("hi Normal guibg=" .. background_color)
+            vim.fn.execute("hi CursorLine guibg=" .. cursor_line_bg_color)
+            vim.fn.execute("hi NonText guifg=" .. background_color)
+            vim.fn.execute("hi EndOfBuffer guifg=" .. background_color)
+            vim.fn.execute("hi Comment guifg=" .. comments_fg_color)
+            vim.fn.execute("hi CursorWord cterm=none gui=none guibg=" .. cursor_word_bg_color)
         end
     },
 
@@ -478,8 +490,6 @@ return {
         config = function()
             vim.opt.termguicolors = true
             bufferline = require("bufferline")
-            buffer_color = "#8ec07c"
-            buffer_selected_color = "#fabd2f"
             bufferline.setup({
                 options = {
                     style_preset = {
