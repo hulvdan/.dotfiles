@@ -32,6 +32,7 @@
   "trim.nvim": { "branch": "master", "commit": "4fe47a46c02a58894ded8328ca81f6c214a892f5" },
   "undotree": { "branch": "master", "commit": "56c684a805fe948936cda0d1b19505b84ad7e065" },
   "vim-fetch": { "branch": "master", "commit": "bbb75c3172f766d1a62832df0ec7674c69a560ad" },
+  "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
   "vim-visual-multi": { "branch": "master", "commit": "b84a6d42c1c10678928b0bf8327f378c8bc8af5a" },
   "yanky.nvim": { "branch": "main", "commit": "7c5cbf0122ff2dfbb6a92f14885894f65949cc8b" }
 }

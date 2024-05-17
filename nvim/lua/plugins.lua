@@ -197,6 +197,17 @@ return {
     },
 
     {
+        "milkypostman/vim-togglelist",
+        lazy = false,
+        init = function()
+            -- NOTE: <leader>q for toggling quickfix list,
+            -- <leader>l for toggling location list
+            -- Use vim.g.toggle_list_no_mappings = true for not setting bindings
+            vim.g.toggle_list_copen_command = ":bo copen"
+        end,
+    },
+
+    {
         "nvim-focus/focus.nvim",
         lazy = false,
         config = function()
