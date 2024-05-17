@@ -62,11 +62,6 @@ return {
     },
 
     {
-        "ixru/nvim-markdown",
-        lazy = false,
-    },
-
-    {
         "mbbill/undotree",
         lazy = false,
     },
@@ -431,6 +426,7 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         lazy = false,
+        tag = "v3.5.4",
         config = function()
             local hooks = require("ibl.hooks")
             hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -438,7 +434,7 @@ return {
             end)
             require("ibl").setup({
                 indent = {
-                    -- char = "▏",
+                    char = "▏",
                     highlight = { "Indent" },
                 },
                 scope = {
