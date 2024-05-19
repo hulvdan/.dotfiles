@@ -1,7 +1,6 @@
 .*.sw[a-z]
 .env
-_run_configs
-Gta52012.p12
+_run_configs/
 .env_docker
 .vim-bookmarks
-
+.globalignore/
