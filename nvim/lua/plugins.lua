@@ -9,13 +9,15 @@ return {
     "nvim-treesitter/nvim-treesitter",
 
     {
-        "nvim-telescope/telescope.nvim", branch = "0.1.x",
-        lazy=false,
+        "nvim-telescope/telescope.nvim",
+        branch = "0.1.x",
+        lazy = false,
         dependencies = {
             { "nvim-lua/plenary.nvim" },
             { "BurntSushi/ripgrep" }, -- Optional
             { "nvim-telescope/telescope-live-grep-args.nvim" }, -- Optional
         },
+
         config = function()
             telescope = require("telescope")
             telescope.setup({
@@ -138,7 +140,7 @@ return {
                             ["<c-x>"] = "clear_filter",
                             ["[g"] = "prev_git_modified",
                             ["]g"] = "next_git_modified",
-                            ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                            ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
                             ["oc"] = { "order_by_created", nowait = false },
                             ["od"] = { "order_by_diagnostics", nowait = false },
                             ["og"] = { "order_by_git_status", nowait = false },
@@ -158,7 +160,7 @@ return {
                         },
                     },
                     -- Add a custom command or override a global one using the same function name
-                    commands = {}
+                    commands = {},
                 },
             })
             -- vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal<CR>", { silent = true, remap = false })
@@ -232,9 +234,9 @@ return {
                     -- colorcolumn = { enable = false, -- Display colorcolumn in the foccused window only list = "+1", -- Set the comma-saperated list for the colorcolumn },
                     signcolumn = false, -- Display signcolumn in the focussed window only
                     winhighlight = true, -- Auto highlighting for focussed/unfocussed windows
-                }
+                },
             })
-        end
+        end,
     },
 
     {
@@ -248,7 +250,7 @@ return {
                 -- line_numbers = true,
                 multiline_threshold = 1, -- Maximum number of lines to show for a single context
                 -- trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
-                mode = "cursor",  -- Line used to calculate context. Choices: "cursor", "topline"
+                mode = "cursor", -- Line used to calculate context. Choices: "cursor", "topline"
                 -- -- Separator between context and content. Should be a single character string, like "-".
                 -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
                 -- separator = "-",
@@ -256,7 +258,7 @@ return {
                 -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
             })
             vim.fn.execute("hi TreesitterContext guibg=#3c3836")
-        end
+        end,
     },
 
     {
@@ -270,7 +272,7 @@ return {
                     timer = 200,
                 },
             })
-        end
+        end,
     },
 
     {
@@ -301,7 +303,7 @@ return {
                 -- can be either a table with all/none of the keys, or a single number, in which case
                 -- the priority applies to all marks.
                 -- default 10.
-                sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+                sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
                 -- disables mark tracking for specific filetypes. default {}
                 excluded_filetypes = {},
                 -- disables mark tracking for specific buftypes. default {}
@@ -338,7 +340,8 @@ return {
     },
 
     {
-        "ms-jpq/coq_nvim", branch = "coq",
+        "ms-jpq/coq_nvim",
+        branch = "coq",
         lazy = false,
         init = function()
             vim.g.coq_settings = {
@@ -368,12 +371,62 @@ return {
                     require("lsp-zero").default_setup,
                 },
             })
-        end
+        end,
     },
 
     {
-        "cappyzawa/trim.nvim",
+        "mhartington/formatter.nvim",
         lazy = false,
+        config = function()
+            local util = require("formatter.util")
+
+            require("formatter").setup({
+                -- Enable or disable logging
+                logging = true,
+                -- Set the log level
+                log_level = vim.log.levels.WARN,
+                -- All formatter configurations are opt-in
+                filetype = {
+                    -- Formatter configurations for filetype "lua" go here
+                    -- and will be executed in order
+                    lua = {
+                        -- "formatter.filetypes.lua" defines default configurations for the
+                        -- "lua" filetype
+                        -- require("formatter.filetypes.lua").stylua,
+
+                        -- You can also define your own configuration
+                        function()
+                            -- Supports conditional formatting
+                            -- if util.get_current_buffer_file_name() == "special.lua" then
+                            --     return nil
+                            -- end
+
+                            -- Full specification of configurations is down below and in Vim help
+                            -- files
+                            return {
+                                exe = "stylua",
+                                args = {
+                                    "--search-parent-directories",
+                                    "--stdin-filepath",
+                                    util.escape_path(util.get_current_buffer_file_path()),
+                                    "--",
+                                    "-",
+                                },
+                                stdin = true,
+                            }
+                        end,
+                    },
+
+                    -- Use the special "*" filetype for defining formatter configurations on
+                    -- any filetype
+                    ["*"] = {
+                        -- "formatter.filetypes.any" defines default configurations for any
+                        -- filetype
+                        require("formatter.filetypes.any").remove_trailing_whitespace,
+                    },
+                },
+            })
+        end,
     },
 
     {
@@ -389,7 +442,7 @@ return {
             local api = require("Comment.api")
             vim.keymap.set({ "n", "v" }, "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
             vim.keymap.set({ "n", "v" }, "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
-        end
+        end,
     },
 
     {
@@ -409,7 +462,7 @@ return {
             require("overseer").setup({
                 templates = { "builtin" },
             })
-        end
+        end,
     },
 
     {
@@ -420,7 +473,7 @@ return {
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
-        end
+        end,
     },
 
     {
@@ -445,7 +498,7 @@ return {
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
             hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-        end
+        end,
     },
 
     {
@@ -484,7 +537,7 @@ return {
                 -- transparent_mode = false,
             })
             vim.cmd.colorscheme("gruvbox")
-        end
+        end,
     },
 
     {
@@ -494,13 +547,13 @@ return {
             vim.g.material_style = "deep ocean"
         end,
         config = function()
-            local material = require 'material'
-            local colors = require 'material.colors'
+            local material = require("material")
+            local colors = require("material.colors")
 
-            material.setup{
+            material.setup({
                 custom_highlights = {
                     -- LineNr = { bg = '#FF0000' },
-                    CursorLine = { fg = colors.editor.constrast , underline = false },
+                    CursorLine = { fg = colors.editor.constrast, underline = false },
 
                     -- Normal = { bg = background_color },
                     -- CursorLine = { bg = cursor_line_bg_color },
@@ -550,7 +603,7 @@ return {
                 --     colors.main.purple = "#SOME_COLOR"
                 --     colors.lsp.error = "#SOME_COLOR"
                 -- end
-            }
+            })
         end,
     },
 
@@ -566,17 +619,18 @@ return {
                 options = {
                     style_preset = {
                         bufferline.style_preset.no_italic,
-                        bufferline.style_preset.no_bold
+                        bufferline.style_preset.no_bold,
                     },
-                    separator_style = {"", ""},
+                    separator_style = { "", "" },
                     show_close_icon = false,
                     show_buffer_close_icons = false,
                     tab_size = 5,
-                    buffer_close_icon = '',
-                    modified_icon = '',
-                    close_icon = '',
-                    left_trunc_marker = '',
-                    right_trunc_marker = '',
+                    buffer_close_icon = "",
+                    modified_icon = "",
+                    close_icon = "",
+                    left_trunc_marker = "",
+                    right_trunc_marker = "",
+                    truncate_names = false,
                 },
                 highlights = {
                     fill = {
@@ -859,7 +913,7 @@ return {
                     trunc_marker = {
                         -- fg = '<colour-value-here>',
                         bg = background_color,
-                    }
+                    },
                 },
             })
             local opts = { remap = false, silent = true }
@@ -873,5 +927,4 @@ return {
             vim.keymap.set("n", "<A-S-m>", ":BufferLineMoveNext<CR>", opts)
         end,
     },
-
 }
