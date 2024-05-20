@@ -163,12 +163,11 @@ return {
                     commands = {},
                 },
             })
-            -- vim.keymap.set({ "n", "v" }, "<leader>e", ":Neotree reveal<CR>", { silent = true, remap = false })
             vim.keymap.set({ "n", "v" }, "<leader>e", function()
                 if vim.o.filetype == "neo-tree" then
-                    vim.fn.execute(":Neotree close")
+                    vim.fn.execute("Neotree close")
                 else
-                    vim.fn.execute(":Neotree reveal reveal_force_cwd<CR><C-w>l:Neotree reveal reveal_force_cwd<CR>")
+                    vim.api.nvim_input(":<silent>Neotree reveal reveal_force_cwd<CR><C-w>p:<silent>Neotree reveal reveal_force_cwd<CR>")
                 end
             end)
         end,
