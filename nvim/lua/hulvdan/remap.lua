@@ -24,6 +24,12 @@ vim.keymap.set("n", "<A-n>", function()
     vim.api.nvim_input("/\\C" .. exp .. "<CR>")
 end, opts)
 
+vim.keymap.set("n", "<A-S-N>", function()
+    local exp = vim.fn.expand("<cword>")
+    vim.api.nvim_feedkeys([[/\<]] .. exp .. [[\>]], "m", false)
+    vim.api.nvim_input("<CR>")
+end, opts)
+
 -- Binding Ctrl+\ Ctrl+N to ESC makes us able to leave the terminal mode
 vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], opts)
 
