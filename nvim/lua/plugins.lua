@@ -206,7 +206,9 @@ return {
                 if vim.o.filetype == "neo-tree" then
                     vim.fn.execute("Neotree close")
                 else
-                    vim.api.nvim_input(":<silent>Neotree reveal reveal_force_cwd<CR><C-w>p:<silent>Neotree reveal reveal_force_cwd<CR>")
+                    vim.api.nvim_input(
+                        ":<silent>Neotree reveal reveal_force_cwd<CR><C-w>p:<silent>Neotree reveal reveal_force_cwd<CR>"
+                    )
                 end
             end)
         end,
@@ -222,14 +224,14 @@ return {
         lazy = false,
     },
 
-    {
-        "xiyaowong/nvim-cursorword",
-        lazy = false,
-        init = function()
-            vim.g.cursorword_min_width = 1
-            vim.g.cursorword_max_width = 50
-        end,
-    },
+    -- {
+    --     "xiyaowong/nvim-cursorword",
+    --     lazy = false,
+    --     init = function()
+    --         vim.g.cursorword_min_width = 1
+    --         vim.g.cursorword_max_width = 50
+    --     end,
+    -- },
 
     {
         "milkypostman/vim-togglelist",
@@ -367,10 +369,10 @@ return {
         end,
     },
 
-    {
-        "mfussenegger/nvim-lint",
-        lazy = false,
-    },
+    -- {
+    --     "mfussenegger/nvim-lint",
+    --     lazy = false,
+    -- },
 
     {
         "editorconfig/editorconfig-vim",
@@ -451,18 +453,6 @@ return {
                                     "-",
                                 },
                                 stdin = true,
-                            }
-                        end,
-                    },
-
-                    cpp = {
-                        function()
-                            return {
-                                exe = [[.venv\Scripts\python.exe -OO cmd\cli.py format]],
-                                args = {
-                                    util.escape_path(util.get_current_buffer_file_path()),
-                                },
-                                -- stdin = true,
                             }
                         end,
                     },
@@ -646,6 +636,17 @@ return {
     -- },
 
     {
+        "Wansmer/langmapper.nvim",
+        lazy = false,
+        priority = 1,
+        config = function()
+            require("langmapper").setup({--[[ your config ]]
+            })
+            require("langmapper").automapping({ global = true, buffer = true })
+        end,
+    },
+
+    {
         "ellisonleao/gruvbox.nvim",
         lazy = false,
         config = function()
@@ -700,7 +701,7 @@ return {
                         bufferline.style_preset.no_bold,
                     },
                     separator_style = { "", "" },
-                    indicator = { style = 'none' },
+                    indicator = { style = "none" },
                     show_close_icon = false,
                     show_buffer_close_icons = false,
                     tab_size = 5,

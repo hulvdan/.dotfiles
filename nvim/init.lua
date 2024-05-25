@@ -1,6 +1,9 @@
 vim.g.hulvdan_is_nvui = vim.fn.exists(":NvuiToggleFullscreen") ~= 0
 vim.g.hulvdan_is_neovide = vim.fn.exists(":NeovideFocus") ~= 0
 
+-- vim.fn.execute("set keymap=russian-jcukenwin")
+vim.fn.execute("set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz")
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

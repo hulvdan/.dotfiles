@@ -1,7 +1,7 @@
 -- MY SHORTCUTS --
 -- ============ --
 vim.fn.execute("set splitright")
-vim.g.mapleader = " "
+-- vim.g.mapleader = " "
 local opts = { remap = false, silent = true }
 
 -- Moving lines updown with Shift-K / Shift-J in the visual mode
