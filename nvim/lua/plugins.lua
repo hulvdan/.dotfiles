@@ -5,6 +5,45 @@ local cursor_line_bg_color = "#1c3349"
 local comments_fg_color = "#a38a46"
 local cursor_word_bg_color = "#10409d"
 
+function update_bufferline()
+    local inactive_status_line = vim.api.nvim_get_hl_by_name("StatusLineNC", true)
+    local status_line = vim.api.nvim_get_hl_by_name("StatusLine", true)
+    local keyword = vim.api.nvim_get_hl_by_name("Keyword", true)
+    local type = vim.api.nvim_get_hl_by_name("Type", true)
+
+    function get_fg(aboba)
+        if aboba.reverse then
+            return aboba.background
+        end
+        return aboba.foreground
+    end
+
+    fg = nil
+    -- active_fg = "white"
+    -- active_fg = get_fg(keyword)
+    active_fg = get_fg(type)
+    bg = nil
+    if inactive_status_line.reverse then
+        fg = inactive_status_line.background
+        -- active_fg = status_line.background
+        bg = inactive_status_line.foreground
+    else
+        fg = inactive_status_line.foreground
+        -- active_fg = status_line.foreground
+        bg = inactive_status_line.background
+    end
+
+    vim.api.nvim_set_hl(0, "BufferlineBufferSelected", { fg = active_fg, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferlineBufferVisible", { fg = fg, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferlineBuffer", { fg = fg, bg = bg })
+    vim.fn.execute("hi! link BufferlineBackground StatusLineNC")
+    vim.fn.execute("hi! link BufferlineBuffer StatusLineNC")
+    vim.fn.execute("hi! link BufferlineBufferVisible StatusLineNC")
+    vim.fn.execute("hi! link BufferlineIndicatorSelected StatusLineNC")
+    vim.fn.execute("hi! link BufferlineIndicatorVisible StatusLineNC")
+    vim.fn.execute("hi! link BufferlineFill StatusLineNC")
+end
+
 return {
     "nvim-treesitter/nvim-treesitter",
 
@@ -521,6 +560,8 @@ return {
                     {
                         name = "gruvbox",
                         colorscheme = "gruvbox",
+                        before = [[]],
+                        after = [[update_bufferline()]],
                     },
                     -- {
                     --     name = "neofusion",
@@ -529,6 +570,7 @@ return {
                     {
                         name = "onedark_dark",
                         colorscheme = "onedark_dark",
+                        after = [[update_bufferline()]],
                     },
                 },
                 -- themeConfigFile = "~/.config/nvim/lua/settings/theme.lua",
@@ -586,6 +628,14 @@ return {
         end,
     },
 
+    {
+        "norcalli/nvim-colorizer.lua",
+        lazy = false,
+        config = function()
+            require("colorizer").setup()
+        end,
+    },
+
     -- {
     --     "",
     --     lazy = false,
@@ -638,6 +688,7 @@ return {
         "akinsho/bufferline.nvim",
         version = "*",
         lazy = false,
+        priority = -1,
         -- dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
             vim.opt.termguicolors = true
@@ -649,6 +700,7 @@ return {
                         bufferline.style_preset.no_bold,
                     },
                     separator_style = { "", "" },
+                    indicator = { style = 'none' },
                     show_close_icon = false,
                     show_buffer_close_icons = false,
                     tab_size = 5,
@@ -944,6 +996,9 @@ return {
                 },
             })
             local opts = { remap = false, silent = true }
+
+            update_bufferline()
+
             -- vim.keymap.set("n", "<C-S-T>", ":BufferRestore<CR>", opts)
             -- vim.keymap.set("t", "<C-S-T>", ":BufferRestore<CR>", opts)
             -- vim.keymap.set("n", "<leader>v", select_previous_tab, opts)
