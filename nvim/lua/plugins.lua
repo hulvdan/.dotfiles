@@ -42,6 +42,9 @@ function update_bufferline()
     vim.fn.execute("hi! link BufferlineIndicatorSelected StatusLineNC")
     vim.fn.execute("hi! link BufferlineIndicatorVisible StatusLineNC")
     vim.fn.execute("hi! link BufferlineFill StatusLineNC")
+    vim.fn.execute("hi! link BufferlineModified StatusLineNC")
+    vim.fn.execute("hi! link BufferlineModifiedSelected StatusLineNC")
+    vim.fn.execute("hi! link BufferlineModifiedVisible StatusLineNC")
 end
 
 return {
