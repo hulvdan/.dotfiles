@@ -222,10 +222,10 @@ return {
         lazy = false,
     },
 
-    {
-        "drybalka/tree-climber.nvim",
-        lazy = false,
-    },
+    -- {
+    --     "drybalka/tree-climber.nvim",
+    --     lazy = false,
+    -- },
 
     -- {
     --     "xiyaowong/nvim-cursorword",
@@ -282,27 +282,27 @@ return {
         end,
     },
 
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        lazy = false,
-        config = function()
-            require("treesitter-context").setup({
-                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-                -- min_window_height = 1, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-                -- line_numbers = true,
-                multiline_threshold = 1, -- Maximum number of lines to show for a single context
-                -- trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
-                mode = "cursor", -- Line used to calculate context. Choices: "cursor", "topline"
-                -- -- Separator between context and content. Should be a single character string, like "-".
-                -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-                -- separator = "-",
-                -- zindex = 20, -- The Z-index of the context window
-                -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-            })
-            vim.fn.execute("hi TreesitterContext guibg=#3c3836")
-        end,
-    },
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-context",
+    --     lazy = false,
+    --     config = function()
+    --         require("treesitter-context").setup({
+    --             enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    --             max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    --             -- min_window_height = 1, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    --             -- line_numbers = true,
+    --             multiline_threshold = 1, -- Maximum number of lines to show for a single context
+    --             -- trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
+    --             mode = "cursor", -- Line used to calculate context. Choices: "cursor", "topline"
+    --             -- -- Separator between context and content. Should be a single character string, like "-".
+    --             -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    --             -- separator = "-",
+    --             -- zindex = 20, -- The Z-index of the context window
+    --             -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+    --         })
+    --         vim.fn.execute("hi TreesitterContext guibg=#3c3836")
+    --     end,
+    -- },
 
     {
         "gbprod/yanky.nvim",
@@ -377,10 +377,10 @@ return {
     --     lazy = false,
     -- },
 
-    {
-        "editorconfig/editorconfig-vim",
-        lazy = false,
-    },
+    -- {
+    --     "editorconfig/editorconfig-vim",
+    --     lazy = false,
+    -- },
 
     {
         "ms-jpq/coq_nvim",
@@ -390,7 +390,7 @@ return {
             vim.g.coq_settings = {
                 auto_start = "shut-up",
                 limits = {
-                    tokenization_limit = 3000,
+                    tokenization_limit = 10000,
                 },
             }
         end,
@@ -493,10 +493,10 @@ return {
         lazy = false,
     },
 
-    {
-        "bogado/file-line",
-        lazy = false,
-    },
+    -- {
+    --     "bogado/file-line",
+    --     lazy = false,
+    -- },
 
     {
         "stevearc/overseer.nvim",
@@ -519,58 +519,58 @@ return {
         end,
     },
 
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        lazy = false,
-        tag = "v3.5.4",
-        config = function()
-            local hooks = require("ibl.hooks")
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, "Indent", { fg = cursor_line_bg_color })
-            end)
-            require("ibl").setup({
-                indent = {
-                    char = "▏",
-                    highlight = { "Indent" },
-                },
-                scope = {
-                    enabled = false,
-                    highlight = { "Indent" },
-                },
-            })
-            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
-            hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-        end,
-    },
+    -- {
+    --     "lukas-reineke/indent-blankline.nvim",
+    --     lazy = false,
+    --     tag = "v3.5.4",
+    --     config = function()
+    --         local hooks = require("ibl.hooks")
+    --         hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    --             vim.api.nvim_set_hl(0, "Indent", { fg = cursor_line_bg_color })
+    --         end)
+    --         require("ibl").setup({
+    --             indent = {
+    --                 char = "▎",
+    --                 highlight = { "Indent" },
+    --             },
+    --             scope = {
+    --                 enabled = false,
+    --                 highlight = { "Indent" },
+    --             },
+    --         })
+    --         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    --         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
+    --         hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+    --     end,
+    -- },
 
-    {
-        "zaldih/themery.nvim",
-        lazy = false,
-        config = function()
-            require("themery").setup({
-                themes = {
-                    {
-                        name = "gruvbox",
-                        colorscheme = "gruvbox",
-                        before = [[]],
-                        after = [[update_bufferline()]],
-                    },
-                    -- {
-                    --     name = "neofusion",
-                    --     colorscheme = "neofusion",
-                    -- },
-                    {
-                        name = "onedark_dark",
-                        colorscheme = "onedark_dark",
-                        after = [[update_bufferline()]],
-                    },
-                },
-                -- themeConfigFile = "~/.config/nvim/lua/settings/theme.lua",
-                livePreview = true, -- Apply theme while browsing. Default to true.
-            })
-        end,
-    },
+    -- {
+    --     "zaldih/themery.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("themery").setup({
+    --             themes = {
+    --                 {
+    --                     name = "gruvbox",
+    --                     colorscheme = "gruvbox",
+    --                     before = [[]],
+    --                     after = [[update_bufferline()]],
+    --                 },
+    --                 -- {
+    --                 --     name = "neofusion",
+    --                 --     colorscheme = "neofusion",
+    --                 -- },
+    --                 {
+    --                     name = "onedark_dark",
+    --                     colorscheme = "onedark_dark",
+    --                     after = [[update_bufferline()]],
+    --                 },
+    --             },
+    --             -- themeConfigFile = "~/.config/nvim/lua/settings/theme.lua",
+    --             livePreview = true, -- Apply theme while browsing. Default to true.
+    --         })
+    --     end,
+    -- },
 
     -- {
     --     "diegoulloao/neofusion.nvim",
@@ -603,23 +603,23 @@ return {
     --     end,
     -- },
 
-    {
-        "olimorris/onedarkpro.nvim",
-        lazy = false,
-        config = function()
-            require("onedarkpro").setup({
-                colors = {},
-                highlights = {
-                    -- Normal = { bg = background_color },
-                    CursorLine = { bg = cursor_line_bg_color },
-                    NonText = { fg = background_color },
-                    EndOfBuffer = { fg = background_color },
-                    Comment = { fg = comments_fg_color },
-                    CursorWord = { bg = cursor_word_bg_color },
-                },
-            })
-        end,
-    },
+    -- {
+    --     "olimorris/onedarkpro.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("onedarkpro").setup({
+    --             colors = {},
+    --             highlights = {
+    --                 -- Normal = { bg = background_color },
+    --                 CursorLine = { bg = cursor_line_bg_color },
+    --                 NonText = { fg = background_color },
+    --                 EndOfBuffer = { fg = background_color },
+    --                 Comment = { fg = comments_fg_color },
+    --                 CursorWord = { bg = cursor_word_bg_color },
+    --             },
+    --         })
+    --     end,
+    -- },
 
     {
         "norcalli/nvim-colorizer.lua",
@@ -651,10 +651,12 @@ return {
 
     {
         "ellisonleao/gruvbox.nvim",
+        version = "2.0.0",
         lazy = false,
+        priority = 1000,
         config = function()
             require("gruvbox").setup({
-                -- terminal_colors = false, -- add neovim terminal colors
+                terminal_colors = true, -- add neovim terminal colors
                 -- undercurl = true,
                 -- underline = true,
                 bold = false,
@@ -685,6 +687,7 @@ return {
                 -- transparent_mode = false,
             })
             vim.cmd.colorscheme("gruvbox")
+            update_bufferline()
         end,
     },
 
@@ -692,7 +695,7 @@ return {
         "akinsho/bufferline.nvim",
         version = "*",
         lazy = false,
-        priority = -1,
+        priority = 2,
         -- dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
             vim.opt.termguicolors = true
