@@ -717,6 +717,9 @@ return {
                     left_trunc_marker = "",
                     right_trunc_marker = "",
                     truncate_names = false,
+                    custom_filter = function(buf, buf_nums)
+                        return vim.bo[buf].filetype ~= "qf"
+                    end,
                 },
                 highlights = {
                     fill = {
