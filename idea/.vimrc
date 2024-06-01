@@ -64,8 +64,7 @@ set matchpairs+=<:>
 
 " noh - no highlight
 nnoremap <Esc> <silent>:noh <CR>
-
-set wrap
+set nowrap
 
 " ===== Greatest Remaps Ever =====
 " Yank + Paste to the OS clipboard
