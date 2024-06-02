@@ -15,7 +15,7 @@ vim.keymap.set("i", "<f24>", "<nop>", opts)
 vim.keymap.set("i", "<f20><space>", " ", opts)
 vim.keymap.set("i", "<f24><space>", " ", opts)
 vim.keymap.set("n", "<C-l>", "<nop>", opts)
-vim.keymap.set({"n", "v"}, "<A-z>", function()
+vim.keymap.set({ "n", "v" }, "<A-z>", function()
     vim.fn.execute("set wrap!")
 end, opts)
 
@@ -72,7 +72,7 @@ function WindowsCount()
     return count
 end
 
-vim.keymap.set({"n", "t"}, "<A-q>", ":bdelete!<CR>", opts)
+vim.keymap.set({ "n", "t" }, "<A-q>", ":bdelete!<CR>", opts)
 
 vim.keymap.set("n", "<f2>", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<S-f2>", vim.diagnostic.goto_prev, opts)
@@ -90,16 +90,15 @@ vim.keymap.set("n", [[<C-|>]], function()
 end, opts)
 
 function OpenNotes()
-    local notes_path = [[~/GoogleDrive/Media/Documents/notes.md]]
-    vim.fn.execute("e " .. notes_path)
+    vim.fn.execute([[e ~/GoogleDrive/Media/Documents/notes.md]])
 end
 
 vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 
 -- VIM-VISUAL-MULTI --
 -- ================ --
-vim.keymap.set("n", '<A-J>', '<C-Down>', {silent=true, remap=true})
-vim.keymap.set("n", '<A-K>', '<C-Up>', {silent=true, remap=true})
+vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
+vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
 
 vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
 vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
@@ -107,3 +106,24 @@ vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
 vim.keymap.set("n", "<M-[>", function()
     require("tree-climber").goto_parent()
 end, { silent = true })
+
+-- NOTE: Возвращает выделенный текст на самой верхней строке
+function get_selected_text()
+    local _, ls, cs = unpack(vim.fn.getpos("v"))
+    local _, le, ce = unpack(vim.fn.getpos("."))
+    return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})[1]
+end
+
+-- Поиск и замена с подтверждением в одном буфере
+vim.keymap.set("v", "<A-r>", function()
+    local text = get_selected_text()
+    vim.api.nvim_input([[:<BS><BS><BS><BS><BS>]])
+    vim.api.nvim_input(string.format([[%%s/%s/%s/gc]], text, text))
+    vim.api.nvim_input([[<left><left><left>a<BS>]])
+end)
+
+vim.keymap.set("n", "<A-r>", function()
+    local text = vim.fn.expand("<cword>")
+    vim.api.nvim_input(string.format([[:%%s/%s/%s/gc]], text, text))
+    vim.api.nvim_input([[<left><left><left>a<BS>]])
+end)
