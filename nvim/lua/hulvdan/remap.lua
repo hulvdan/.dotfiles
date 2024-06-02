@@ -100,6 +100,21 @@ end, { silent = true })
 function get_selected_text()
     local _, ls, cs = unpack(vim.fn.getpos("v"))
     local _, le, ce = unpack(vim.fn.getpos("."))
+    if ls > le then
+        t = le
+        le = ls
+        ls = t
+        t = cs
+        cs = ce
+        ce = t
+    end
+    if ls == le then
+        if cs > ce then
+            t = cs
+            cs = ce
+            ce = t
+        end
+    end
     return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})[1]
 end
 
