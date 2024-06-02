@@ -126,9 +126,8 @@ end)
 
 vim.keymap.set("n", "<A-r>", function()
     local text = vim.fn.expand("<cword>")
-    vim.api.nvim_input(string.format([[:%%s/%s/%s/gc]], text, text))
-
+    vim.api.nvim_input(string.format([[:%%s/\<lt>%s\>/%s/gcI]], text, text))
     vim.defer_fn(function()
-        vim.api.nvim_input([[<left><left><left>a<BS>]])
+        vim.api.nvim_input([[<left><left><left><left>a<BS>]])
     end, 1)
 end)
