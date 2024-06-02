@@ -1,6 +1,6 @@
 -- NOTE: Эта версия делает source модулей.
 function custom_require(mod)
-    vim.fn.execute(string.format("luafile %s/lua/%s.lua", vim.fn.stdpath("config"), mod))
+    vim.fn.execute(string.format("source %s/lua/%s.lua", vim.fn.stdpath("config"), mod))
 end
 -- NOTE: Эта версия делает require модулей. Они загружаются один раз.
 -- function custom_require(mod)
@@ -15,11 +15,14 @@ function custom_reload(disable_message)
     custom_require("hulvdan/set")
     custom_require("hulvdan/remap")
     custom_require("hulvdan/chtsh")
+
     if vim.g.hulvdan_is_nvui then
         custom_require("hulvdan/nvui")
     end
-    if vim.g.hulvdan_is_neovide then
+    if vim.g.neovide then
         custom_require("hulvdan/neovide")
+    elseif vim.g.hulvdan_is_qt then
+        custom_require("hulvdan/nvim_qt")
     end
 end
 

@@ -4,7 +4,7 @@ function EnableAnimations_()
         vim.fn.execute("NvuiScrollAnimationDuration 0.16")
     end
 
-    -- if vim.g.hulvdan_is_neovide then
+    -- if vim.g.neovide then
     --     vim.g.neovide_scroll_animation_length = 0.13
     --     vim.g.neovide_cursor_animation_length = 0.08
     --     vim.g.neovide_scroll_animation_far_lines = 1
@@ -13,7 +13,7 @@ function EnableAnimations_()
 end
 
 function EnableAnimations()
-    -- if vim.g.hulvdan_is_nvui or vim.g.hulvdan_is_neovide then
+    -- if vim.g.hulvdan_is_nvui or vim.g.neovide then
     if vim.g.hulvdan_is_nvui then
         vim.defer_fn(EnableAnimations_, 1)
     end
@@ -24,7 +24,7 @@ function DisableAnimations_()
         vim.fn.execute("NvuiScrollAnimationDuration 0.03")
     end
 
-    -- if vim.g.hulvdan_is_neovide then
+    -- if vim.g.neovide then
     --     vim.g.neovide_scroll_animation_length = 0.018
     --     vim.g.neovide_cursor_animation_length = 0
     --     vim.g.neovide_scroll_animation_far_lines = 1

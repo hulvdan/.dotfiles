@@ -1,12 +1,13 @@
 if vim.g.hulvdan_fontsize == nil then
     vim.g.hulvdan_fontsize = 14
 end
+vim.fn.execute("set linespace=-10")
 
 -- vim.g.neovide_scroll_animation_length = 0.16
-vim.g.neovide_scroll_animation_length = 0
-vim.g.neovide_position_animation_length = 0
-vim.g.neovide_profiler = false
-vim.g.neovide_hide_mouse_when_typing = true
+-- vim.g.neovide_scroll_animation_length = 0
+-- vim.g.neovide_position_animation_length = 0
+-- vim.g.neovide_profiler = false
+-- vim.g.neovide_hide_mouse_when_typing = true
 
 local high_cap = 22
 local low_cap = 10
@@ -36,12 +37,11 @@ end, opts)
 vim.keymap.set({ "n", "i" }, "<C-ScrollWheelDown>", function()
     AdjustFontSize(-font_step)
 end, opts)
-vim.keymap.set("n", "<C-_>", function()
+vim.keymap.set("n", "<C-S-_>", function()
     AdjustFontSize(-font_step)
 end, opts)
-vim.keymap.set("n", "<C-+>", function()
+vim.keymap.set("n", "<C-S-=>", function()
     AdjustFontSize(font_step)
 end, opts)
 
 AdjustFontSize(0)
--- vim.fn.execute("set linespace=-1")

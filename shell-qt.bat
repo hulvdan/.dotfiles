@@ -2,5 +2,5 @@
 
 pushd c:\Users\user\dev\.dotfiles
 
-start c:\Users\user\Downloads\neovide.exe\neovide.exe .
+start nvim-qt .
 sleep 2
