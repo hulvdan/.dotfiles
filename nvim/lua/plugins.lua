@@ -243,7 +243,7 @@ return {
             -- NOTE: <leader>q for toggling quickfix list,
             -- <leader>l for toggling location list
             -- Use vim.g.toggle_list_no_mappings = true for not setting bindings
-            vim.g.toggle_list_copen_command = ":bo copen"
+            vim.g.toggle_list_copen_command = "bo copen 10 | FocusDisableBuffer"
         end,
     },
 
@@ -259,8 +259,8 @@ return {
                     width = 92, -- Force width for the focused window
                     -- height = 0, -- Force height for the focused window
                     -- minwidth = 92, -- Force minimum width for the unfocused window
-                    -- minheight = 0, -- Force minimum height for the unfocused window
-                    height_quickfix = 10, -- Set the height of quickfix panel
+                    minheight = 0, -- Force minimum height for the unfocused window
+                    height_quickfix = 0, -- Set the height of quickfix panel
                 },
                 split = {
                     bufnew = false, -- Create blank buffer for new split windows
