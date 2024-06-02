@@ -7,4 +7,4 @@ function chtsh(opts)
     vim.fn.execute([[term curl ]] .. url)
 end
 
-vim.api.nvim_create_user_command('H', chtsh, { nargs='?' })
+vim.api.nvim_create_user_command("H", chtsh, { nargs = "?" })

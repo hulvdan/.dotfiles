@@ -1,9 +1,9 @@
 local lsp = require("lsp-zero")
-local coq = require "coq"
+local coq = require("coq")
 
 lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({buffer = bufnr})
-    local opts = {buffer = bufnr, remap = false, silent = true}
+    lsp.default_keymaps({ buffer = bufnr })
+    local opts = { buffer = bufnr, remap = false, silent = true }
 
     vim.keymap.set("n", "<S-f6>", vim.lsp.buf.rename, opts)
 

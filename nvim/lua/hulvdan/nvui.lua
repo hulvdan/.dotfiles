@@ -16,7 +16,19 @@ end
 AdjustFontSize(0)
 
 local opts = { remap = false, silent = true }
-vim.keymap.set({"n", "i"}, "<C-ScrollWheelUp>", function() AdjustFontSize(1) end, opts)
-vim.keymap.set({"n", "i"}, "<C-ScrollWheelDown>", function() AdjustFontSize(-1) end, opts)
-vim.keymap.set("n", "<C-S-=>", function() AdjustFontSize(1) end, opts)
-vim.keymap.set("n", "<C-S-_>", function() AdjustFontSize(-1) end, opts)
+
+vim.keymap.set({ "n", "i" }, "<C-ScrollWheelUp>", function()
+    AdjustFontSize(1)
+end, opts)
+
+vim.keymap.set({ "n", "i" }, "<C-ScrollWheelDown>", function()
+    AdjustFontSize(-1)
+end, opts)
+
+vim.keymap.set("n", "<C-S-=>", function()
+    AdjustFontSize(1)
+end, opts)
+
+vim.keymap.set("n", "<C-S-_>", function()
+    AdjustFontSize(-1)
+end, opts)
