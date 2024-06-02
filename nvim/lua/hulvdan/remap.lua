@@ -19,17 +19,6 @@ vim.keymap.set({ "n", "v" }, "<A-z>", function()
     vim.fn.execute("set wrap!")
 end, opts)
 
-vim.keymap.set("n", "<A-n>", function()
-    local exp = vim.fn.expand("<cword>")
-    vim.api.nvim_input("/\\C" .. exp .. "<CR>")
-end, opts)
-
-vim.keymap.set("n", "<A-S-N>", function()
-    local exp = vim.fn.expand("<cword>")
-    vim.api.nvim_feedkeys([[/\<]] .. exp .. [[\>]], "m", false)
-    vim.api.nvim_input("<CR>")
-end, opts)
-
 -- Binding Ctrl+\ Ctrl+N to ESC makes us able to leave the terminal mode
 vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], opts)
 
@@ -113,6 +102,18 @@ function get_selected_text()
     local _, le, ce = unpack(vim.fn.getpos("."))
     return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})[1]
 end
+
+-- Поиск
+vim.keymap.set("v", "<A-n>", function()
+    local text = get_selected_text()
+    vim.api.nvim_input("<ESC>/\\C" .. text .. "<CR>")
+end, opts)
+
+vim.keymap.set("n", "<A-n>", function()
+    local text = vim.fn.expand("<cword>")
+    vim.api.nvim_feedkeys([[/\<]] .. text .. [[\>]], "m", false)
+    vim.api.nvim_input("<CR>")
+end, opts)
 
 -- Поиск и замена с подтверждением в одном буфере
 vim.keymap.set("v", "<A-r>", function()
