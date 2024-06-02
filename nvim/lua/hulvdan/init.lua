@@ -7,8 +7,10 @@ end
 --     require(mod)
 -- end
 
-function custom_reload()
-    print("Executing hulvdan/init.lua - custom_reload()...")
+function custom_reload(disable_message)
+    if not disable_message then
+        print("Executing hulvdan/init.lua - custom_reload()...")
+    end
 
     custom_require("hulvdan/set")
     custom_require("hulvdan/remap")
@@ -22,4 +24,4 @@ function custom_reload()
 end
 
 vim.keymap.set("n", [[\r]], custom_reload, { silent = true, remap = false })
-custom_reload()
+custom_reload(true)
