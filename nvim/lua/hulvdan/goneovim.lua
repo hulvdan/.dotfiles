@@ -1,0 +1,4 @@
+print("THIS IS GONEOVIM!")
+print("THIS IS GONEOVIM!")
+print("THIS IS GONEOVIM!")
+print("THIS IS GONEOVIM!")

@@ -1,4 +1,5 @@
 vim.g.hulvdan_is_nvui = vim.fn.exists(":NvuiToggleFullscreen") ~= 0
+vim.g.hulvdan_is_goneovim = vim.fn.exists(":GonvimVersion") ~= 0
 
 -- vim.fn.execute("set keymap=russian-jcukenwin")
 vim.fn.execute(

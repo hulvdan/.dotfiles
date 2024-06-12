@@ -3,8 +3,12 @@ if vim.g.hulvdan_fontsize == nil then
 end
 
 -- vim.g.neovide_scroll_animation_length = 0.16
+vim.g.neovide_cursor_animation_length = 0.13
+-- vim.g.neovide_cursor_animation_length = 0
 vim.g.neovide_scroll_animation_length = 0
+
 vim.g.neovide_position_animation_length = 0
+
 vim.g.neovide_profiler = false
 vim.g.neovide_hide_mouse_when_typing = true
 

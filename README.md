@@ -80,4 +80,7 @@ One for `.ideavimrc` and another for `.vimrc`
 ```
 ni C:\Users\user\.vimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.vimrc"
 ni C:\Users\user\.ideavimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.ideavimrc"
+
+mkdir C:\Users\user\.config\goneovim
+ni C:\Users\user\.config\goneovim\settings.toml -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\nvim\goneovim_settings.toml"
 ```

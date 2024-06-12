@@ -244,6 +244,7 @@ return {
             -- <leader>l for toggling location list
             -- Use vim.g.toggle_list_no_mappings = true for not setting bindings
             vim.g.toggle_list_copen_command = "bo copen 10 | FocusDisableBuffer"
+            vim.keymap.set("n", "<A-4>", "<leader>q", { silent = true, remap = true })
         end,
     },
 

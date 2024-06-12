@@ -24,6 +24,9 @@ function custom_reload(disable_message)
     elseif vim.g.hulvdan_is_qt then
         custom_require("hulvdan/nvim_qt")
     end
+    if vim.g.hulvdan_is_goneovim then
+        custom_require("hulvdan/goneovim")
+    end
 end
 
 vim.keymap.set("n", [[\r]], custom_reload, { silent = true, remap = false })
