@@ -1,7 +1,7 @@
 if vim.g.hulvdan_fontsize == nil then
     vim.g.hulvdan_fontsize = 14
 end
-vim.fn.execute("set linespace=-10")
+vim.fn.execute("set linespace=0")
 
 -- vim.g.neovide_scroll_animation_length = 0.16
 -- vim.g.neovide_scroll_animation_length = 0
