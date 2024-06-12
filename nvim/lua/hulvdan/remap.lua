@@ -89,8 +89,13 @@ vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
 vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
 
-vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
-vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
+if vim.g.goneovim then
+    vim.keymap.set("n", "<C-S-]>", ":cc<CR>:cn<CR>", opts)
+    vim.keymap.set("n", "<C-S-[>", ":cc<CR>:cp<CR>", opts)
+else
+    vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
+    vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
+end
 
 vim.keymap.set("n", "<M-[>", function()
     require("tree-climber").goto_parent()

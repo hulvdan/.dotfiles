@@ -20,7 +20,7 @@ HideTitlebar = true
 # Height = 600
 ## Margin adds a margin between the window and the drawn content.
 ## This value is 0 by default for Linux and 2 by default for MacOS and Windows.
-# Margin = 0
+Margin = 4
 ## Gap create a gap on the left and right sides of the application window.
 # Gap = 0
 
@@ -70,7 +70,7 @@ FontFamily = "For use only at ilovetypography.com"
 ## Fontsize is
 FontSize = 14
 ## letterspace is
-# Letterspace = 0
+Letterspace = 0
 
 ## Neovim external UI features
 ## The following is the default value of goneovim.
