@@ -93,13 +93,11 @@ return {
 
             local telescope_builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>ff", function()
-                vim.g.hulvdan_DisableAnimations()
                 vim.fn.execute("Telescope find_files hidden=true")
-                vim.g.hulvdan_EnableAnimations()
             end, opts)
 
             vim.keymap.set("n", "<leader>fn", telescope_builtin.git_files, opts)
-            vim.keymap.set("n", "<C-S-f>", function()
+            vim.keymap.set("n", "<leader>fa", function()
                 telescope.extensions.live_grep_args.live_grep_args()
             end, opts)
         end,
