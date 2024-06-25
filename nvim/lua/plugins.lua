@@ -841,10 +841,6 @@ return {
 
             update_bufferline()
 
-            -- vim.keymap.set("n", "<C-S-T>", ":BufferRestore<CR>", opts)
-            -- vim.keymap.set("t", "<C-S-T>", ":BufferRestore<CR>", opts)
-            -- vim.keymap.set("n", "<leader>v", select_previous_tab, opts)
-            -- vim.keymap.set("n", "<leader>m", select_next_tab, opts)
             vim.keymap.set("n", "<A-v>", ":BufferLineCyclePrev<CR>", opts)
             vim.keymap.set("n", "<A-m>", ":BufferLineCycleNext<CR>", opts)
             vim.keymap.set("n", "<A-S-v>", ":BufferLineMovePrev<CR>", opts)
