@@ -24,14 +24,14 @@ vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], opts)
 
 -- Binding Git functions
 -- Ctrl-Shift-G + l - Opens lazygit
-vim.keymap.set("n", "<C-S-g>l", function()
+vim.keymap.set("n", "gl", function()
     -- TODO: Make it OS agnostic
     -- TODO: Focus if it's already running (based on the window's title - there's a path displayed)
     vim.fn.system("start /MAX lazygit")
 end, opts)
 
 -- Ctrl-Shift-G + l - Opens Github Desktop
-vim.keymap.set("n", "<C-S-g>d", function()
+vim.keymap.set("n", "gd", function()
     vim.fn.system("github")
 end, opts)
 
@@ -72,7 +72,7 @@ vim.keymap.set("n", [[<C-\>]], function()
     vim.fn.execute("wincmd h")
     vim.g.hulvdan_EnableAnimations()
 end, opts)
-vim.keymap.set("n", [[<C-|>]], function()
+vim.keymap.set("n", [[<C-S-\>]], function()
     vim.g.hulvdan_DisableAnimations()
     vim.fn.execute("vs")
     vim.g.hulvdan_EnableAnimations()
@@ -89,13 +89,17 @@ vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
 vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
 
-if vim.g.goneovim or vim.g.hulvdan_is_qt then
-    vim.keymap.set("n", "<C-S-]>", ":cc<CR>:cn<CR>", opts)
-    vim.keymap.set("n", "<C-S-[>", ":cc<CR>:cp<CR>", opts)
-else
-    vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
-    vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
-end
+-- if vim.g.goneovim or vim.g.hulvdan_is_qt then
+vim.keymap.set("n", "<C-S-]>", ":cc<CR>:cn<CR>", opts)
+vim.keymap.set("n", "<C-S-[>", ":cc<CR>:cp<CR>", opts)
+-- vim.keymap.set("n", "<f2>", ":cc<CR>:cn<CR>", opts)
+-- vim.keymap.set("n", "<S-f2>", ":cc<CR>:cp<CR>", opts)
+-- else
+-- vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
+-- vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
+-- vim.keymap.set("n", "<C-S-}>", ":cc<CR>:cn<CR>", opts)
+-- vim.keymap.set("n", "<C-S-{>", ":cc<CR>:cp<CR>", opts)
+-- end
 
 vim.keymap.set("n", "<M-[>", function()
     require("tree-climber").goto_parent()

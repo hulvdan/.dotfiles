@@ -373,16 +373,6 @@ return {
         end,
     },
 
-    -- {
-    --     "mfussenegger/nvim-lint",
-    --     lazy = false,
-    -- },
-
-    -- {
-    --     "editorconfig/editorconfig-vim",
-    --     lazy = false,
-    -- },
-
     {
         "ms-jpq/coq_nvim",
         branch = "coq",
@@ -444,15 +434,7 @@ return {
         "numToStr/Comment.nvim",
         lazy = false,
         config = function()
-            require("Comment").setup({
-                toggler = {
-                    line = "<C-/>",
-                    block = "<C-?>",
-                },
-            })
-            local api = require("Comment.api")
-            vim.keymap.set({ "n", "v" }, "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
-            vim.keymap.set({ "n", "v" }, "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
+            require("Comment").setup()
         end,
     },
 
@@ -460,11 +442,6 @@ return {
         "wsdjeg/vim-fetch",
         lazy = false,
     },
-
-    -- {
-    --     "bogado/file-line",
-    --     lazy = false,
-    -- },
 
     {
         "stevearc/overseer.nvim",
@@ -486,108 +463,6 @@ return {
             })
         end,
     },
-
-    -- {
-    --     "lukas-reineke/indent-blankline.nvim",
-    --     lazy = false,
-    --     tag = "v3.5.4",
-    --     config = function()
-    --         local hooks = require("ibl.hooks")
-    --         hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    --             vim.api.nvim_set_hl(0, "Indent", { fg = cursor_line_bg_color })
-    --         end)
-    --         require("ibl").setup({
-    --             indent = {
-    --                 char = "▎",
-    --                 highlight = { "Indent" },
-    --             },
-    --             scope = {
-    --                 enabled = false,
-    --                 highlight = { "Indent" },
-    --             },
-    --         })
-    --         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-    --         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.hide_first_space_indent_level)
-    --         hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-    --     end,
-    -- },
-
-    -- {
-    --     "zaldih/themery.nvim",
-    --     lazy = false,
-    --     config = function()
-    --         require("themery").setup({
-    --             themes = {
-    --                 {
-    --                     name = "gruvbox",
-    --                     colorscheme = "gruvbox",
-    --                     before = [[]],
-    --                     after = [[update_bufferline()]],
-    --                 },
-    --                 -- {
-    --                 --     name = "neofusion",
-    --                 --     colorscheme = "neofusion",
-    --                 -- },
-    --                 {
-    --                     name = "onedark_dark",
-    --                     colorscheme = "onedark_dark",
-    --                     after = [[update_bufferline()]],
-    --                 },
-    --             },
-    --             -- themeConfigFile = "~/.config/nvim/lua/settings/theme.lua",
-    --             livePreview = true, -- Apply theme while browsing. Default to true.
-    --         })
-    --     end,
-    -- },
-
-    -- {
-    --     "diegoulloao/neofusion.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         require("neofusion").setup({
-    --             terminal_colors = true, -- add neovim terminal colors
-    --             undercurl = true,
-    --             underline = true,
-    --             bold = true,
-    --             italic = {
-    --                 strings = false,
-    --                 emphasis = false,
-    --                 comments = false,
-    --                 operators = false,
-    --                 folds = false,
-    --             },
-    --             strikethrough = true,
-    --             invert_selection = false,
-    --             invert_signs = false,
-    --             invert_tabline = false,
-    --             invert_intend_guides = false,
-    --             inverse = true, -- invert background for search, diffs, statuslines and errors
-    --             palette_overrides = {},
-    --             overrides = {},
-    --             dim_inactive = false,
-    --             transparent_mode = false,
-    --         })
-    --     end,
-    -- },
-
-    -- {
-    --     "olimorris/onedarkpro.nvim",
-    --     lazy = false,
-    --     config = function()
-    --         require("onedarkpro").setup({
-    --             colors = {},
-    --             highlights = {
-    --                 -- Normal = { bg = background_color },
-    --                 CursorLine = { bg = cursor_line_bg_color },
-    --                 NonText = { fg = background_color },
-    --                 EndOfBuffer = { fg = background_color },
-    --                 Comment = { fg = comments_fg_color },
-    --                 CursorWord = { bg = cursor_word_bg_color },
-    --             },
-    --         })
-    --     end,
-    -- },
 
     {
         "norcalli/nvim-colorizer.lua",

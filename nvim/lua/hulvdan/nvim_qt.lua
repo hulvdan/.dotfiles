@@ -27,6 +27,7 @@ function AdjustFontSize(amount)
     f = f:gsub("% ", "\\ ")
     vim.fn.execute([[set guifont=]] .. f .. ":h" .. vim.g.hulvdan_fontsize)
     vim.fn.execute([[set cmdheight=1]])
+    vim.fn.execute([[set linespace=-10]])
 end
 
 local opts = { remap = false, silent = true }
