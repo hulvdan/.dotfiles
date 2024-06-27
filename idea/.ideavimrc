@@ -123,16 +123,12 @@ map <leader>z <Action>(ToggleDistractionFreeMode)
 " Hardmode
 nnoremap <Left> <Nop>
 vnoremap <Left> <Nop>
-inoremap <Left> <Nop>
 nnoremap <Right> <Nop>
 vnoremap <Right> <Nop>
-inoremap <Right> <Nop>
 nnoremap <Down> <Nop>
 vnoremap <Down> <Nop>
-inoremap <Down> <Nop>
 nnoremap <Up> <Nop>
 vnoremap <Up> <Nop>
-inoremap <Up> <Nop>
 
 vmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
 xmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
