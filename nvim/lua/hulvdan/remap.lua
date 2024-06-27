@@ -48,11 +48,11 @@ vim.keymap.set("v", "<C-K>", "{", opts)
 
 vim.keymap.set({ "n", "t" }, "<A-q>", ":bdelete!<CR>", opts)
 
-vim.keymap.set("n", [[<leader>\]], function()
+vim.keymap.set("n", [[g\]], function()
     vim.fn.execute("vs")
     vim.fn.execute("wincmd h")
 end, opts)
-vim.keymap.set("n", [[<leader>|]], function()
+vim.keymap.set("n", [[g|]], function()
     vim.fn.execute("vs")
 end, opts)
 
@@ -60,7 +60,7 @@ function OpenNotes()
     vim.fn.execute([[e ~/GoogleDrive/Media/Documents/notes.md]])
 end
 
-vim.keymap.set("n", "<leader>n", OpenNotes, opts)
+vim.keymap.set("n", "gn", OpenNotes, opts)
 
 -- VIM-VISUAL-MULTI --
 -- ================ --

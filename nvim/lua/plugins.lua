@@ -203,7 +203,7 @@ return {
                     commands = {},
                 },
             })
-            vim.keymap.set({ "n", "v" }, "<leader>e", function()
+            local toggle_neo_tree = function()
                 if vim.o.filetype == "neo-tree" then
                     vim.fn.execute("Neotree close")
                 else
@@ -211,7 +211,9 @@ return {
                         ":<silent>Neotree reveal reveal_force_cwd<CR><C-w>p:<silent>Neotree reveal reveal_force_cwd<CR>"
                     )
                 end
-            end)
+            end
+            vim.keymap.set({ "n", "v" }, "<leader>e", toggle_neo_tree)
+            vim.keymap.set({ "n", "v" }, "<A-1>", toggle_neo_tree)
         end,
     },
 
