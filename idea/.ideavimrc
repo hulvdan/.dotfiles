@@ -71,6 +71,8 @@ map <F7> <Action>(StepInto)
 map <F9> <Action>(Resume)
 map <F10> <Action>(StepOut)
 
+map <C-\> :vs<CR><C-W>h<A-q><C-W>l
+
 xmap gc <Action>(CommentByLineComment)
 
 " Test
