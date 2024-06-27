@@ -82,10 +82,10 @@ map <leader>tt <Action>(RunClass)
 imap <C-f> <Action>(CodeCompletion)
 
 " LSP
-map gD <Action>(GotoTypeDeclaration)
-map gd <Action>(GotoDeclaration)
-map gi <Action>(GotoImplementation)
-map gr <Action>(GotoDeclaration)
+map gD mz`z<Action>(GotoTypeDeclaration)
+map gd mz`z<Action>(GotoDeclaration)
+map gi mz`z<Action>(GotoImplementation)
+map gr mz`z<Action>(GotoDeclaration)
 map <leader>rn <Action>(RenameElement)
 
 map <leader>oc <Action>(ReformatCode)
