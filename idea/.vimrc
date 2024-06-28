@@ -90,9 +90,6 @@ vnoremap K VdkP
 " Toggle case and start typing. E.g. `<leader>iget`: `property` -> `getProperty`
 map <leader>i ~hi
 
-" Remove file content
-nmap <C-S-d> ggVGd
-
 " ===== Other stuff =====
 
 " Save With Space-W
