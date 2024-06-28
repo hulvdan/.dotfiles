@@ -3,32 +3,16 @@
 " Find more examples here: https://jb.gg/share-ideavimrc
 source ~/.vimrc
 
+map <leader><leader>T <Action>(VimFindActionIdAction)
+
 " Do incremental searching.
 set ideajoin
 set idearefactormode=keep
 set ideamarkset
+set matchpairs+=<:>
 
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
-
-" Plug 'terryma/vim-multiple-cursors'
-" " Default mapping
-" let g:multi_cursor_use_default_mapping=0
-" let g:multi_cursor_start_word_key      = '<C-n>'
-" let g:multi_cursor_select_all_word_key = '<A-n>'
-" let g:multi_cursor_start_key           = 'g<C-n>'
-" let g:multi_cursor_select_all_key      = 'g<A-n>'
-" let g:multi_cursor_next_key            = '<C-n>'
-" let g:multi_cursor_prev_key            = '<C-p>'
-" let g:multi_cursor_skip_key            = '<C-x>'
-" let g:multi_cursor_quit_key            = '<Esc>'
-
-" Old text                  Command     New text ~
-" "Hello *world!"           ds"         Hello world!
-" [123+4*56]/2              cs])        (123+456)/2
-" "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
-" if *x>3 {                 ysW(        if ( x>3 ) {
-" my $str = *whee!;         vllllS'     my $str = 'whee!';
 Plug 'tpope/vim-surround'
 
 let g:highlightedyank_highlight_duration = "250"
@@ -71,7 +55,10 @@ map <F7> <Action>(StepInto)
 map <F9> <Action>(Resume)
 map <F10> <Action>(StepOut)
 
-map <C-\> :vs<CR><C-W>h<A-q><C-W>l
+" map <C-\> :vs<CR><C-W>h<A-q><C-W>l
+map <C-\> <Action>(TabShiftActions.ShiftRight)
+map <C-|> <Action>(TabShiftActions.ShiftLeft)
+map <C-S-\> <Action>(TabShiftActions.ShiftLeft)
 
 xmap gc <Action>(CommentByLineComment)
 
@@ -90,9 +77,9 @@ map gi mz`z<Action>(GotoImplementation)
 map gr mz`z<Action>(GotoDeclaration)
 map <leader>rn <Action>(RenameElement)
 
-map <leader>oc <Action>(ReformatCode)
-map <leader>oi <Action>(OptimizeImports)
-map <leader>oa <Action>(ReformatCode)<Action>(OptimizeImports)
+" map <leader>oc <Action>(ReformatCode)
+" map <leader>oi <Action>(OptimizeImports)
+" map <leader>oa <Action>(ReformatCode)<Action>(OptimizeImports)
 map <leader>jev <Action>(IntroduceVariable)
 map <leader>jec <Action>(IntroduceConstant)
 map <leader>jem <Action>(ExtractMethod)
@@ -106,7 +93,6 @@ map <leader>s <Action>(GotoSymbol)
 map <leader>S <Action>(GotoSymbol)
 
 map <leader>a <Action>(ShowIntentionActions)
-map <leader><leader>T <Action>(VimFindActionIdAction)
 
 " Navigation
 nmap <A-v> <Action>(PreviousTab)
