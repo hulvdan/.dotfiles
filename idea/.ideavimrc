@@ -48,8 +48,6 @@ map <leader>fr <Action>(RecentFiles)
 map <leader>ft <Action>(ActivateTODOToolWindow)
 
 " Debug
-map <F6> <Action>(Debug)
-map <F6> <Action>(EvaluateExpression)
 map <F8> <Action>(StepOver)
 map <F7> <Action>(StepInto)
 map <F9> <Action>(Resume)
