@@ -23,14 +23,14 @@ end, opts)
 vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], opts)
 
 -- Open lazygit
-vim.keymap.set("n", "gl", function()
+vim.keymap.set("n", "<C-S-g>l", function()
     -- TODO: Make it OS agnostic
     -- TODO: Focus if it's already running (based on the window's title - there's a path displayed)
     vim.fn.system("start /MAX lazygit")
 end, opts)
 
 -- Open github desktop
-vim.keymap.set("n", "gd", function()
+vim.keymap.set("n", "<C-S-g>d", function()
     vim.fn.system("github")
 end, opts)
 
@@ -38,39 +38,39 @@ end, opts)
 -- Also, in normal mode these jumps don't pollute the jumps list
 vim.keymap.set("n", "<C-J>", ":keepjumps norm! }<CR>", opts)
 vim.keymap.set("n", "<C-K>", ":keepjumps norm! {<CR>", opts)
-vim.keymap.set("v", "<C-J>", "}", opts)
-vim.keymap.set("v", "<C-K>", "{", opts)
--- Broken because of windows' Ctrl Shift shiet in terminals
--- vim.keymap.set("n", "<C-S-J>", ":keepjumps norm! )<CR>", opts)
--- vim.keymap.set("n", "<C-S-K>", ":keepjumps norm! (<CR>", opts)
--- vim.keymap.set("v", "<C-S-J>", ")", opts)
--- vim.keymap.set("v", "<C-S-K>", "(", opts)
+vim.keymap.set("n", "<C-S-J>", ":keepjumps norm! )<CR>", opts)
+vim.keymap.set("n", "<C-S-K>", ":keepjumps norm! (<CR>", opts)
 
 vim.keymap.set({ "n", "t" }, "<A-q>", ":bdelete!<CR>", opts)
 
-vim.keymap.set("n", [[g\]], function()
+vim.keymap.set("n", "<f2>", ":cc<CR>:cn<CR>", opts)
+vim.keymap.set("n", "<S-f2>", ":cc<CR>:cp<CR>", opts)
+vim.keymap.set("n", "<C-}>", ":cc<CR>:cn<CR>", opts)
+vim.keymap.set("n", "<C-{>", ":cc<CR>:cp<CR>", opts)
+
+vim.keymap.set("n", [[<C-\>]], function()
     vim.fn.execute("vs")
     vim.fn.execute("wincmd h")
 end, opts)
-vim.keymap.set("n", [[g|]], function()
+vim.keymap.set("n", [[<C-|>]], function()
     vim.fn.execute("vs")
 end, opts)
+
+vim.keymap.set("n", "gcc", "<S-v>gc", { silent = true, remap = true })
+vim.keymap.set("n", "<C-/>", "gcc", { silent = true, remap = true })
+vim.keymap.set("v", "<C-/>", "gc", { silent = true, remap = true })
+vim.keymap.set("v", "<C-?>", "gb", { silent = true, remap = true })
 
 function OpenNotes()
     vim.fn.execute([[e ~/GoogleDrive/Media/Documents/notes.md]])
 end
 
-vim.keymap.set("n", "gn", OpenNotes, opts)
+vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 
 -- VIM-VISUAL-MULTI --
 -- ================ --
 vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
 vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
-
--- vim.keymap.set("n", "<f2>", vim.diagnostic.goto_next, opts)
--- vim.keymap.set("n", "<S-f2>", vim.diagnostic.goto_prev, opts)
-vim.keymap.set("n", "<f2>", ":cc<CR>:cn<CR>", opts)
-vim.keymap.set("n", "<S-f2>", ":cc<CR>:cp<CR>", opts)
 
 vim.keymap.set("n", "<M-[>", function()
     require("tree-climber").goto_parent()

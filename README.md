@@ -83,4 +83,6 @@ ni C:\Users\user\.ideavimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\ide
 
 mkdir C:\Users\user\.config\goneovim
 ni C:\Users\user\.config\goneovim\settings.toml -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\nvim\goneovim_settings.toml"
+
+ni C:\Users\user\.wezterm.lua -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\wezterm\.wezterm.lua"
 ```

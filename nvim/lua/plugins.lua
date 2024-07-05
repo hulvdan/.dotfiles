@@ -97,7 +97,7 @@ return {
             end, opts)
 
             vim.keymap.set("n", "<leader>fn", telescope_builtin.git_files, opts)
-            vim.keymap.set("n", "<leader>fa", function()
+            vim.keymap.set("n", "<C-S-f>", function()
                 telescope.extensions.live_grep_args.live_grep_args()
             end, opts)
         end,
@@ -434,7 +434,15 @@ return {
         "numToStr/Comment.nvim",
         lazy = false,
         config = function()
-            require("Comment").setup()
+            require("Comment").setup({
+                toggler = {
+                    line = "<C-/>",
+                    block = "<C-?>",
+                },
+            })
+            local api = require("Comment.api")
+            vim.keymap.set({ "n", "v" }, "<C-/>", api.call("toggle.linewise", "g@"), { expr = true })
+            vim.keymap.set({ "n", "v" }, "<C-?>", api.call("toggle.linewise.current", "g@$"), { expr = true })
         end,
     },
 
