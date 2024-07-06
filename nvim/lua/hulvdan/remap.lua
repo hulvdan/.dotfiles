@@ -58,6 +58,7 @@ end, opts)
 
 vim.keymap.set("n", "gcc", "<S-v>gc", { silent = true, remap = true })
 vim.keymap.set("n", "<C-/>", "gcc", { silent = true, remap = true })
+vim.keymap.set("n", "<C-?>", "<S-v>gb", { silent = true, remap = true })
 vim.keymap.set("v", "<C-/>", "gc", { silent = true, remap = true })
 vim.keymap.set("v", "<C-?>", "gb", { silent = true, remap = true })
 
