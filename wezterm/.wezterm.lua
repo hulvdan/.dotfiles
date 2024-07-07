@@ -27,7 +27,7 @@ config.allow_win32_input_mode = false
 config.enable_kitty_keyboard = false
 
 config.disable_default_key_bindings = true
-config.window_decorations = "NONE"
+config.window_decorations = "RESIZE"
 
 config.font_size = 13
 
