@@ -41,7 +41,8 @@ vim.keymap.set("n", "<C-K>", ":keepjumps norm! {<CR>", opts)
 vim.keymap.set("n", "<C-S-J>", ":keepjumps norm! )<CR>", opts)
 vim.keymap.set("n", "<C-S-K>", ":keepjumps norm! (<CR>", opts)
 
-vim.keymap.set({ "n", "t" }, "<A-q>", ":bdelete!<CR>", opts)
+vim.keymap.set({ "n", "t" }, "<A-q>", ":BufDel!<CR>", opts)
+vim.keymap.set({ "n", "t" }, "<A-S-q>", "<C-W>c", opts)
 
 vim.keymap.set("n", "<f2>", ":cc<CR>:cn<CR>", opts)
 vim.keymap.set("n", "<S-f2>", ":cc<CR>:cp<CR>", opts)
