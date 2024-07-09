@@ -21,6 +21,9 @@ config.font_rules = {
   { intensity = "Normal", italic = true, font = config.font },
   { intensity = "Normal", italic = false, font = config.font },
 }
+config.colors = {
+  background = "#0c1016",
+}
 
 config.enable_csi_u_key_encoding = true
 config.allow_win32_input_mode = false
