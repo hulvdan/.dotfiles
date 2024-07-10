@@ -129,3 +129,11 @@ vim.keymap.set("n", "<A-r>", function()
         vim.api.nvim_input([[<left><left><left><left>a<BS>]])
     end, 1)
 end)
+
+-- Folds
+vim.keymap.set("n", "<C-,>", function()
+    vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDzf%:<esc>")
+end, { silent = true, remap = false })
+vim.keymap.set("v", "<C-,>", function()
+    vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDzf:<esc>")
+end, { silent = true, remap = false })
