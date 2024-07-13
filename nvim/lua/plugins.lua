@@ -109,6 +109,14 @@ return {
     },
 
     {
+        "Wansmer/treesj",
+        lazy = false,
+        config = function()
+            require("treesj").setup({})
+        end,
+    },
+
+    {
         "folke/zen-mode.nvim",
         lazy = false,
         opts = {
