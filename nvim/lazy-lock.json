@@ -28,9 +28,11 @@
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
   "tree-climber.nvim": { "branch": "main", "commit": "9b0c8c8358f575f924008945c74fd4f40d814cd7" },
+  "treesj": { "branch": "main", "commit": "6e8bd008bacd5ad001c3953017c1dca20709e915" },
   "undotree": { "branch": "master", "commit": "56c684a805fe948936cda0d1b19505b84ad7e065" },
   "vim-fetch": { "branch": "master", "commit": "bbb75c3172f766d1a62832df0ec7674c69a560ad" },
   "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
   "vim-visual-multi": { "branch": "master", "commit": "b84a6d42c1c10678928b0bf8327f378c8bc8af5a" },
-  "yanky.nvim": { "branch": "main", "commit": "73215b77d22ebb179cef98e7e1235825431d10e4" }
+  "yanky.nvim": { "branch": "main", "commit": "73215b77d22ebb179cef98e7e1235825431d10e4" },
+  "zen-mode.nvim": { "branch": "main", "commit": "21976479c7a0146b05a42707cf91c86b1e510945" }
 }
