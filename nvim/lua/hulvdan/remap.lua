@@ -1,3 +1,20 @@
+local overseer = require("overseer")
+
+vim.g.hulvdan_run_command = function(cmd)
+    vim.fn.execute(":wa")
+
+    overseer
+        .new_task({
+            cmd = cmd,
+            components = {
+                { "on_output_quickfix", open = true, close = true },
+                { "on_exit_set_status", success_codes = { 0 } },
+                "default",
+            },
+        })
+        :start()
+end
+
 -- MY SHORTCUTS --
 -- ============ --
 vim.fn.execute("set splitright")
@@ -69,8 +86,9 @@ end
 
 vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 
--- VIM-VISUAL-MULTI --
--- ================ --
+--------------------------------------------------------------------------------
+-- VIM-VISUAL-MULTI
+--------------------------------------------------------------------------------
 vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
 vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
 
@@ -130,10 +148,34 @@ vim.keymap.set("n", "<A-r>", function()
     end, 1)
 end)
 
+--------------------------------------------------------------------------------
 -- Folds
+--------------------------------------------------------------------------------
+function get_current_line_text()
+    vim.api.nvim_input("mc^mz$mx")
+    local _, ls, cs = unpack(vim.fn.getpos("'z"))
+    local _, le, ce = unpack(vim.fn.getpos("'x"))
+    vim.api.nvim_input("`c")
+    return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})[1]
+end
+
 vim.keymap.set("n", "<C-,>", function()
+    local last_character = string.sub(get_current_line_text(), -1)
+    if (last_character == "{") or (last_character == "(") then
+        vim.api.nvim_input("$")
+    end
+
+    -- NOTE: `:<ESC>` используются, т.к. не удалось сделать так,
+    -- чтобы не генерились ошибки в `:mes` при удалении fold-ов,
+    -- которые не существуют на линии.
     vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDzf%:<esc>")
 end, { silent = true, remap = false })
+
 vim.keymap.set("v", "<C-,>", function()
     vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDzf:<esc>")
 end, { silent = true, remap = false })
+
+vim.opt.foldmethod = "manual"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldenable = false
