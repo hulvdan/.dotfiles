@@ -173,6 +173,23 @@ return {
         config = function()
             tree = require("neo-tree")
             tree.setup({
+                default_component_configs = {
+                    git_status = {
+                        symbols = {
+                            -- Change type
+                            added = "",
+                            modified = "",
+                            deleted = "",
+                            renamed = "",
+                            -- Status type
+                            untracked = "",
+                            ignored = "",
+                            unstaged = "",
+                            staged = "",
+                            conflict = "",
+                        },
+                    },
+                },
                 filesystem = {
                     filtered_items = {
                         visible = false, -- when true, they will just be displayed differently than normal items
