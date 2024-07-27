@@ -65,6 +65,7 @@
 ;      - Для этого нужно создать shortcut (ПКМ по файлу скрипта -> Create Shortcut).
 ;      - В его настройках, в advanced поставить галку `Run As Administrator`.
 ;      - Запустить этот shortcut.
+;   5. Готово.
 ;
 ; Как я научился использовать новые сочетания клавиш:
 ;   1. Отрубил работу спецсимволов в местах по-умолчанию
@@ -185,9 +186,8 @@ XButton2::SendEvent, {F9}
 [::Send, {TEXT}_
 
 fnIsEnglishLayoutActive() {
-    currentLayout = DllCall("GetKeyboardLayout", "UInt"
-        , DllCall("GetWindowThreadProcessId", "UInt", WinExist("A"), "UInt", 0))
-    return currentLayout == 67699721
+    return DllCall("GetKeyboardLayout", "UInt"
+        , DllCall("GetWindowThreadProcessId", "UInt", WinExist("A"), "UInt", 0)) == 67699721
 }
 
 fnReload() {
