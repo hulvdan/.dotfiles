@@ -92,9 +92,12 @@ vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 vim.keymap.set("n", "<A-J>", "<C-Down>", { silent = true, remap = true })
 vim.keymap.set("n", "<A-K>", "<C-Up>", { silent = true, remap = true })
 
-vim.keymap.set("n", "<M-[>", function()
+vim.keymap.set("n", "<C-h>", require("tree-climber").swap_prev, opts)
+vim.keymap.set("n", "<C-l>", require("tree-climber").swap_next, opts)
+
+vim.keymap.set("n", "<A-[>", function()
     require("tree-climber").goto_parent()
-end, { silent = true })
+end, opts)
 
 -- NOTE: Возвращает выделенный текст на самой верхней строке
 function get_selected_text()
