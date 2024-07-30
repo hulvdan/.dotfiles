@@ -28,6 +28,7 @@ set expandtab
 set smartindent
 
 " Wrapped lines get indented
+set linebreak
 set breakindent
 set breakindentopt=shift:2
 
