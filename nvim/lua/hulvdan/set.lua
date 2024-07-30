@@ -13,3 +13,20 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.breakat = " "
+
+local overseer = require("overseer")
+
+vim.g.hulvdan_run_command = function(cmd)
+    vim.fn.execute(":wa")
+
+    overseer
+        .new_task({
+            cmd = cmd,
+            components = {
+                { "on_output_quickfix", open = true, close = true },
+                { "on_exit_set_status", success_codes = { 0 } },
+                "default",
+            },
+        })
+        :start()
+end
