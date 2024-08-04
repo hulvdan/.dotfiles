@@ -168,38 +168,36 @@ vim.opt.foldmethod = "manual"
 --------------------------------------------------------------------------------
 -- ref: https://github.com/johmsalas/text-case.nvim/tree/main
 
--- space + c + s -> `snake_case`
-vim.keymap.set("n", "<leader>cs", function()
-    require("textcase").current_word("to_snake_case")
-end, opts)
+for i, values in ipairs({
+    { "cs", require("textcase").api.to_snake_case, "to_snake_case" },
+    { "cc", require("textcase").api.to_camel_case, "to_camel_case" },
+    { "cC", require("textcase").api.to_constant_case, "to_constant_case" },
+    { "cp", require("textcase").api.to_pascal_case, "to_pascal_case" },
+}) do
+    vim.keymap.set("n", "<leader><leader>" .. values[1], function()
+        local text = vim.fn.expand("<cword>")
+        local new_text = values[2](text)
+        vim.api.nvim_input(string.format([[:.,$s/\<lt>%s\>/%s/gcI]], text, new_text))
+        vim.defer_fn(function()
+            vim.api.nvim_input([[<left><left><left><left>a<BS>]])
+        end, 1)
+    end, opts)
 
-vim.keymap.set("v", "<leader>cs", function()
-    require("textcase").visual("to_snake_case")
-end, opts)
+    vim.keymap.set("v", "<leader><leader>" .. values[1], function()
+        local text = get_selected_text()
+        local new_text = values[2](text)
+        vim.api.nvim_input([[:<BS><BS><BS><BS><BS>]])
+        vim.api.nvim_input(string.format([[.,$s/%s/%s/gc]], text, new_text))
+        vim.defer_fn(function()
+            vim.api.nvim_input([[<left><left><left>a<BS>]])
+        end, 1)
+    end, opts)
 
--- space + c + c -> `camelCase`
-vim.keymap.set("n", "<leader>cc", function()
-    require("textcase").current_word("to_camel_case")
-end, opts)
+    vim.keymap.set("n", "<leader>" .. values[1], function()
+        require("textcase").current_word(values[3])
+    end, opts)
 
--- space + c + p -> `PascalCase`
-vim.keymap.set("n", "<leader>cp", function()
-    require("textcase").current_word("to_pascal_case")
-end, opts)
-
-vim.keymap.set("v", "<leader>cp", function()
-    require("textcase").visual("to_pascal_case")
-end, opts)
-
-vim.keymap.set("v", "<leader>cc", function()
-    require("textcase").visual("to_camel_case")
-end, opts)
-
--- space + c + C -> `CONSTANT_CASE`
-vim.keymap.set("n", "<leader>cC", function()
-    require("textcase").current_word("to_constant_case")
-end, opts)
-
-vim.keymap.set("v", "<leader>cC", function()
-    require("textcase").visual("to_constant_case")
-end, opts)
+    vim.keymap.set("v", "<leader>" .. values[1], function()
+        require("textcase").visual(values[3])
+    end, opts)
+end
