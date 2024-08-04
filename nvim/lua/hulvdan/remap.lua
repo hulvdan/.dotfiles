@@ -135,7 +135,7 @@ vim.keymap.set("n", "<A-r>", function()
 end)
 
 --------------------------------------------------------------------------------
--- Folds
+-- Folds.
 --------------------------------------------------------------------------------
 function get_current_line_text()
     vim.api.nvim_input("mc^mz$mx")
@@ -162,6 +162,44 @@ vim.keymap.set("v", "<C-,>", function()
 end, { silent = true, remap = false })
 
 vim.opt.foldmethod = "manual"
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.opt.foldenable = false
+
+--------------------------------------------------------------------------------
+-- Case Changing.
+--------------------------------------------------------------------------------
+-- ref: https://github.com/johmsalas/text-case.nvim/tree/main
+
+-- space + c + s -> `snake_case`
+vim.keymap.set("n", "<leader>cs", function()
+    require("textcase").current_word("to_snake_case")
+end, opts)
+
+vim.keymap.set("v", "<leader>cs", function()
+    require("textcase").visual("to_snake_case")
+end, opts)
+
+-- space + c + c -> `camelCase`
+vim.keymap.set("n", "<leader>cc", function()
+    require("textcase").current_word("to_camel_case")
+end, opts)
+
+-- space + c + p -> `PascalCase`
+vim.keymap.set("n", "<leader>cp", function()
+    require("textcase").current_word("to_pascal_case")
+end, opts)
+
+vim.keymap.set("v", "<leader>cp", function()
+    require("textcase").visual("to_pascal_case")
+end, opts)
+
+vim.keymap.set("v", "<leader>cc", function()
+    require("textcase").visual("to_camel_case")
+end, opts)
+
+-- space + c + C -> `CONSTANT_CASE`
+vim.keymap.set("n", "<leader>cC", function()
+    require("textcase").current_word("to_constant_case")
+end, opts)
+
+vim.keymap.set("v", "<leader>cC", function()
+    require("textcase").visual("to_constant_case")
+end, opts)
