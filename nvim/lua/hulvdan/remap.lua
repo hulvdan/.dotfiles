@@ -173,7 +173,10 @@ vim.opt.foldmethod = "manual"
 -- Case Changing.
 --------------------------------------------------------------------------------
 -- ref: https://github.com/johmsalas/text-case.nvim/tree/main
-
+--
+-- Для одного слова:          space +         ( cs | cc | cC | cp )
+-- Для рефакторинга в буфере: space + space + ( cs | cc | cC | cp )
+--
 for i, values in ipairs({
     { "cs", require("textcase").api.to_snake_case, "to_snake_case" },
     { "cc", require("textcase").api.to_camel_case, "to_camel_case" },
@@ -207,3 +210,6 @@ for i, values in ipairs({
         require("textcase").visual(values[3])
     end, opts)
 end
+
+local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+vim.keymap.set("n", "<leader>gc", live_grep_args_shortcuts.grep_word_under_cursor)

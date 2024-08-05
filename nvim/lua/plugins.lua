@@ -47,6 +47,25 @@ function update_bufferline()
     vim.fn.execute("hi! link BufferlineModifiedVisible StatusLineNC")
 end
 
+local function word_count()
+    -- Get all the lines in the current buffer
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    -- Turn that list of strings into one long string, space-separated
+    local content = table.concat(lines, " ")
+
+    -- For each substring that matches that pattern `%a+` increment the word counter
+    -- The pattern `%a+` is and letters [a-z][A-Z] in a line
+    -- For alphanumeric instead of just alphabetical use `%w+`
+    local words = 0
+    for _ in content:gmatch("%a+") do
+        words = words + 1
+    end
+
+    -- Return the word count so that it appears in lualine
+    -- If you want it to say "Word count: 87" instead write `return "Word count: " .. words`
+    return words
+end
+
 return {
     "nvim-treesitter/nvim-treesitter",
 
@@ -147,6 +166,126 @@ return {
             end
             vim.keymap.set("n", "<A-S-z>", toggle_zen, { silent = true, remap = false })
             vim.keymap.set("n", "Z", toggle_zen, { silent = true, remap = false })
+        end,
+    },
+
+    {
+        "nvim-lualine/lualine.nvim",
+        lazy = false,
+        config = function()
+            -- Eviline config for lualine
+            -- Author: shadmansaleh
+            -- Credit: glepnir
+            local lualine = require("lualine")
+
+            -- Color table for highlights
+            -- stylua: ignore
+            local colors = {
+              bg       = '#202328',
+              fg       = '#bbc2cf',
+              yellow   = '#ECBE7B',
+              cyan     = '#008080',
+              darkblue = '#081633',
+              green    = '#98be65',
+              orange   = '#FF8800',
+              violet   = '#a9a1e1',
+              magenta  = '#c678dd',
+              blue     = '#51afef',
+              red      = '#ec5f67',
+            }
+
+            local conditions = {
+                buffer_not_empty = function()
+                    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+                end,
+                hide_in_width = function()
+                    return vim.fn.winwidth(0) > 80
+                end,
+                check_git_workspace = function()
+                    local filepath = vim.fn.expand("%:p:h")
+                    local gitdir = vim.fn.finddir(".git", filepath .. ";")
+                    return gitdir and #gitdir > 0 and #gitdir < #filepath
+                end,
+            }
+
+            -- Config
+            local config = {
+                options = {
+                    -- Disable sections and component separators
+                    component_separators = "",
+                    section_separators = "",
+                    theme = "auto",
+                    -- theme = {
+                    --     -- We are going to use lualine_c an lualine_x as left and
+                    --     -- right section. Both are highlighted by c theme .  So we
+                    --     -- are just setting default looks o statusline
+                    --     normal = { c = { fg = colors.fg, bg = colors.bg } },
+                    --     inactive = { c = { fg = colors.fg, bg = colors.bg } },
+                    -- },
+                },
+                sections = {
+                    -- these are to remove the defaults
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_y = {},
+                    lualine_z = {},
+                    -- These will be filled later
+                    lualine_c = {},
+                    lualine_x = {},
+                },
+                inactive_sections = {
+                    -- these are to remove the defaults
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_y = {},
+                    lualine_z = {},
+                    lualine_c = {},
+                    lualine_x = {},
+                },
+            }
+
+            -- Inserts a component in lualine_c at left section
+            local function ins_left(component)
+                table.insert(config.sections.lualine_c, component)
+            end
+
+            -- Inserts a component in lualine_x at right section
+            local function ins_right(component)
+                table.insert(config.sections.lualine_x, component)
+            end
+
+            ins_left({
+                "filename",
+                cond = conditions.buffer_not_empty,
+                -- color = { fg = colors.magenta, gui = "bold" },
+                path = 1,
+            })
+
+            ins_left({ "location" })
+
+            ins_left({ "progress" })
+
+            ins_left({
+                "diagnostics",
+                sources = { "nvim_diagnostic" },
+                symbols = { error = " ", warn = " ", info = " " },
+                -- diagnostics_color = {
+                --     error = { fg = colors.red },
+                --     warn = { fg = colors.yellow },
+                --     info = { fg = colors.cyan },
+                -- },
+            })
+
+            -- Insert mid section. You can make any number of sections in neovim :)
+            -- for lualine it's any number greater then 2
+            ins_left({
+                function()
+                    return "%="
+                end,
+            })
+
+            -- Now don't forget to initialize lualine
+            lualine.setup(config)
         end,
     },
 
