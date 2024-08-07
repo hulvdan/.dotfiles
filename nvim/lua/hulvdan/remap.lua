@@ -167,6 +167,11 @@ vim.keymap.set("v", "<C-S-r>", function()
     find_and_replace_in_sources(text)
 end, opts)
 
+vim.keymap.set("v", "<C-S-f>", function()
+    local text = get_selected_text()
+    vim.api.nvim_input([[<ESC><C-S-f>]] .. '"' .. text .. '" ' .. (vim.g.telescope_search_and_replace_directory or ""))
+end, opts)
+
 --------------------------------------------------------------------------------
 -- Folds.
 --------------------------------------------------------------------------------
