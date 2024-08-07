@@ -140,6 +140,33 @@ vim.keymap.set("n", "<A-r>", function()
     end, 1)
 end)
 
+-- Поиск и замена через Telescope и откидывание в quickfix.
+--
+-- Нужно указать переменную
+-- `vim.g.telescope_search_and_replace_directory = "sources"`
+--
+function find_and_replace_in_sources(text)
+    vim.api.nvim_input([[<ESC><C-S-f>]] .. '"' .. text .. '" ' .. (vim.g.telescope_search_and_replace_directory or ""))
+
+    vim.defer_fn(function()
+        vim.api.nvim_input([[<C-q>]])
+        vim.api.nvim_input(string.format([[:cdo s/%s/%s/gcI]], text, text))
+        vim.defer_fn(function()
+            vim.api.nvim_input([[<left><left><left><left>a<BS>]])
+        end, 1)
+    end, 1500)
+end
+
+vim.keymap.set("n", "<C-S-r>", function()
+    local text = vim.fn.expand("<cword>")
+    find_and_replace_in_sources(text)
+end, opts)
+
+vim.keymap.set("v", "<C-S-r>", function()
+    local text = get_selected_text()
+    find_and_replace_in_sources(text)
+end, opts)
+
 --------------------------------------------------------------------------------
 -- Folds.
 --------------------------------------------------------------------------------
@@ -210,6 +237,3 @@ for i, values in ipairs({
         require("textcase").visual(values[3])
     end, opts)
 end
-
-local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
-vim.keymap.set("n", "<leader>gc", live_grep_args_shortcuts.grep_word_under_cursor)
