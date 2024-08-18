@@ -16,8 +16,8 @@ vim.opt.breakat = " "
 
 local overseer = require("overseer")
 
-vim.g.hulvdan_run_command = function(cmd)
-    vim.fn.execute(":wa")
+function hulvdan_run_command(cmd)
+    vim.fn.execute(":silent! wa!")
 
     overseer
         .new_task({
@@ -30,3 +30,5 @@ vim.g.hulvdan_run_command = function(cmd)
         })
         :start()
 end
+
+vim.g.hulvdan_run_command = hulvdan_run_command
