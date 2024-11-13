@@ -204,16 +204,49 @@ vim.opt.foldmethod = "manual"
 --------------------------------------------------------------------------------
 -- Case Changing.
 --------------------------------------------------------------------------------
+-- function M.to_snake_case(str)
+--     local parts = vim.split(M.to_dash_case(str), "-")
+--     return table.concat(parts, "_")
+-- end
+--
+-- function M.to_pascal_case(str)
+--     local parts = vim.split(M.to_dash_case(str), "-")
+--     return table.concat(utils.map(parts, toTitle), "_")
+-- end
+
+local textcase = require("textcase")
+-- local textcase_shared = require("textcase.shared")
+-- local textcase_strings_coerce_methods = require("textcase.strings.coerce.methods")
+
+-- function map(tbl, f)
+--     local t = {}
+--     for k, v in pairs(tbl) do
+--         t[k] = f(v)
+--     end
+--     return t
+-- end
+--
+-- function to_jblow_case(str)
+--     local parts = vim.split(textcase.api.to_dash_case(str), "-")
+--     return table.concat(map(parts, textcase.api.to_pascal_case), "_")
+-- end
+--
+-- textcase.api.to_jblow_case = to_jblow_case
+
+-- textcase_strings_coerce_methods.to_jblow_case = to_jblow_case
+
 -- ref: https://github.com/johmsalas/text-case.nvim/tree/main
 --
 -- Для одного слова:          space +         ( cs | cc | cC | cp )
 -- Для рефакторинга в буфере: space + space + ( cs | cc | cC | cp )
 --
 for i, values in ipairs({
-    { "cs", require("textcase").api.to_snake_case, "to_snake_case" },
-    { "cc", require("textcase").api.to_camel_case, "to_camel_case" },
-    { "cC", require("textcase").api.to_constant_case, "to_constant_case" },
-    { "cp", require("textcase").api.to_pascal_case, "to_pascal_case" },
+    { "cs", textcase.api.to_snake_case, "to_snake_case" },
+    { "cc", textcase.api.to_camel_case, "to_camel_case" },
+    { "cC", textcase.api.to_constant_case, "to_constant_case" },
+    { "cp", textcase.api.to_pascal_case, "to_pascal_case" },
+    -- { "cS", to_jblow_case, "to_jblow_case" },
+    -- { "cS", to_jblow_case, to_jblow_case },
 }) do
     vim.keymap.set("n", "<leader><leader>" .. values[1], function()
         local text = vim.fn.expand("<cword>")
@@ -235,10 +268,10 @@ for i, values in ipairs({
     end, opts)
 
     vim.keymap.set("n", "<leader>" .. values[1], function()
-        require("textcase").current_word(values[3])
+        textcase.current_word(values[3])
     end, opts)
 
     vim.keymap.set("v", "<leader>" .. values[1], function()
-        require("textcase").visual(values[3])
+        textcase.visual(values[3])
     end, opts)
 end
