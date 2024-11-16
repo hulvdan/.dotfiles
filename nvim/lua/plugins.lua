@@ -575,6 +575,36 @@ return {
             vim.api.nvim_create_autocmd("BufWritePre", {
                 pattern = "*",
                 callback = function(args)
+                    -- Don't format if filepath matches any pattern inside of
+                    -- vim.g.hulvdan_conform_exclude_formatting_patterns.
+                    --
+                    -- Usage example:
+                    --
+                    --     vim.g.hulvdan_conform_exclude_formatting_patterns = {
+                    --          [[^node_modules/]], [[^%.venv/]], [[^vendor/]]
+                    --     }
+                    --
+                    local patterns = vim.g.hulvdan_conform_exclude_formatting_patterns
+
+                    if patterns ~= nil then
+                        local bufname = vim.fn.bufname(args.buf)
+                        local abspath_prefix = string.format([[%s\]], vim.fn.getcwd():gsub([[\]], [[/]]))
+                        local bufname_wo_abs_path = bufname:gsub(abspath_prefix, "")
+
+                        -- print("abspath_prefix", abspath_prefix)
+                        -- print("bufname", bufname)
+                        -- print("bufname_wo_abs_path", bufname_wo_abs_path)
+
+                        for _, pattern in ipairs(patterns) do
+                            -- print("pattern", pattern)
+                            -- print("pattern", pattern)
+                            if string.match(bufname_wo_abs_path, pattern) ~= nil then
+                                return
+                            end
+                        end
+                    end
+
+                    -- Format otherwise.
                     require("conform").format({ bufnr = args.buf })
                 end,
             })
