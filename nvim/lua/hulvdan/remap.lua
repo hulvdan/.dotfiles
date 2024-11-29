@@ -184,7 +184,14 @@ function get_current_line_text()
 end
 
 vim.keymap.set("n", "<C-,>", function()
-    local last_character = string.sub(get_current_line_text(), -1)
+    local current_line_text = get_current_line_text()
+
+    if current_line_text:gsub("%s+", ""):startswith("#pragmaregion") then
+        vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDV/#pragma endregion<CR>zf")
+        return
+    end
+
+    local last_character = string.sub(current_line_text, -1)
     if (last_character == "{") or (last_character == "(") then
         vim.api.nvim_input("$")
     end

@@ -16,19 +16,43 @@ vim.opt.breakat = " "
 
 local overseer = require("overseer")
 
+-- NOTE: cmd может быть:
+-- 1) строка
+--      `"command"`
+-- 2) table. Команды выполнятся последовательно
+--      `{"command1", "command2", "command3"}`
 function hulvdan_run_command(cmd)
     vim.fn.execute(":silent! wa!")
 
-    overseer
-        .new_task({
-            cmd = cmd,
+    function wrap_command(c)
+        return {
+            cmd = c,
             components = {
                 { "on_output_quickfix", open = true, close = true },
                 { "on_exit_set_status", success_codes = { 0 } },
                 "default",
             },
-        })
-        :start()
+        }
+    end
+
+    if type(cmd) == "table" then
+        elems = {}
+        for k, v in ipairs(cmd) do
+            table.insert(elems, wrap_command(v))
+        end
+
+        overseer
+            .new_task({
+                name = "orchestrator",
+                strategy = {
+                    "orchestrator",
+                    tasks = elems,
+                },
+            })
+            :start()
+    else
+        overseer.new_task(wrap_command(cmd)):start()
+    end
 end
 
 vim.g.hulvdan_run_command = hulvdan_run_command

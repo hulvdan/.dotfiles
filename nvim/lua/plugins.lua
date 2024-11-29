@@ -581,7 +581,7 @@ return {
                     -- Usage example:
                     --
                     --     vim.g.hulvdan_conform_exclude_formatting_patterns = {
-                    --          [[^node_modules/]], [[^%.venv/]], [[^vendor/]]
+                    --         [[^%.venv/]], [[^%.venv\]], [[^vendor/]], [[^vendor\]]
                     --     }
                     --
                     local patterns = vim.g.hulvdan_conform_exclude_formatting_patterns
@@ -597,13 +597,13 @@ return {
 
                         for _, pattern in ipairs(patterns) do
                             -- print("pattern", pattern)
-                            -- print("pattern", pattern)
                             if string.match(bufname_wo_abs_path, pattern) ~= nil then
                                 return
                             end
                         end
                     end
 
+                    print()
                     -- Format otherwise.
                     require("conform").format({ bufnr = args.buf })
                 end,

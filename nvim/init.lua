@@ -1,3 +1,7 @@
+string.startswith = function(self, str)
+    return self:find("^" .. str) ~= nil
+end
+
 vim.g.hulvdan_is_nvui = vim.fn.exists(":NvuiToggleFullscreen") ~= 0
 vim.g.hulvdan_is_goneovim = vim.fn.exists(":GonvimVersion") ~= 0
 
