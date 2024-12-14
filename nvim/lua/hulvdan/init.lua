@@ -27,6 +27,8 @@ function custom_reload(disable_message)
     if vim.g.goneovim then
         custom_require("hulvdan/goneovim")
     end
+
+    custom_require("hulvdan/callbacks")
 end
 
 vim.keymap.set("n", [[\r]], custom_reload, { silent = true, remap = false })
