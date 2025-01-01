@@ -1,4 +1,5 @@
-local background_color = "#0c1016"
+-- local background_color = "#0c1016"
+local background_color = "#000000"
 local buffer_color = "#689d6a"
 local buffer_selected_color = "#fabd2f"
 local cursor_line_bg_color = "#1c3349"
@@ -568,6 +569,7 @@ return {
                     cpp = { "clang-format" },
                     lua = { "stylua" },
                     python = { "isort", "black" },
+                    markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
                     -- javascript = { { "prettierd", "prettier" } },
                 },
@@ -650,6 +652,14 @@ return {
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
+        end,
+    },
+
+    {
+        "anuvyklack/pretty-fold.nvim",
+        lazy = false,
+        config = function()
+            require("pretty-fold").ft_setup("cpp", {})
         end,
     },
 
