@@ -569,7 +569,7 @@ return {
                     cpp = { "clang-format" },
                     lua = { "stylua" },
                     python = { "isort", "black" },
-                    markdown = { "mdslw", "mdformat" },
+                    -- markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
                     -- javascript = { { "prettierd", "prettier" } },
                 },
