@@ -566,12 +566,21 @@ return {
         config = function()
             require("conform").setup({
                 formatters_by_ft = {
-                    cpp = { "clang-format" },
+                    cpp = function(bufnr)
+                        return { "good_clang_format" }
+                    end,
                     lua = { "stylua" },
                     python = { "isort", "black" },
                     -- markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
                     -- javascript = { { "prettierd", "prettier" } },
+                },
+                formatters = {
+                    good_clang_format = {
+                        command = "clang-format",
+                        args = { "-i", "$FILENAME" },
+                        stdin = false,
+                    },
                 },
             })
             vim.api.nvim_create_autocmd("BufWritePre", {
