@@ -110,48 +110,6 @@ return {
     },
 
     {
-        "Wansmer/treesj",
-        lazy = false,
-        config = function()
-            require("treesj").setup({})
-        end,
-    },
-
-    {
-        "folke/zen-mode.nvim",
-        lazy = false,
-        opts = {
-            window = {
-                backdrop = 0.5, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-                -- height and width can be:
-                -- * an absolute number of cells when > 1
-                -- * a percentage of the width / height of the editor when <= 1
-                -- * a function that returns the width or the height
-                width = 90, -- width of the Zen window
-                -- height = 1, -- height of the Zen window
-                -- by default, no options are changed for the Zen window
-                -- uncomment any of the options below, or add other vim.wo options you want to apply
-                options = {
-                    -- signcolumn = "no", -- disable signcolumn
-                    -- number = false, -- disable number column
-                    -- relativenumber = false, -- disable relative numbers
-                    -- cursorline = false, -- disable cursorline
-                    -- cursorcolumn = false, -- disable cursor column
-                    -- foldcolumn = "0", -- disable fold column
-                    -- list = false, -- disable whitespace characters
-                },
-            },
-        },
-        init = function()
-            local toggle_zen = function()
-                vim.fn.execute("ZenMode")
-            end
-            vim.keymap.set("n", "<A-S-z>", toggle_zen, { silent = true, remap = false })
-            vim.keymap.set("n", "Z", toggle_zen, { silent = true, remap = false })
-        end,
-    },
-
-    {
         "ojroques/nvim-bufdel",
         lazy = false,
         config = function()
@@ -167,9 +125,7 @@ return {
         branch = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            -- "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
         config = function()
             tree = require("neo-tree")
@@ -222,7 +178,7 @@ return {
                     follow_current_file = {
                         -- This will find and focus the file in the active buffer every time
                         -- the current file is changed while the tree is open.
-                        enabled = false,
+                        enabled = true,
                         -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
                         leave_dirs_open = false,
                     },
@@ -278,19 +234,12 @@ return {
                 if vim.o.filetype == "neo-tree" then
                     vim.fn.execute("Neotree close")
                 else
-                    vim.api.nvim_input(
-                        ":<silent>Neotree reveal reveal_force_cwd<CR><C-w>p:<silent>Neotree reveal reveal_force_cwd<CR>"
-                    )
+                    vim.api.nvim_input(":<silent>Neotree<CR>")
                 end
             end
             vim.keymap.set({ "n", "v" }, "<leader>e", toggle_neo_tree)
             vim.keymap.set({ "n", "v" }, "<A-1>", toggle_neo_tree)
         end,
-    },
-
-    {
-        "jansedivy/jai.vim",
-        lazy = false,
     },
 
     {
@@ -355,28 +304,6 @@ return {
                     "to_upper_phrase_case",
                     "to_lower_phrase_case",
                 },
-            })
-        end,
-    },
-
-    {
-        "levouh/tint.nvim",
-        lazy = false,
-        config = function()
-            require("tint").setup({
-                tint = -45, -- Darken colors, use a positive value to brighten
-                saturation = 0.6, -- Saturation to preserve
-                transforms = require("tint").transforms.SATURATE_TINT, -- Showing default behavior, but value here can be predefined set of transforms
-                tint_background_colors = true, -- Tint background portions of highlight groups
-                highlight_ignore_patterns = { "WinSeparator", "Status.*" }, -- Highlight group patterns to ignore, see `string.find`
-                window_ignore_function = function(winid)
-                    local bufid = vim.api.nvim_win_get_buf(winid)
-                    local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
-                    local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
-
-                    -- Do not tint `terminal` or floating windows, tint everything else
-                    return buftype == "terminal" or floating
-                end,
             })
         end,
     },
@@ -455,25 +382,6 @@ return {
             })
             vim.fn.execute("hi TreesitterContext guibg=#3c3836")
         end,
-    },
-
-    {
-        "gbprod/yanky.nvim",
-        lazy = false,
-        config = function()
-            require("yanky").setup({
-                highlight = {
-                    on_put = true,
-                    on_yank = true,
-                    timer = 200,
-                },
-            })
-        end,
-    },
-
-    {
-        "mg979/vim-visual-multi",
-        lazy = false,
     },
 
     {
@@ -661,22 +569,6 @@ return {
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
-        end,
-    },
-
-    {
-        "anuvyklack/pretty-fold.nvim",
-        lazy = false,
-        config = function()
-            require("pretty-fold").ft_setup("cpp", {})
-        end,
-    },
-
-    {
-        "norcalli/nvim-colorizer.lua",
-        lazy = false,
-        config = function()
-            require("colorizer").setup()
         end,
     },
 
