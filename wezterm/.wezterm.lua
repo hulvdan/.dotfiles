@@ -32,7 +32,7 @@ config.enable_kitty_keyboard = false
 config.disable_default_key_bindings = true
 config.window_decorations = "RESIZE"
 
-config.font_size = 13
+config.font_size = 12
 
 config.keys = {
   { key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
