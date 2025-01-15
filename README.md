@@ -39,6 +39,12 @@ ni C:\Users\user\.wezterm.lua -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\w
 ni C:\Users\user\AppData\Local\nvim -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\nvim"
 ```
 
+## Windows Setup
+
+Отключение автообновления Visual Studio от пидарасов из майкрософта
+
+Tools -> Options -> Environment -> Product Updates нахуй убрать всё
+
 ## FAQ
 
 Конвертнуть PuTTY ppk в openssh
