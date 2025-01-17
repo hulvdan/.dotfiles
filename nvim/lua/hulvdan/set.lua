@@ -30,6 +30,7 @@ function hulvdan_run_command(cmd)
             components = {
                 { "on_output_quickfix", open = true, close = true },
                 { "on_exit_set_status", success_codes = { 0 } },
+                { "hulvdan/bump_quickfix_errors_on_top" },
                 "default",
             },
         }
