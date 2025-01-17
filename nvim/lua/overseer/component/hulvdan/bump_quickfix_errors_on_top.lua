@@ -102,6 +102,16 @@ return {
                     table.insert(currentValues, qfentry)
                 end
 
+                if currentType == "e" then
+                    for i, v in ipairs(currentValues) do
+                        table.insert(errors, v)
+                    end
+                else
+                    for i, v in ipairs(currentValues) do
+                        table.insert(nonErrors, v)
+                    end
+                end
+
                 newqflist = {}
                 for i, v in ipairs(errors) do
                     table.insert(newqflist, v)
