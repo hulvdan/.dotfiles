@@ -75,7 +75,7 @@ end
 
 vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 
-vim.keymap.set("n", "<C-h>", require("tree-climber").swap_prev, opts)
+vim.keymap.set("n", "<C-S-l>", require("tree-climber").swap_prev, opts)
 vim.keymap.set("n", "<C-l>", require("tree-climber").swap_next, opts)
 
 vim.keymap.set("n", "<A-[>", function()
