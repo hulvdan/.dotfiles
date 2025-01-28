@@ -437,7 +437,12 @@ return {
             vim.g.coq_settings = {
                 auto_start = "shut-up",
                 limits = {
-                    tokenization_limit = 40000,
+                    tokenization_limit = 500000,
+                },
+                clients = {
+                    tree_sitter = {
+                        enabled = false,
+                    },
                 },
             }
         end,

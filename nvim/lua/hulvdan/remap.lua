@@ -34,6 +34,11 @@ vim.keymap.set("n", "<C-S-g>d", function()
     vim.fn.system("github")
 end, opts)
 
+-- Open VS Code
+vim.keymap.set("n", "<C-S-g>c", function()
+    vim.fn.system("code .")
+end, opts)
+
 -- Skipping blocks of code but making it more convenient for my keyboard setup.
 -- Also, in normal mode these jumps don't pollute the jumps list
 vim.keymap.set("n", "<C-J>", ":keepjumps norm! }<CR>", opts)
