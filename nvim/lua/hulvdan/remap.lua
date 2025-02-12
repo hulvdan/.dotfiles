@@ -31,7 +31,7 @@ end, opts)
 
 -- Open github desktop
 vim.keymap.set("n", "<C-S-g>d", function()
-    vim.fn.system("github")
+    vim.fn.system("start github")
 end, opts)
 
 -- Open VS Code

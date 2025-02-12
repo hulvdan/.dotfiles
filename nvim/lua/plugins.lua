@@ -491,6 +491,9 @@ return {
                         stdin = false,
                     },
                 },
+                format_on_save = {
+                    timeout_ms = 5000,
+                },
             })
             vim.api.nvim_create_autocmd("BufWritePre", {
                 pattern = "*",
@@ -525,7 +528,10 @@ return {
 
                     print()
                     -- Format otherwise.
-                    require("conform").format({ bufnr = args.buf })
+                    require("conform").format({
+                        bufnr = args.buf,
+                        timeout_ms = 5000,
+                    })
                 end,
             })
         end,
