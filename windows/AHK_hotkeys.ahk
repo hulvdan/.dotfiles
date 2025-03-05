@@ -111,9 +111,10 @@ SendMode Input
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ; f9::fnReload()
 
-; `Windows + Right Ctrl` для кнопки вызова окна контекста,
+; `Right Ctrl + Right Shift` для кнопки вызова окна контекста,
 ; т.к. у меня на клавиатуре её нет. Использую редко.
-*#RControl::Send {AppsKey}
+RShift & RControl::Send {AppsKey}
+RControl & RShift::Send {AppsKey}
 
 ; `Ctrl + Alt + Shift + F12` убирает / возвращает title bar окон.
 ; Я ценю вертикальное пространство и не готов его отдавать под пустоту,
