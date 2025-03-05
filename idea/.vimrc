@@ -25,12 +25,18 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set smartindent
 
 " Wrapped lines get indented
 set linebreak
 set breakindent
 set breakindentopt=shift:2
+
+" Disabling stoopid indentation
+filetype indent off
+set nocindent
+set nosmartindent
+set indentexpr=
+set autoindent
 
 " Swap files
 set noswapfile
