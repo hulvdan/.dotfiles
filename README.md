@@ -41,9 +41,13 @@ ni C:\Users\user\AppData\Local\nvim -i SymbolicLink -ta "C:\Users\user\dev\.dotf
 
 ## Windows Setup
 
-Отключение автообновления Visual Studio от пидарасов из майкрософта
+1. Отключение автообновления Visual Studio
 
 Tools -> Options -> Environment -> Product Updates нахуй убрать всё
+
+2. Отключение обновления Windows 11
+
+https://www.solveyourtech.com/how-to-disable-automatic-updates-windows-11-a-step-by-step-guide/
 
 ## FAQ
 
