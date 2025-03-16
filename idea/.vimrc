@@ -3,7 +3,7 @@ syntax on
 filetype plugin on
 set nocompatible
 
-set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+set list listchars=tab:\ \ ,trail:~,extends:>,precedes:<
 
 let mapleader = " "
 let mapleaderlocal = " "
