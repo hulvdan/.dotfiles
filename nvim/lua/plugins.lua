@@ -478,6 +478,9 @@ return {
                     cpp = function(bufnr)
                         return { "good_clang_format" }
                     end,
+                    odin = function(bufnr)
+                        return { "odinfmt" }
+                    end,
                     lua = { "stylua" },
                     python = { "isort", "black" },
                     -- markdown = { "mdslw", "mdformat" },
@@ -489,6 +492,11 @@ return {
                         command = "clang-format",
                         args = { "-i", "$FILENAME" },
                         stdin = false,
+                    },
+                    odinfmt = {
+                        command = [[c:\Users\user\dev\ref\ols\odinfmt.exe]],
+                        args = { "-stdin" },
+                        stdin = true,
                     },
                 },
                 format_on_save = {
