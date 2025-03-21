@@ -248,11 +248,10 @@ return {
     },
 
     {
-        "xiyaowong/nvim-cursorword",
+        "echasnovski/mini.cursorword",
         lazy = false,
-        init = function()
-            vim.g.cursorword_min_width = 1
-            vim.g.cursorword_max_width = 50
+        config = function()
+            require("mini.cursorword").setup({ delay = 1 })
         end,
     },
 

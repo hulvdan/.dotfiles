@@ -57,3 +57,7 @@ function hulvdan_run_command(cmd)
 end
 
 vim.g.hulvdan_run_command = hulvdan_run_command
+
+local cursor_word_bg_color = "#10409d"
+vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { bg = cursor_word_bg_color })
+vim.api.nvim_set_hl(0, "MiniCursorword", { bg = cursor_word_bg_color })
