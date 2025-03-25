@@ -192,6 +192,12 @@ XButton2::SendEvent, {F9}
 {::Send, {TEXT}_
 [::Send, {TEXT}_
 
+;-----------------------------------------------------------------------------------------
+; Audacity - F5 для экспортирования WAV.
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe audacity.exe
+f5::SendEvent, {alt down}f{alt up}ew
+
 fnIsEnglishLayoutActive() {
     return DllCall("GetKeyboardLayout", "UInt"
         , DllCall("GetWindowThreadProcessId", "UInt", WinExist("A"), "UInt", 0)) == 67699721
