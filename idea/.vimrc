@@ -38,9 +38,8 @@ set nosmartindent
 set indentexpr=
 set autoindent
 
-" Swap files
-set noswapfile
-set nobackup
+set backupdir=~/.vim/tmp
+set directory=~/.vim/tmp
 
 " Undo files
 set undodir=~/.vim/undodir
