@@ -1,7 +1,6 @@
 -- MY SHORTCUTS --
 -- ============ --
 vim.fn.execute("set splitright")
--- vim.g.mapleader = " "
 local opts = { remap = false, silent = true }
 
 -- Moving lines updown with Shift-K / Shift-J in the visual mode
@@ -185,11 +184,6 @@ end
 vim.keymap.set("n", "<C-,>", function()
     local current_line_text = get_current_line_text()
 
-    if current_line_text:gsub("%s+", ""):startswith("#pragmaregion") then
-        vim.api.nvim_input("zDzDzDzDzDzDzDzDzDzDV/#pragma endregion<CR>zf")
-        return
-    end
-
     local last_character = string.sub(current_line_text, -1)
     if (last_character == "{") or (last_character == "(") then
         vim.api.nvim_input("$")
@@ -281,3 +275,12 @@ for i, values in ipairs({
         textcase.visual(values[3])
     end, opts)
 end
+
+-- Ctrl-PageUp, Ctrl-PageDown прокручивают историю quickfix-а
+vim.keymap.set("n", "<C-PageUp>", function()
+    vim.fn.execute("cnewer")
+end, opts)
+
+vim.keymap.set("n", "<C-PageDown>", function()
+    vim.fn.execute("colder")
+end, opts)
