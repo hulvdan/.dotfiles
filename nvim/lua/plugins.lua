@@ -1,64 +1,12 @@
--- local background_color = "#0c1016"
-local background_color = "#000000"
-local buffer_color = "#689d6a"
-local buffer_selected_color = "#fabd2f"
-local cursor_line_bg_color = "#1c3349"
-local comments_fg_color = "#a38a46"
-local cursor_word_bg_color = "#10409d"
-
-function update_bufferline()
-    local inactive_status_line = vim.api.nvim_get_hl_by_name("StatusLineNC", true)
-    local status_line = vim.api.nvim_get_hl_by_name("StatusLine", true)
-    local keyword = vim.api.nvim_get_hl_by_name("Keyword", true)
-    local type = vim.api.nvim_get_hl_by_name("Type", true)
-
-    function get_fg(aboba)
-        if aboba.reverse then
-            return aboba.background
-        end
-        return aboba.foreground
-    end
-
-    fg = nil
-    -- active_fg = "white"
-    -- active_fg = get_fg(keyword)
-    active_fg = get_fg(type)
-    bg = nil
-    if inactive_status_line.reverse then
-        fg = inactive_status_line.background
-        -- active_fg = status_line.background
-        bg = inactive_status_line.foreground
-    else
-        fg = inactive_status_line.foreground
-        -- active_fg = status_line.foreground
-        bg = inactive_status_line.background
-    end
-
-    vim.api.nvim_set_hl(0, "BufferlineBufferSelected", { fg = active_fg, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferlineBufferVisible", { fg = fg, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferlineBuffer", { fg = fg, bg = bg })
-    vim.fn.execute("hi! link BufferlineBackground StatusLineNC")
-    vim.fn.execute("hi! link BufferlineBuffer StatusLineNC")
-    vim.fn.execute("hi! link BufferlineBufferVisible StatusLineNC")
-    vim.fn.execute("hi! link BufferlineIndicatorSelected StatusLineNC")
-    vim.fn.execute("hi! link BufferlineIndicatorVisible StatusLineNC")
-    vim.fn.execute("hi! link BufferlineFill StatusLineNC")
-    vim.fn.execute("hi! link BufferlineModified StatusLineNC")
-    vim.fn.execute("hi! link BufferlineModifiedSelected StatusLineNC")
-    vim.fn.execute("hi! link BufferlineModifiedVisible StatusLineNC")
-end
-
 return {
-    "nvim-treesitter/nvim-treesitter",
-
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         lazy = false,
         dependencies = {
             { "nvim-lua/plenary.nvim" },
-            { "BurntSushi/ripgrep" }, -- Optional
-            { "nvim-telescope/telescope-live-grep-args.nvim" }, -- Optional
+            { "BurntSushi/ripgrep" },
+            { "nvim-telescope/telescope-live-grep-args.nvim" },
         },
 
         config = function()
@@ -113,10 +61,7 @@ return {
         "ojroques/nvim-bufdel",
         lazy = false,
         config = function()
-            require("bufdel").setup({
-                -- next = 'tabs',
-                quit = false,
-            })
+            require("bufdel").setup({ quit = false })
         end,
     },
 
@@ -243,11 +188,6 @@ return {
     },
 
     {
-        "drybalka/tree-climber.nvim",
-        lazy = false,
-    },
-
-    {
         "echasnovski/mini.cursorword",
         lazy = false,
         config = function()
@@ -358,28 +298,6 @@ return {
     },
 
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        lazy = false,
-        config = function()
-            require("treesitter-context").setup({
-                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-                -- min_window_height = 1, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-                -- line_numbers = true,
-                multiline_threshold = 1, -- Maximum number of lines to show for a single context
-                -- trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
-                mode = "cursor", -- Line used to calculate context. Choices: "cursor", "topline"
-                -- -- Separator between context and content. Should be a single character string, like "-".
-                -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-                -- separator = "-",
-                -- zindex = 20, -- The Z-index of the context window
-                -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-            })
-            vim.fn.execute("hi TreesitterContext guibg=#3c3836")
-        end,
-    },
-
-    {
         "chentoast/marks.nvim",
         lazy = false,
         config = function()
@@ -424,7 +342,6 @@ return {
                     toggle_bookmark0 = "<A-k>",
                 },
             })
-            vim.fn.execute("hi MarkVirtTextHL guibg=" .. background_color .. " guifg=#8ec07c")
         end,
     },
 
@@ -456,7 +373,6 @@ return {
             { "williamboman/mason-lspconfig.nvim" },
             { "williamboman/mason.nvim" },
             { "ms-jpq/coq_nvim", branch = "coq" },
-            { "ms-jpq/coq.artifacts", after = "coq_nvim", branch = "artifacts" },
         },
         config = function()
             require("mason").setup()
@@ -578,11 +494,8 @@ return {
     {
         "kylechui/nvim-surround",
         lazy = false,
-        tag = "v2.1.4", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
+            require("nvim-surround").setup({})
         end,
     },
 
@@ -591,52 +504,15 @@ return {
         lazy = false,
         priority = 1,
         config = function()
-            require("langmapper").setup({--[[ your config ]]
-            })
+            require("langmapper").setup({})
             require("langmapper").automapping({ global = true, buffer = true })
         end,
     },
 
     {
-        "ellisonleao/gruvbox.nvim",
+        "stefanvanburen/rams.vim",
         version = "2.0.0",
         lazy = false,
-        priority = 1000,
-        config = function()
-            require("gruvbox").setup({
-                terminal_colors = true, -- add neovim terminal colors
-                -- undercurl = true,
-                -- underline = true,
-                bold = false,
-                italic = {
-                    strings = false,
-                    emphasis = false,
-                    comments = false,
-                    operators = false,
-                    folds = false,
-                },
-                -- strikethrough = true,
-                -- invert_selection = false,
-                -- invert_signs = false,
-                -- invert_tabline = false,
-                -- invert_intend_guides = false,
-                -- inverse = true, -- invert background for search, diffs, statuslines and errors
-                -- contrast = "", -- can be "hard", "soft" or empty string
-                -- palette_overrides = {},
-                overrides = {
-                    Normal = { bg = background_color },
-                    CursorLine = { bg = cursor_line_bg_color },
-                    NonText = { fg = background_color },
-                    EndOfBuffer = { fg = background_color },
-                    Comment = { fg = comments_fg_color },
-                    CursorWord = { bg = cursor_word_bg_color },
-                },
-                -- dim_inactive = true,
-                -- transparent_mode = false,
-            })
-            vim.cmd.colorscheme("gruvbox")
-            update_bufferline()
-        end,
     },
 
     {
@@ -644,7 +520,6 @@ return {
         version = "*",
         lazy = false,
         priority = 2,
-        -- dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
             vim.opt.termguicolors = true
             bufferline = require("bufferline")
@@ -669,298 +544,18 @@ return {
                         return vim.bo[buf].filetype ~= "qf"
                     end,
                 },
-                highlights = {
-                    fill = {
-                        -- fg = "white",
-                        bg = background_color,
-                    },
-                    background = {
-                        fg = buffer_color,
-                        bg = background_color,
-                    },
-                    tab = {
-                        -- fg = "white",
-                        bg = background_color,
-                    },
-                    tab_selected = {
-                        -- fg = "#fabd2f",
-                        bg = background_color,
-                    },
-                    tab_separator = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    tab_separator_selected = {
-                        fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- underline = '<colour-value-here>',
-                    },
-                    tab_close = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    close_button = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    close_button_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    close_button_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    buffer_visible = {
-                        fg = buffer_color,
-                        bg = background_color,
-                    },
-                    buffer_selected = {
-                        fg = buffer_selected_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    numbers = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    numbers_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    numbers_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    diagnostic = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    diagnostic_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    diagnostic_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    hint = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    hint_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    hint_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    hint_diagnostic = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    hint_diagnostic_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    hint_diagnostic_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    info = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    info_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    info_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    info_diagnostic = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    info_diagnostic_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    info_diagnostic_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    warning = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    warning_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    warning_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    warning_diagnostic = {
-                        -- fg = background_color,
-                        -- sp = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                    warning_diagnostic_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    warning_diagnostic_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    error = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                    },
-                    error_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    error_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    error_diagnostic = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                    },
-                    error_diagnostic_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    error_diagnostic_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- sp = '<colour-value-here>',
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    modified = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    modified_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    modified_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                    },
-                    duplicate_selected = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- italic = true,
-                    },
-                    duplicate_visible = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- italic = true,
-                    },
-                    duplicate = {
-                        -- fg = background_color,
-                        bg = background_color,
-                        -- italic = true,
-                    },
-                    separator_selected = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    separator_visible = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    separator = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    indicator_visible = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    indicator_selected = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    pick_selected = {
-                        fg = background_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    pick_visible = {
-                        fg = background_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    pick = {
-                        fg = background_color,
-                        bg = background_color,
-                        -- bold = true,
-                        -- italic = true,
-                    },
-                    offset_separator = {
-                        fg = background_color,
-                        bg = background_color,
-                    },
-                    trunc_marker = {
-                        -- fg = '<colour-value-here>',
-                        bg = background_color,
-                    },
-                },
             })
             local opts = { remap = false, silent = true }
-
-            update_bufferline()
 
             vim.keymap.set("n", "<A-v>", ":BufferLineCyclePrev<CR>", opts)
             vim.keymap.set("n", "<A-m>", ":BufferLineCycleNext<CR>", opts)
             vim.keymap.set("n", "<A-S-v>", ":BufferLineMovePrev<CR>", opts)
             vim.keymap.set("n", "<A-S-m>", ":BufferLineMoveNext<CR>", opts)
         end,
+    },
+
+    {
+        "PeterRincker/vim-argumentative",
+        lazy = false,
     },
 }
