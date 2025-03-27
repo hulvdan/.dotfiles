@@ -372,7 +372,6 @@ return {
             { "neovim/nvim-lspconfig" },
             { "williamboman/mason-lspconfig.nvim" },
             { "williamboman/mason.nvim" },
-            { "ms-jpq/coq_nvim", branch = "coq" },
         },
         config = function()
             require("mason").setup()
