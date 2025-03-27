@@ -1,4 +1,5 @@
 -- NOTE: This file gets executed after all the lua files (in the directory of this file) get executed
+-- TODO: aboba
 
 vim.fn.execute("colorscheme rams")
 vim.fn.execute("hi! link NeoTreeGitAdded Default")
@@ -12,8 +13,14 @@ vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
 vim.api.nvim_set_hl(0, "MiniCursorword", { bg = "#4b4b4b" })
 vim.fn.execute("hi! clear CursorLine")
 vim.fn.execute("hi! WellleContext guifg=#ebebeb guibg=#4b4b4b")
+vim.fn.execute("hi Folded guibg=#4b4b4b")
 
 vim.fn.execute("hi! Comment guifg=#b8bb26")
+vim.fn.execute("hi clear Todo")
+vim.fn.execute("hi! link Todo comment")
+vim.fn.execute("hi! link comment.error comment")
+vim.fn.execute("hi! link comment.warning comment")
+vim.fn.execute("hi! link comment.note comment")
 
 -- print("INFO(zzz.lua): Sourcing '*.lua' files from .nvim-personal directory...")
 for i, fpath in pairs(vim.fn.split(vim.fn.globpath(".nvim-personal", "*.lua"), "\n")) do
