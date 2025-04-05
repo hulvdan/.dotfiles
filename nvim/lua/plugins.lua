@@ -1,5 +1,30 @@
 return {
     {
+        "Chaitanyabsprip/fastaction.nvim",
+        lazy = false,
+        config = function()
+            require("fastaction").setup({
+                dismiss_keys = { "j", "k", "<c-c>", "q" },
+                override_function = function(_) end,
+                keys = "qwertyuiopasdfghlzxcvbnm",
+                popup = {
+                    border = "rounded",
+                    hide_cursor = true,
+                    highlight = {
+                        divider = "FloatBorder",
+                        key = "MoreMsg",
+                        title = "Title",
+                        window = "NormalFloat",
+                    },
+                    title = "Select one of:",
+                },
+                register_ui_select = false,
+                format_right_section = nil,
+            })
+        end,
+    },
+
+    {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         lazy = false,

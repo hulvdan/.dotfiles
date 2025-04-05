@@ -43,10 +43,7 @@ function hulvdan_run_command(cmd)
         overseer
             .new_task({
                 name = "orchestrator",
-                strategy = {
-                    "orchestrator",
-                    tasks = elems,
-                },
+                strategy = { "orchestrator", tasks = elems },
             })
             :start()
     else
@@ -54,4 +51,36 @@ function hulvdan_run_command(cmd)
     end
 end
 
+function hulvdan_task(name, cmd)
+    vim.fn.execute(":silent! wa!")
+
+    function wrap_command(name_, c)
+        return {
+            name = name_,
+            cmd = c,
+            components = {
+                { "on_output_quickfix", open = true, close = true },
+                { "on_exit_set_status", success_codes = { 0 } },
+                { "hulvdan/bump_quickfix_errors_on_top" },
+                "default",
+            },
+        }
+    end
+
+    if type(cmd) == "table" then
+        elems = {}
+        for k, v in ipairs(cmd) do
+            table.insert(elems, wrap_command(nil, v))
+        end
+
+        return overseer.new_task({
+            name = name,
+            strategy = { "orchestrator", tasks = elems },
+        })
+    else
+        return overseer.new_task(wrap_command(name, cmd))
+    end
+end
+
 vim.g.hulvdan_run_command = hulvdan_run_command
+vim.g.hulvdan_task = hulvdan_task

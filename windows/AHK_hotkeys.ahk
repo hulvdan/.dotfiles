@@ -199,6 +199,8 @@ XButton2::SendEvent, {F9}
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
 f5::SendEvent, {alt down}f{alt up}ew
+=::SendEvent, {alt down}c{alt up}ff{enter}
+-::SendEvent, {alt down}c{alt up}fff{enter}
 
 fnIsEnglishLayoutActive() {
     return DllCall("GetKeyboardLayout", "UInt"
