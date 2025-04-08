@@ -43,7 +43,7 @@ ni C:\Users\user\AppData\Local\nvim -i SymbolicLink -ta "C:\Users\user\dev\.dotf
 
 1. Отключение автообновления Visual Studio
 
-Tools -> Options -> Environment -> Product Updates нахуй убрать всё
+Tools -> Options -> Environment -> Product Updates убрать всё
 
 2. Отключение обновления Windows 11
 
