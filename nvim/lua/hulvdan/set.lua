@@ -1,11 +1,3 @@
-vim.opt.undodir = vim.fn.expand("$HOME") .. "/.vim/undodir/"
-vim.opt.undofile = true
-
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-
-vim.opt.scrolloff = 8
-
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
@@ -51,7 +43,7 @@ function hulvdan_run_command(cmd)
     end
 end
 
-function hulvdan_task(name, cmd)
+function make_task(name, cmd)
     vim.fn.execute(":silent! wa!")
 
     function wrap_command(name_, c)
@@ -82,5 +74,54 @@ function hulvdan_task(name, cmd)
     end
 end
 
+function hulvdan_tasks(tasks)
+    keys = {}
+    for i, value in ipairs(tasks) do
+        table.insert(keys, i, value[1])
+    end
+
+    vim.keymap.set("n", "<leader>a", function()
+        require("fastaction").select(keys, {}, function(item)
+            for i, value in ipairs(tasks) do
+                if value[1] == item then
+                    make_task(item, value[2]):start()
+                end
+            end
+        end)
+    end, opts)
+end
+
 vim.g.hulvdan_run_command = hulvdan_run_command
-vim.g.hulvdan_task = hulvdan_task
+vim.g.hulvdan_tasks = hulvdan_tasks
+
+vim.fn.execute("colorscheme rams")
+vim.fn.execute("hi! link NeoTreeGitAdded Default")
+vim.fn.execute("hi! link NeoTreeGitConflict Default")
+vim.fn.execute("hi! link NeoTreeGitDeleted Default")
+vim.fn.execute("hi! link NeoTreeGitIgnored Default")
+vim.fn.execute("hi! link NeoTreeGitModified Default")
+vim.fn.execute("hi! link NeoTreeGitUntracked Default")
+vim.fn.execute("hi! EndOfBuffer guifg=bg")
+vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
+vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b4b" })
+vim.fn.execute("hi! clear CursorLine")
+vim.fn.execute("hi Folded guibg=#4b4b4b")
+vim.fn.execute("hi CursorLine guifg=clear guibg=#4b4b4b")
+vim.fn.execute("hi! markdownerror guibg=clear")
+
+vim.fn.execute("hi! Comment guifg=#b8bb26")
+vim.fn.execute("hi clear Todo")
+vim.fn.execute("hi! link Todo comment")
+vim.fn.execute("hi! link comment.error comment")
+vim.fn.execute("hi! link comment.warning comment")
+vim.fn.execute("hi! link comment.note comment")
+vim.fn.execute("hi! link quickfixline Folded")
+vim.fn.execute("hi! bufferlinefill guibg=clear")
+vim.fn.execute("hi! bufferlineseparator guibg=clear")
+vim.fn.execute("hi! bufferlinebackground guibg=clear")
+
+-- print("INFO(zzz.lua): Sourcing '*.lua' files from .nvim-personal directory...")
+for i, fpath in pairs(vim.fn.split(vim.fn.globpath(".nvim-personal", "*.lua"), "\n")) do
+    -- print("INFO(zzz.lua): Sourcing " .. fpath .. "...")
+    vim.fn.execute("luafile " .. fpath)
+end

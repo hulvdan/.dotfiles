@@ -7,8 +7,6 @@ string.startswith = function(self, str)
     return self:find("^" .. str) ~= nil
 end
 
-vim.g.hulvdan_is_nvui = vim.fn.exists(":NvuiToggleFullscreen") ~= 0
-
 vim.fn.execute(
     "set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 )

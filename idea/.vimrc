@@ -46,6 +46,7 @@ set undodir=~/.vim/undodir
 set undofile
 
 set incsearch
+set hlsearch!
 set ignorecase smartcase
 
 " Number of lines to keep above/below the cursor

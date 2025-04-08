@@ -82,10 +82,6 @@ vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 vim.keymap.set("n", "<C-S-l>", "<Plug>Argumentative_MoveLeft", opts)
 vim.keymap.set("n", "<C-l>", "<Plug>Argumentative_MoveRight", opts)
 
--- vim.keymap.set("n", "<A-[>", function()
---     require("tree-climber").goto_parent()
--- end, opts)
-
 -- NOTE: Возвращает выделенный текст на самой верхней строке
 function get_selected_text()
     local _, ls, cs = unpack(vim.fn.getpos("v"))
