@@ -15,7 +15,7 @@ vim.keymap.set("i", "<f20><space>", " ", opts)
 vim.keymap.set("i", "<f24><space>", " ", opts)
 vim.keymap.set("n", "<C-l>", "<nop>", opts)
 vim.keymap.set({ "n", "v" }, "<A-z>", function()
-    vim.fn.execute("set wrap!")
+    vim.fn.execute("setlocal wrap!")
 end, opts)
 
 -- Binding Ctrl+\ Ctrl+N to ESC makes us able to leave the terminal mode
@@ -280,3 +280,14 @@ end, opts)
 vim.keymap.set("n", "<C-PageDown>", function()
     vim.fn.execute("colder")
 end, opts)
+
+-- Ctrl + N -> Вставить nocheckin.
+vim.keymap.set("n", "<C-n>", function()
+    vim.api.nvim_input("gconocheckin<ESC>")
+end, opts)
+
+-- (C++)
+-- Space + . -> Заменить `.`  на `->`
+-- Space + > -> Заменить `->` на `.`
+vim.keymap.set("n", "<leader>>", [[/\.<CR>xi-><ESC>]], opts)
+vim.keymap.set("n", "<leader>.", [[/-><CR>xr.]], opts)
