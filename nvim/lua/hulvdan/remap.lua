@@ -4,8 +4,8 @@ vim.fn.execute("set splitright")
 local opts = { remap = false, silent = true }
 
 -- Moving lines updown with Shift-K / Shift-J in the visual mode
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
+vim.keymap.set("v", "K", ":m '<-2<CR>gv", opts)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv", opts)
 
 -- The best remap ever
 vim.keymap.set("n", "Q", "<nop>", opts)
