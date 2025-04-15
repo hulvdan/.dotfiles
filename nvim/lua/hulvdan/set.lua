@@ -125,3 +125,16 @@ for i, fpath in pairs(vim.fn.split(vim.fn.globpath(".nvim-personal", "*.lua"), "
     -- print("INFO(zzz.lua): Sourcing " .. fpath .. "...")
     vim.fn.execute("luafile " .. fpath)
 end
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*",
+    once = false,
+    callback = function()
+        local extension = vim.fn.expand("%"):match("^.+(%..+)$") -- example: `.log`
+
+        if extension == ".md" then
+            vim.fn.execute("setlocal shiftwidth=2 tabstop=2")
+            return
+        end
+    end,
+})
