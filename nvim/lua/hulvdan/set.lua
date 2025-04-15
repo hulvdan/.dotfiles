@@ -120,6 +120,8 @@ vim.fn.execute("hi! bufferlinefill guibg=clear")
 vim.fn.execute("hi! bufferlineseparator guibg=clear")
 vim.fn.execute("hi! bufferlinebackground guibg=clear")
 
+vim.fn.execute([[set fillchars+=fold:\ ]])
+
 -- print("INFO(zzz.lua): Sourcing '*.lua' files from .nvim-personal directory...")
 for i, fpath in pairs(vim.fn.split(vim.fn.globpath(".nvim-personal", "*.lua"), "\n")) do
     -- print("INFO(zzz.lua): Sourcing " .. fpath .. "...")
