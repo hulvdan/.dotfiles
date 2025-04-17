@@ -140,3 +140,15 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         end
     end,
 })
+
+vim.g.hulvdan_fold_text = function()
+    local title = table.concat(vim.fn.getbufline(vim.api.nvim_get_current_buf(), vim.v.foldstart))
+    local prefix = string.format("%3d|", vim.v.foldend - vim.v.foldstart + 1)
+    local first_non_space, _ = title:find("%S")
+    if first_non_space == nil then
+        return prefix .. title
+    end
+    return prefix .. title:sub(math.min(prefix:len() + 1, first_non_space))
+end
+
+vim.o.foldtext = "v:lua.vim.g.hulvdan_fold_text()"
