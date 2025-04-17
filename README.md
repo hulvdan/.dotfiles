@@ -49,6 +49,15 @@ Tools -> Options -> Environment -> Product Updates убрать всё
 
 https://www.solveyourtech.com/how-to-disable-automatic-updates-windows-11-a-step-by-step-guide/
 
+3. Отключение game bar
+
+Powershell от админа
+
+```
+Get-AppxPackage -AllUsers *Microsoft.XboxGameOverlay* | Remove-AppxPackage
+Get-AppxPackage -AllUsers *Microsoft.XboxGamingOverlay* | Remove-AppxPackage
+```
+
 ## FAQ
 
 Конвертнуть PuTTY ppk в openssh
