@@ -106,7 +106,7 @@ vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
 vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b4b" })
 vim.fn.execute("hi! clear CursorLine")
 vim.fn.execute("hi Folded guibg=#4b4b4b")
-vim.fn.execute("hi CursorLine guifg=clear guibg=#4b4b4b")
+vim.fn.execute("hi CursorLine guifg=clear guibg=#49490c")
 vim.fn.execute("hi! markdownerror guibg=clear")
 
 vim.fn.execute("hi! Comment guifg=#b8bb26")
