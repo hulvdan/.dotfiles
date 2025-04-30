@@ -38,6 +38,7 @@ set nosmartindent
 set indentexpr=
 set autoindent
 
+set shada="NONE"
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 
