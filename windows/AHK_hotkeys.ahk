@@ -201,6 +201,7 @@ XButton2::SendEvent, {F9}
 f5::SendEvent, {alt down}f{alt up}ew
 =::SendEvent, {alt down}c{alt up}ff{enter}
 -::SendEvent, {alt down}c{alt up}fff{enter}
++::SendEvent, {ctrl down}a{ctrl up}{alt down}c{alt up}vn{enter}
 
 fnIsEnglishLayoutActive() {
     return DllCall("GetKeyboardLayout", "UInt"
