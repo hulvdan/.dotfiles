@@ -75,6 +75,8 @@ function make_task(name, cmd)
 end
 
 function hulvdan_tasks(tasks)
+    local running_tasks = {}
+
     keys = {}
     for i, value in ipairs(tasks) do
         table.insert(keys, i, value[1])
@@ -84,7 +86,15 @@ function hulvdan_tasks(tasks)
         require("fastaction").select(keys, {}, function(item)
             for i, value in ipairs(tasks) do
                 if value[1] == item then
-                    make_task(item, value[2]):start()
+                    local present_task = running_tasks[item]
+
+                    if present_task == nil or not present_task:is_running() then
+                        local task = make_task(item, value[2])
+                        running_tasks[item] = task
+                        task:start()
+                    else
+                        present_task:stop()
+                    end
                 end
             end
         end)
