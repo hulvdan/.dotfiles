@@ -87,14 +87,13 @@ function hulvdan_tasks(tasks)
             for i, value in ipairs(tasks) do
                 if value[1] == item then
                     local present_task = running_tasks[item]
-
-                    if present_task == nil or not present_task:is_running() then
-                        local task = make_task(item, value[2])
-                        running_tasks[item] = task
-                        task:start()
-                    else
+                    if present_task ~= nil then
                         present_task:stop()
                     end
+
+                    local task = make_task(item, value[2])
+                    running_tasks[item] = task
+                    task:start()
                 end
             end
         end)
