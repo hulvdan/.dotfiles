@@ -180,6 +180,9 @@ F24 & .::SendRaw, % "»"
 ; *^::fnDoNothing()
 ; *$::fnDoNothing()
 
+; Alt + ` (tilda button) - Open launcher
+!`::fnLauncher()
+
 ;-----------------------------------------------------------------------------------------
 ; Установление breakpoint-а в Visual Studio с помощью дополнительных кнопок на мышке.
 ;-----------------------------------------------------------------------------------------
@@ -218,4 +221,8 @@ fnDoNothing() {
 
 fnToggleTitleBar() {
     WinSet, Style, ^0xC00000, A
+}
+
+fnLauncher() {
+    Run, C:\Users\user\dev\home\launcher\.venv\Scripts\python.exe C:\Users\user\dev\home\launcher\main.py,,Max
 }

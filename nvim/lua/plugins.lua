@@ -422,6 +422,7 @@ return {
                     end,
                     lua = { "stylua" },
                     python = { "isort", "black" },
+                    go = { "gofmt" },
                     -- markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
                     -- javascript = { { "prettierd", "prettier" } },
