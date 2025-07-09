@@ -91,9 +91,13 @@ function hulvdan_tasks(tasks)
                         present_task:stop()
                     end
 
-                    local task = make_task(item, value[2])
-                    running_tasks[item] = task
-                    task:start()
+                    if type(value[2]) == "function" then
+                        value[2]()
+                    else
+                        local task = make_task(item, value[2])
+                        running_tasks[item] = task
+                        task:start()
+                    end
                 end
             end
         end)
@@ -141,11 +145,21 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*",
     once = false,
     callback = function()
-        local extension = vim.fn.expand("%"):match("^.+(%..+)$") -- example: `.log`
+        local filename = vim.fn.expand("%")
+        local extension = filename:match("^.+(%..+)$") -- example: `.log`
 
         if extension == ".md" then
             vim.fn.execute("setlocal shiftwidth=2 tabstop=2")
             return
+        end
+
+        if string.lower(filename) == "makefile" then
+            vim.fn.execute("setlocal shiftwidth=4 softtabstop=2")
+            return
+        end
+
+        if vim.bo.filetype == "make" then
+            vim.fn.execute("setlocal shiftwidth=4 softtabstop=0 noexpandtab")
         end
     end,
 })
