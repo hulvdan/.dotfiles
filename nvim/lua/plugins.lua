@@ -421,7 +421,7 @@ return {
                         return { "odinfmt" }
                     end,
                     lua = { "stylua" },
-                    python = { "isort", "black" },
+                    python = { "ruff_isort", "ruff" },
                     go = { "gofmt" },
                     -- markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
@@ -431,6 +431,16 @@ return {
                     good_clang_format = {
                         command = "clang-format",
                         args = { "-i", "$FILENAME" },
+                        stdin = false,
+                    },
+                    ruff_isort = {
+                        command = "c:/Users/user/.pyenv/pyenv-win/versions/3.11.3/Scripts/ruff.exe",
+                        args = { "check", "$FILENAME", "--select", "I", "--fix", "--line-length", "90" },
+                        stdin = false,
+                    },
+                    ruff = {
+                        command = "c:/Users/user/.pyenv/pyenv-win/versions/3.11.3/Scripts/ruff.exe",
+                        args = { "format", "$FILENAME", "--line-length", "90" },
                         stdin = false,
                     },
                     odinfmt = {
