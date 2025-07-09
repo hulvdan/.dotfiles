@@ -120,6 +120,8 @@ vmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
 xmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
 nmap <C-/> mz<Action>(CommentByLineComment)`zj^
 
+nmap <C-n> o# TODO(a.chistov): <esc>
+
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
