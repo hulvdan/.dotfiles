@@ -55,4 +55,4 @@ alias dps="docker ps --format 'table {{.Names}}\t{{.ID}}\t{{.Ports}}'"
 # Local configuration that is not included in git
 [ -f "$REPO_ZSH_DIR/zshrc.local.zsh" ] && source "$REPO_ZSH_DIR/zshrc.local.zsh"
 
-alias qd='cd ~$(ls -ld1 ~/Downloads ~/dev/home/*/ ~/dev/work/*/ ~/dev/home/ ~/dev/work/ | sed "s/\/Users\/user//g" | fzf)'
+alias qd='cd ~$(ls -ld1 ~/Downloads ~/dev/home/*/ ~/dev/work/*/ ~/dev/home/ ~/dev/work/ ~/dev/work/github/*/ ~/dev/work/gitlab/*/ | sed "s/\/Users\/user//g" | fzf)'

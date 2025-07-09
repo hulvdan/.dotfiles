@@ -3,4 +3,4 @@
 _run_configs/
 .env_docker
 .vim-bookmarks
-.globalignore/
+*.globalignore*
