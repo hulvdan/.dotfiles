@@ -412,6 +412,10 @@ return {
         "stevearc/conform.nvim",
         lazy = false,
         config = function()
+            local ruff_path = "ruff"
+            if vim.loop.os_uname().sysname == "Windows_NT" then
+                ruff_path = "c:/Users/user/.pyenv/pyenv-win/versions/3.11.3/Scripts/ruff.exe"
+            end
             require("conform").setup({
                 formatters_by_ft = {
                     cpp = function(bufnr)
@@ -434,12 +438,12 @@ return {
                         stdin = false,
                     },
                     ruff_isort = {
-                        command = "c:/Users/user/.pyenv/pyenv-win/versions/3.11.3/Scripts/ruff.exe",
+                        command = ruff_path,
                         args = { "check", "$FILENAME", "--select", "I", "--fix", "--line-length", "90" },
                         stdin = false,
                     },
                     ruff = {
-                        command = "c:/Users/user/.pyenv/pyenv-win/versions/3.11.3/Scripts/ruff.exe",
+                        command = ruff_path,
                         args = { "format", "$FILENAME", "--line-length", "90" },
                         stdin = false,
                     },
