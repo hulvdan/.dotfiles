@@ -5,6 +5,7 @@ git config --global core.symlinks true
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/
 git config --global core.excludesFile "%USERPROFILE%\dev\.dotfiles\git\gitignore_global"
+git config --global submodule.recurse true
 
 # НАХОДЯСЬ В ПАПКЕ ПРОЕКТА
 
