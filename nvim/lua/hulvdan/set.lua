@@ -150,6 +150,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
         if extension == ".md" then
             vim.fn.execute("setlocal shiftwidth=2 tabstop=2")
+            vim.fn.execute("syntax match mdWhiteBackgroundUnderscoreFix /_/")
             return
         end
 
