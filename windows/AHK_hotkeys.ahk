@@ -198,6 +198,26 @@ XButton2::SendEvent, {F9}
 [::Send, {TEXT}_
 
 ;-----------------------------------------------------------------------------------------
+; Adobe Illustrator - TODO.
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe illustrator.exe
+^+S::SendEvent, {alt down}f{alt up}e{left}{down}{enter}{space}
+
+;-----------------------------------------------------------------------------------------
+; Clip Studio Paint - TODO.
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe CLIPStudioPaint.exe
+F5::fnClipStudioSave()
+
+fnClipStudioSave() {
+    SendEvent, {alt down}f{alt up}rr{right}p
+    sleep 400
+    SendEvent, {enter}{left}{enter}
+    sleep 100
+    SendEvent, {enter}{enter}
+}
+
+;-----------------------------------------------------------------------------------------
 ; Audacity - F5 для экспортирования WAV.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
