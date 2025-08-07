@@ -211,10 +211,12 @@ F5::fnClipStudioSave()
 
 fnClipStudioSave() {
     SendEvent, {alt down}f{alt up}rr{right}p
-    sleep 400
+    sleep 1500
     SendEvent, {enter}{left}{enter}
-    sleep 100
-    SendEvent, {enter}{enter}
+    sleep 1800
+    SendEvent, {enter}
+    sleep 1600
+    SendEvent, {enter}
 }
 
 ;-----------------------------------------------------------------------------------------
