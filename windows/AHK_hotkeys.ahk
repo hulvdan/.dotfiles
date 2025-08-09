@@ -111,7 +111,7 @@
 SendMode Input
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
-; f9::fnReload()
+^!+f9::fnReload()
 
 ; `Right Ctrl + Right Shift` для кнопки вызова окна контекста,
 ; т.к. у меня на клавиатуре её нет. Использую редко.
@@ -227,6 +227,12 @@ f5::SendEvent, {alt down}f{alt up}ew
 =::SendEvent, {alt down}c{alt up}ff{enter}
 -::SendEvent, {alt down}c{alt up}fff{enter}
 +::SendEvent, {ctrl down}a{ctrl up}{alt down}c{alt up}vn{enter}
+
+;-----------------------------------------------------------------------------------------
+; Aseprite - F5 TODO.
+;-----------------------------------------------------------------------------------------
+#ifWinActive, ahk_exe aseprite.exe
+f5::SendEvent, {ctrl down}cn{ctrl up}{enter}{ctrl down}v{ctrl up}{alt down}s{alt up}t{ctrl down}d{tab}{ctrl up}
 
 fnIsEnglishLayoutActive() {
     return DllCall("GetKeyboardLayout", "UInt"
