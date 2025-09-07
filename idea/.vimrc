@@ -3,6 +3,7 @@ syntax on
 filetype plugin on
 set nocompatible
 
+
 set laststatus=3
 set statusline=%<%f\ %h%m%r%=\ %y\ %l:%c\ \[%{fnamemodify(getcwd(),':t')}\]
 
@@ -41,8 +42,9 @@ set nosmartindent
 set indentexpr=
 set autoindent
 
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
+set nobackup
+set nowritebackup
+set noswapfile
 
 " Undo files
 set undodir=~/.vim/undodir

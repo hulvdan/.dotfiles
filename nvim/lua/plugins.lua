@@ -377,14 +377,8 @@ return {
         init = function()
             vim.g.coq_settings = {
                 auto_start = "shut-up",
-                limits = {
-                    tokenization_limit = 500000,
-                },
-                clients = {
-                    tree_sitter = {
-                        enabled = false,
-                    },
-                },
+                limits = { tokenization_limit = 500000 },
+                clients = { tree_sitter = { enabled = false } },
             }
         end,
     },
@@ -400,11 +394,7 @@ return {
         },
         config = function()
             require("mason").setup()
-            require("mason-lspconfig").setup({
-                handlers = {
-                    require("lsp-zero").default_setup,
-                },
-            })
+            require("mason-lspconfig").setup({ handlers = { require("lsp-zero").default_setup } })
         end,
     },
 
