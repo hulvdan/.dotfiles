@@ -82,6 +82,9 @@ vim.keymap.set("n", "<leader>n", OpenNotes, opts)
 vim.keymap.set("n", "<C-S-l>", "<Plug>Argumentative_MoveLeft", opts)
 vim.keymap.set("n", "<C-l>", "<Plug>Argumentative_MoveRight", opts)
 
+-- NOTE: Insert current date.
+vim.keymap.set("n", "<leader>D", ":put =strftime('%Y-%m-%d')<CR>", opts)
+
 -- NOTE: Возвращает выделенный текст на самой верхней строке
 function get_selected_text()
     local _, ls, cs = unpack(vim.fn.getpos("v"))

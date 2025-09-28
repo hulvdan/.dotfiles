@@ -223,7 +223,7 @@ fnClipStudioSave() {
 ; Audacity - F5 для экспортирования WAV.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
-f5::SendEvent, {alt down}f{alt up}ew
+f5::SendEvent, {alt down}f{alt up}e
 f6::SendEvent, {alt down}f{alt up}er
 =::SendEvent, {alt down}c{alt up}ff{enter}
 -::SendEvent, {alt down}c{alt up}fff{enter}
