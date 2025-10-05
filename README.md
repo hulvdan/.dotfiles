@@ -7,6 +7,7 @@ git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org
 git config --global core.excludesFile "%USERPROFILE%\dev\.dotfiles\git\gitignore_global"
 git config --global submodule.recurse true
 git config --global core.autocrlf false
+git config --global core.eol lf
 
 # НАХОДЯСЬ В ПАПКЕ ПРОЕКТА
 
