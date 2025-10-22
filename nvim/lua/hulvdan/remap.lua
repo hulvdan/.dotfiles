@@ -286,7 +286,7 @@ end, opts)
 
 -- Ctrl + N -> Вставить nocheckin.
 vim.keymap.set("n", "<C-n>", function()
-    vim.api.nvim_input("gconocheckin<ESC>")
+    vim.api.nvim_input("gconocheckin<ESC><A-k>")
 end, opts)
 
 -- (C++)

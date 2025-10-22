@@ -84,12 +84,15 @@ return {
                     "%.so$",
                     "%.exe$",
                 },
+                preview = {
+                    treesitter = false,
+                },
             })
             telescope.load_extension("live_grep_args")
 
             local telescope_builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>ff", function()
-                vim.fn.execute("Telescope find_files hidden=true")
+                vim.fn.execute("Telescope find_files hidden=true no_ignore=true no_ignore_parent=true")
             end, opts)
 
             vim.keymap.set("n", "<leader>fn", telescope_builtin.git_files, opts)

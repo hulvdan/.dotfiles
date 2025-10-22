@@ -183,6 +183,9 @@ F24 & .::SendRaw, % "»"
 ; Alt + ` (tilda button) - Open launcher
 !`::fnLauncher()
 
+*XButton1::Send {alt down}{printscreen}{alt up}
+*XButton2::Send {alt down}{printscreen}{alt up}
+
 ;-----------------------------------------------------------------------------------------
 ; Установление breakpoint-а в Visual Studio с помощью дополнительных кнопок на мышке.
 ;-----------------------------------------------------------------------------------------
