@@ -159,6 +159,11 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
             return
         end
 
+        if vim.bo.filetype == "text" then
+            vim.fn.execute("setlocal shiftwidth=2 tabstop=2")
+            return
+        end
+
         if vim.bo.filetype == "make" then
             vim.fn.execute("setlocal shiftwidth=4 softtabstop=0 noexpandtab")
         end
