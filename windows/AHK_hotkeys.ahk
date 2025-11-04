@@ -108,6 +108,8 @@
 #SingleInstance force
 #NoEnv
 
+SetKeyDelay, 20, 20
+
 SendMode Input
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
