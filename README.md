@@ -40,6 +40,10 @@ ni C:\Users\user\.vimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.v
 ni C:\Users\user\.ideavimrc -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\idea\.ideavimrc"
 ni C:\Users\user\.wezterm.lua -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\wezterm\.wezterm.lua"
 ni C:\Users\user\AppData\Local\nvim -i SymbolicLink -ta "C:\Users\user\dev\.dotfiles\nvim"
+
+ni "e:\Media\SFX\Wildfunk - Video Game Sounds" -i SymbolicLink -ta "e:\Downloads\_torrent\Wildfunk - Video Game Sounds"
+ni "e:\Media\SFX\Advanced Game Sounds" -i SymbolicLink -ta "e:\Downloads\_torrent\Advanced Game Sounds"
+ni "e:\Media\SFX\" -i SymbolicLink -ta "e:\Downloads\_torrent\"
 ```
 
 ## Windows Setup
