@@ -212,15 +212,44 @@ XButton2::SendEvent, {F9}
 ; Clip Studio Paint - TODO.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
-F5::fnClipStudioSave()
+; F5::fnClipStudioSaveSingle()
+F5::fnClipStudioSaveMultiple()
+F4::fnCopyPasteTransform()
 
-fnClipStudioSave() {
+; *alt up::SendEvent, {alt up}{esc}
+; *alt up::SendInput, {alt up}
+
+clipCopyPasting := 0
+
+fnCopyPasteTransform() {
+    global clipCopyPasting
+    if (clipCopyPasting) {
+        clipCopyPasting = 0
+        SendEvent, {enter}{ctrl down}e{ctrl up}
+    } else {
+        clipCopyPasting = 1
+        SendEvent, {ctrl down}cvt{ctrl up}
+    }
+}
+
+fnClipStudioSaveSingle() {
     SendEvent, {alt down}f{alt up}rr{right}p
     sleep 1500
     SendEvent, {enter}{left}{enter}
     sleep 1800
     SendEvent, {enter}
     sleep 1600
+    SendEvent, {enter}
+}
+
+fnClipStudioSaveMultiple() {
+    SendEvent, {ctrl down}s{ctrl up}
+    SendEvent, {alt down}f{alt up}y{right}r
+    sleep 100
+    SendEvent, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
+    sleep 100
+    SendEvent, {enter}
+    sleep 500
     SendEvent, {enter}
 }
 
