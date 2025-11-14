@@ -108,7 +108,7 @@
 #SingleInstance force
 #NoEnv
 
-SetKeyDelay, 20, 20
+SetKeyDelay, 30, 30
 
 SendMode Input
 
@@ -214,20 +214,20 @@ XButton2::SendEvent, {F9}
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
 ; F5::fnClipStudioSaveSingle()
 F5::fnClipStudioSaveMultiple()
-F4::fnCopyPasteTransform()
+F4::fnClipStudioCopyPasteTransform()
 
 ; *alt up::SendEvent, {alt up}{esc}
 ; *alt up::SendInput, {alt up}
 
-clipCopyPasting := 0
+clipStudioCopyPasting := 0
 
-fnCopyPasteTransform() {
-    global clipCopyPasting
-    if (clipCopyPasting) {
-        clipCopyPasting = 0
+fnClipStudioCopyPasteTransform() {
+    global clipStudioCopyPasting
+    if (clipStudioCopyPasting) {
+        clipStudioCopyPasting = 0
         SendEvent, {enter}{ctrl down}e{ctrl up}
     } else {
-        clipCopyPasting = 1
+        clipStudioCopyPasting = 1
         SendEvent, {ctrl down}cvt{ctrl up}
     }
 }
@@ -268,6 +268,13 @@ f6::SendEvent, {alt down}f{alt up}er
 ;-----------------------------------------------------------------------------------------
 #ifWinActive, ahk_exe aseprite.exe
 f5::SendEvent, {ctrl down}cn{ctrl up}{enter}{ctrl down}v{ctrl up}{alt down}s{alt up}t{ctrl down}d{tab}{ctrl up}
+f6::fnAseFastSaving()
+
+fnAseFastSaving() {
+    SendEvent, {enter}{enter}
+    sleep 300
+    SendEvent, {ctrl down}wsv{ctrl up}{left}{left}{left}{left}
+}
 
 fnIsEnglishLayoutActive() {
     return DllCall("GetKeyboardLayout", "UInt"
