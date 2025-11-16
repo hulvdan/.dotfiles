@@ -233,6 +233,7 @@ fnClipStudioCopyPasteTransform() {
 }
 
 fnClipStudioSaveSingle() {
+    ; TODO RUSSIAN
     SendEvent, {alt down}f{alt up}rr{right}p
     sleep 1500
     SendEvent, {enter}{left}{enter}
@@ -244,7 +245,11 @@ fnClipStudioSaveSingle() {
 
 fnClipStudioSaveMultiple() {
     SendEvent, {ctrl down}s{ctrl up}
-    SendEvent, {alt down}f{alt up}y{right}r
+    SendEvent, {alt}{down}
+    loop 10 {
+        SendEvent, {down}
+    }
+    SendEvent, {right}{down}{enter}
     sleep 100
     SendEvent, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
     sleep 100
