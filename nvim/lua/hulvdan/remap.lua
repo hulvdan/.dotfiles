@@ -294,3 +294,22 @@ end, opts)
 -- Space + > -> Заменить `->` на `.`
 vim.keymap.set("n", "<leader>>", [[/\.<CR>xi-><ESC>]], opts)
 vim.keymap.set("n", "<leader>.", [[/-><CR>xr.]], opts)
+
+-- Space + 0 -> Folding of `///` or `###`.
+vim.keymap.set("n", "<leader>0", function()
+    if
+        (vim.bo.filetype == "cpp")
+        or (vim.bo.filetype == "jsonc")
+        or (vim.bo.filetype == "yaml")
+        or (vim.bo.filetype == "python")
+    then
+        vim.fn.execute([[silent!normal!zE]])
+        vim.fn.execute([[silent!normal!mz]])
+        if (vim.bo.filetype == "cpp") or (vim.bo.filetype == "jsonc") then
+            vim.fn.execute([[%g/\/\/\//silent!normal! $bbzf%]])
+        else
+            vim.fn.execute([[%g/###/silent!normal! $bbzf%]])
+        end
+        vim.api.nvim_input("hl0$`z")
+    end
+end, opts)
