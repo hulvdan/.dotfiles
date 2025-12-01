@@ -92,6 +92,7 @@ function hulvdan_tasks(tasks)
                     end
 
                     if type(value[2]) == "function" then
+                        vim.fn.execute(":silent! wa!")
                         value[2]()
                     else
                         local task = make_task(item, value[2])
