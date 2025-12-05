@@ -4,5 +4,19 @@
     "extensions.autoUpdate": false,
     "update.enableWindowsBackgroundUpdates": false,
     "update.mode": "none",
-    "telemetry.feedback.enabled": false
+    "telemetry.feedback.enabled": false,
+    "github-authentication.useElectronFetch": false,
+    "git.enabled": false,
+    "git.enableStatusBarSync": false,
+    "git.blame.statusBarItem.enabled": false,
+    "git.decorations.enabled": false,
+    "git.terminalAuthentication": false,
+    "git.useForcePushIfIncludes": false,
+    "github.gitAuthentication": false,
+    "accessibility.verbosity.sourceControl": false,
+    "github.showAvatar": false,
+    "security.workspace.trust.enabled": false,
+    "security.workspace.trust.emptyWindow": false,
+    "security.workspace.trust.startupPrompt": "never",
+    "typescript.tsserver.web.projectWideIntellisense.enabled": false
 }

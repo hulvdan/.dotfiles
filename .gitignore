@@ -5,3 +5,4 @@ nvim/plugin/packer_compiled.lua
 /windows/vscodium/User/globalStorage
 /windows/vscodium/User/History
 /windows/vscodium/**/*.backup
+/windows/vscodium/User/workspaceStorage

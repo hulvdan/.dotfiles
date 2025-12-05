@@ -33,9 +33,9 @@ vim.keymap.set("n", "<C-S-g>d", function()
     vim.fn.system("start github")
 end, opts)
 
--- Open VS Code
+-- Open VS Codium
 vim.keymap.set("n", "<C-S-g>c", function()
-    vim.fn.system("code .")
+    vim.fn.system("codium .")
 end, opts)
 
 -- Skipping blocks of code but making it more convenient for my keyboard setup.
