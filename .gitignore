@@ -2,3 +2,6 @@
 .idea/
 zsh/zshrc.local.zsh
 nvim/plugin/packer_compiled.lua
+/windows/vscodium/User/globalStorage
+/windows/vscodium/User/History
+/windows/vscodium/**/*.backup

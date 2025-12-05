@@ -1,0 +1,8 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": false,
+    "update.enableWindowsBackgroundUpdates": false,
+    "update.mode": "none",
+    "telemetry.feedback.enabled": false
+}

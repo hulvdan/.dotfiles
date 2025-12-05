@@ -108,7 +108,7 @@
 #SingleInstance force
 #NoEnv
 
-SetKeyDelay, 30, 30
+SetKeyDelay, 50, 50
 
 SendMode Input
 
@@ -273,6 +273,34 @@ f6::SendEvent, {alt down}f{alt up}er
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe reaper.exe
 f5::SendEvent, {enter}{enter}
+f4::fnNewSubproject()
+
+fnNewSubproject() {
+    ; YOU MUST SELECT CURRENT TRACK'S NAME !!!
+    SendEvent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
+    sleep 200
+    SendEvent, {ctrl down}v{ctrl up}{enter}
+    sleep 3000
+    SendEvent, {ctrl down}{shift down}{tab}{shift up}{ctrl up}
+
+    ; Creating 4 tracks
+    SendEvent, {ctrl down}tttt{ctrl up}
+
+    ; Setting suproject render preset
+    ; - opening render dialog
+    SendEvent, {ctrl down}{alt down}r{alt up}{ctrl up}
+    ; - tabbing to preset button
+    SendEvent, {shift down}{tab}{tab}{tab}{tab}
+    ; - selecting the first preset in ALL SETTINGS
+    SendEvent, {space}{up}{right}{enter}
+    ; - Moving and activating save settings button
+    SendEvent, {shift down}{tab}{tab}{tab}{tab}{shift up}{space}
+    ; - Closing dialog
+    SendEvent, {space}
+
+    ; Saving
+    SendEvent, {ctrl down}s{ctrl up}
+}
 
 ;-----------------------------------------------------------------------------------------
 ; Aseprite - F5 TODO.
