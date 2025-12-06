@@ -2753,6 +2753,76 @@ char* TextFormat(const char* text, ...) {  ///
   return currentBuffer;
 }
 
+char* TextStrip(char* s, size_t* len) {  ///
+  while ((*s == ' ') || (*s == '\t'))
+    s++;
+
+  auto l     = strlen(s);
+  auto prevL = l;
+  if (*s != 0) {
+    auto c = s + l - 1;
+    while ((s < c) && ((*c == ' ') || (*c == '\t'))) {
+      *c = 0;
+      c--;
+      l--;
+    }
+  }
+  ASSERT(prevL >= l);
+  if (len)
+    *len = l;
+  return s;
+}
+
+TEST_CASE ("TextStrip") {  ///
+  {
+    char   s[]{' ', 'a', 'b', 'c', 'd', ' ', ' ', '\0'};
+    size_t l{};
+    auto   ss = TextStrip(s, &l);
+    ASSERT(ss - s == 1);
+    ASSERT(l == 4);
+  }
+
+  {
+    char   s[]{'a', 'b', 'c', 'd', ' ', ' ', '\0'};
+    size_t l{};
+    auto   ss = TextStrip(s, &l);
+    ASSERT(ss - s == 0);
+    ASSERT(l == 4);
+  }
+
+  {
+    char   s[]{' ', 'a', 'b', 'c', 'd', '\0'};
+    size_t l{};
+    auto   ss = TextStrip(s, &l);
+    ASSERT(ss - s == 1);
+    ASSERT(l == 4);
+  }
+
+  {
+    char   s[]{'\0'};
+    size_t l{};
+    auto   ss = TextStrip(s, &l);
+    ASSERT(ss - s == 0);
+    ASSERT(l == 0);
+  }
+
+  {
+    char   s[]{'a', '\0'};
+    size_t l{};
+    auto   ss = TextStrip(s, &l);
+    ASSERT(ss - s == 0);
+    ASSERT(l == 1);
+  }
+}
+
+const char* TextHeapify(const char* value) {  ///
+  auto l   = strlen(value);
+  auto res = BF_ALLOC(l + 1);
+  memcpy(res, value, l + 1);
+  ASSERT_FALSE(((const char*)res)[l]);
+  return (const char*)res;
+}
+
 char* StripLeadingZerosInFloat(char* string) {  ///
   const char* end = string;
   int         len = 0;
@@ -2882,6 +2952,59 @@ BF_FORCE_INLINE void IterateOverCodepoints(
   }
   lambda(0, 0);
   ASSERT_FALSE(state);  // The string is not well-formed.
+}
+
+char* EncodeToHex(
+  const u8* toEncodeLittleEndian,
+  size_t    size,
+  Arena*    arena,
+  size_t*   len = nullptr
+) {  ///
+  ASSERT(toEncodeLittleEndian);
+  ASSERT(size > 0);
+  char* result = ALLOCATE_ARRAY(arena, char, size * 2 + 1);
+
+  for (size_t i = 0; i < size; i++) {
+    u8 byte           = toEncodeLittleEndian[i];
+    result[2 * i]     = ((byte >> 0) & 15) + 'A';
+    result[2 * i + 1] = ((byte >> 4) & 15) + 'A';
+  }
+
+  result[size * 2] = 0;
+  if (len)
+    *len = size * 2;
+  return result;
+}
+
+u8* DecodeFromHex(const char* encoded, Arena* arena) {  ///
+  const auto len = strlen(encoded);
+  ASSERT(len > 0);
+  ASSERT_FALSE(len % 2);
+
+  u8* result = ALLOCATE_ARRAY(arena, u8, len / 2 + 1);
+
+  FOR_RANGE (int, i, len / 2) {
+    const u8 lower  = encoded[i * 2] - 'A';
+    const u8 higher = encoded[i * 2 + 1] - 'A';
+    result[i]       = (lower << 0) + (higher << 4);
+  }
+  result[len / 2 + 1] = 0;
+
+  return result;
+}
+
+TEST_CASE ("EncodeToHex / DecodeFromHex") {  ///
+  auto arena = MakeArena(260 * 4);
+
+  u8* bytes = (u8*)BF_ALLOC(256);
+  u8  prev  = 0;
+  FOR_RANGE (int, i, 256) {
+    bytes[i] = prev++;
+  }
+
+  auto t      = EncodeToHex(bytes, 256, &arena);
+  auto result = DecodeFromHex(t, &arena);
+  ASSERT(!memcmp(result, bytes, 256));
 }
 
 #ifdef SDL_PLATFORM_WINDOWS
