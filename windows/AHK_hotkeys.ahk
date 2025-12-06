@@ -264,9 +264,9 @@ fnClipStudioSaveMultiple() {
 #IfWinActive, ahk_exe audacity.exe
 f5::SendEvent, {alt down}f{alt up}e
 f6::SendEvent, {alt down}f{alt up}er
-=::SendEvent, {alt down}c{alt up}ff{enter}
--::SendEvent, {alt down}c{alt up}fff{enter}
-+::SendEvent, {ctrl down}a{ctrl up}{alt down}c{alt up}vn{enter}
+=::SendEvent, {alt down}c{alt up}v{up}{enter}{enter}
+-::SendEvent, {alt down}c{alt up}f{right}{up}{up}{enter}
+; +::SendEvent, {alt down}c{alt up}f{right}{down}{down}{down}
 
 ;-----------------------------------------------------------------------------------------
 ; Reaper - F5 для экспортирования.
@@ -309,8 +309,8 @@ fnReaperNewSubproject() {
 
     fnReaperSetSubprojectPreset()
 
-    ; Creating 4 tracks
-    SendEvent, {ctrl down}tttt{ctrl up}
+    ; Creating tracks
+    SendEvent, {ctrl down}tttttttttttttt{ctrl up}
 
     ; Saving
     SendEvent, {ctrl down}s{ctrl up}
