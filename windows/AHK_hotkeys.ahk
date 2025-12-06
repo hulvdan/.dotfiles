@@ -108,8 +108,8 @@
 #SingleInstance force
 #NoEnv
 
+CoordMode, Mouse, Relative
 SetKeyDelay, 50, 50
-
 SendMode Input
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
@@ -272,31 +272,45 @@ f6::SendEvent, {alt down}f{alt up}er
 ; Reaper - F5 для экспортирования.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe reaper.exe
-f5::SendEvent, {enter}{enter}
-f4::fnNewSubproject()
+f5::fnReaperSave()
+f4::fnReaperNewSubproject()
+f3::fnReaperSetSubprojectPreset()
+xbutton1::delete
 
-fnNewSubproject() {
+fnReaperSave() {
+    fnReaperSetSubprojectPreset()
+    SendEvent, {enter}{enter}
+}
+
+fnReaperSetSubprojectPreset() {
+    ; - opening render dialog
+    SendEvent, {ctrl down}{alt down}r{alt up}{ctrl up}
+    WinWait, Render to File
+    click 700 60
+    ; - Selecting the first preset in ALL SETTINGS
+    SendEvent, {space}{up}{right}{enter}
+    ; - Activating save settings button
+    click 190 800
+    ; - Closing dialog
+    SendEvent, {space}
+
+    SendEvent, {ctrl down}s{ctrl up}
+    WinWait, Rendering to file...
+    WinWaitClose, Rendering to file...
+}
+
+fnReaperNewSubproject() {
     ; YOU MUST SELECT CURRENT TRACK'S NAME !!!
     SendEvent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
     sleep 200
     SendEvent, {ctrl down}v{ctrl up}{enter}
     sleep 3000
-    SendEvent, {ctrl down}{shift down}{tab}{shift up}{ctrl up}
+    SendEvent, {ctrl down}s{shift down}{tab}{shift up}{ctrl up}
+
+    fnReaperSetSubprojectPreset()
 
     ; Creating 4 tracks
     SendEvent, {ctrl down}tttt{ctrl up}
-
-    ; Setting suproject render preset
-    ; - opening render dialog
-    SendEvent, {ctrl down}{alt down}r{alt up}{ctrl up}
-    ; - tabbing to preset button
-    SendEvent, {shift down}{tab}{tab}{tab}{tab}
-    ; - selecting the first preset in ALL SETTINGS
-    SendEvent, {space}{up}{right}{enter}
-    ; - Moving and activating save settings button
-    SendEvent, {shift down}{tab}{tab}{tab}{tab}{shift up}{space}
-    ; - Closing dialog
-    SendEvent, {space}
 
     ; Saving
     SendEvent, {ctrl down}s{ctrl up}
