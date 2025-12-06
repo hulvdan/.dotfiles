@@ -139,7 +139,6 @@ constexpr f64 f64_inf = std::numeric_limits<f64>::infinity();
 #  define ASSERT_FALSE(expr) CHECK_FALSE(expr)
 #else  // TESTS
 #  if BF_ENABLE_ASSERTS
-static volatile int _g_enable_asserts_work = 0;
 #    if BF_COMPILER_CLANG
 #      define ASSERT(expr)    \
         STATEMENT({           \
@@ -147,6 +146,7 @@ static volatile int _g_enable_asserts_work = 0;
             __builtin_trap(); \
         })
 #    else
+static volatile int _g_enable_asserts_work = 0;
 #      include <assert.h>
 #      define ASSERT(expr)                             \
         STATEMENT({                                    \
@@ -188,9 +188,6 @@ static volatile int _g_enable_asserts_work = 0;
 // #ifndef FrameMark
 // #  define FrameMark
 // #endif
-
-constexpr float  floatInf  = std::numeric_limits<float>::infinity();
-constexpr double doubleInf = std::numeric_limits<double>::infinity();
 
 //----------------------------------------------------------------------------------
 // Defer.
@@ -1378,7 +1375,7 @@ BF_FORCE_INLINE void unmapped_free(void* ptr) {  ///
 
 // Arena.
 // ------------------------------------------------------------
-struct Arena {
+struct Arena {  ///
   size_t used    = 0;
   size_t size    = 0;
   u8*    base    = nullptr;
