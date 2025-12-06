@@ -219,16 +219,6 @@ Defer_<F> operator+(defer_dummy_, F&& f) {
   return makeDefer_<F>(std::forward<F>(f));
 }
 
-// Usage:
-//     {
-//         DEFER { printf("Deferred\n"); };
-//         printf("Normal\n");
-//     }
-//
-// Output:
-//     Normal
-//     Deferred
-//
 // NOLINTNEXTLINE(bugprone-macro-parentheses)
 #define DEFER auto defer_(__COUNTER__) = defer_dummy_() + [&]() BF_FORCE_INLINE_LAMBDA
 
@@ -239,7 +229,7 @@ Defer_<F> operator+(defer_dummy_, F&& f) {
 // NOTE: Proudly taken from
 // https://vector-of-bool.github.io/2020/06/13/cpp20-iter-facade.html
 template <class Reference>
-struct ArrowProxy {
+struct ArrowProxy {  ///
   Reference  r;
   Reference* operator->() {
     return &r;
@@ -252,18 +242,17 @@ struct ArrowProxy {
 //         int field1;
 //         int field2;
 //
-//         NOTE: Требуется реализовать этот метод.
 //         [[nodiscard]] bool EqualTo(const A& other) const {
 //             auto result = (
-//                 field1 == other.field1
-//                 && field2 == other.field2
+//                 (field1 == other.field1)
+//                 && (field2 == other.field2)
 //             );
 //             return result;
 //         }
 //     }
 //
 template <typename Derived>
-struct Equatable {
+struct Equatable {  ///
   private:
   using SelfType = Derived;
 
@@ -278,7 +267,7 @@ struct Equatable {
 };
 
 template <typename Derived>
-struct IteratorFacade {
+struct IteratorFacade {  ///
   protected:
   using SelfType = Derived;
 
