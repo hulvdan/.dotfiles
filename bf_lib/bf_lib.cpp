@@ -2730,6 +2730,14 @@ Color ColorAlphaBlend(Color dst, Color src, Color tint) {  ///
 // ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝
 
 // https://www.w3.org/TR/audio-eq-cookbook/
+
+// Biquads.
+// ------------------------------------------------------------
+// https://www.earlevel.com/main/2021/09/02/biquad-calculator-v3/
+// ^ Max frequency - 22049 Hz
+// ^ Min frequency - 1 Hz
+// ^ Default Q - 0.7071
+
 struct Biquad {  ///
   f32 b0, b1, b2, a0, a1, a2 = {};
 };
@@ -2742,7 +2750,7 @@ Biquad BiquadLowpass(int sampleRate, f32 freq, f32 q) {  ///
   return {
     .b0 = (1 - cosw) / 2,
     .b1 = 1 - cosw,
-    .b2 = res.b0,
+    .b2 = (1 - cosw) / 2,
     .a0 = 1 + a,
     .a1 = -2 * cosw,
     .a2 = 1 - a,
