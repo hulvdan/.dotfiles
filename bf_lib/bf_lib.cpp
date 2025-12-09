@@ -3,8 +3,32 @@
 #include <cmath>
 #include <cstdarg>
 #include <memory>
+#include <vector>
 
 #include "bf_lib_instrument.cpp"
+
+#include "doctest.h"
+
+#define SDL_MAIN_USE_CALLBACKS
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+
+#define LOGI(...) SDL_Log(__VA_ARGS__)
+#define LOGW(...) SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
+#define LOGE(...) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
+
+#if defined(SDL_PLATFORM_EMSCRIPTEN)
+#  include <emscripten.h>
+#endif
+
+#include "glm/glm.hpp"
+
+using Vector2    = glm::vec2;
+using Vector3    = glm::vec3;
+using Vector4    = glm::vec4;
+using Vector2Int = glm::ivec2;
+using Vector3Int = glm::ivec3;
+using Vector4Int = glm::ivec4;
 
 // ██████╗  █████╗ ███████╗███████╗
 // ██╔══██╗██╔══██╗██╔════╝██╔════╝
@@ -182,21 +206,18 @@ static volatile int _g_enable_asserts_work = 0;
 #  define CHECK
 #endif
 
-// #ifndef ZoneScoped
-// #  define ZoneScoped
-// #endif
-//
-// #ifndef ZoneScopedN
-// #  define ZoneScopedN
-// #endif
-//
-// #ifndef FrameMark
-// #  define FrameMark
-// #endif
+#if BF_PROFILING && defined(DOCTEST_CONFIG_DISABLE)
+#  define TRACY_ONLY_LOCALHOST
+#  define TRACY_NO_BROADCAST
+#  include "tracy/Tracy.hpp"
+#else
+#  define ZoneScoped
+#  define ZoneScopedN(_)
+#  define FrameMark
+#endif
 
-//----------------------------------------------------------------------------------
 // Defer.
-//----------------------------------------------------------------------------------
+// ------------------------------------------------------------
 template <typename F>
 // NOLINTNEXTLINE(cppcoreguidelines-special-member-functions)
 struct Defer_ {
@@ -227,9 +248,8 @@ Defer_<F> operator+(defer_dummy_, F&& f) {
 // NOLINTNEXTLINE(bugprone-macro-parentheses)
 #define DEFER auto defer_(__COUNTER__) = defer_dummy_() + [&]() BF_FORCE_INLINE_LAMBDA
 
-//----------------------------------------------------------------------------------
 // Iterators.
-//----------------------------------------------------------------------------------
+// ------------------------------------------------------------
 //
 // NOTE: Proudly taken from
 // https://vector-of-bool.github.io/2020/06/13/cpp20-iter-facade.html
@@ -3045,6 +3065,38 @@ PeekFiletimeResult PeekFiletime(const char* filename) {  ///
   }
 
   return res;
+}
+
+void* TryLoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
+  size_t size{};
+  auto   data = SDL_LoadFile(filepath, &size);
+  if (!data)
+    return nullptr;
+  if (outSize)
+    *outSize = size;
+#  if BF_DEBUG
+  auto data2 = BF_ALLOC(size + 1);
+  memcpy(data2, data, size + 1);
+  SDL_free(data);
+  return data2;
+#  else
+  return data;
+#  endif
+}
+
+void* LoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
+  auto data = TryLoadFile(filepath, outSize);
+  ASSERT(data);
+  return data;
+}
+
+void UnloadFile(void* data) {  ///
+  ASSERT(data);
+#  if BF_DEBUG
+  BF_FREE(data);
+#  else
+  SDL_free(data);
+#  endif
 }
 
 #endif
