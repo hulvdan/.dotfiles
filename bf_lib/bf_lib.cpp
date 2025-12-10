@@ -1507,7 +1507,34 @@ inline void Deallocate_(Arena* arena, size_t size) {  ///
 // ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║██║██║ ╚████║███████╗██║  ██║███████║
 //  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚══════╝
 
-void UnstableRemoveAt_(u8* base, size_t stride, const int i, int* count) {  ///
+void _RemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
+  ASSERT(i >= 0);
+  ASSERT(i < *count);
+
+  auto moveFromRightCount = (*count) - i - 1;
+  ASSERT(moveFromRightCount >= 0);
+
+  if (moveFromRightCount > 0)
+    memmove(base + stride * i, base + stride * (i + 1), stride);
+
+  *count -= 1;
+}
+
+TEST_CASE ("_RemoveAt") {  ///
+  int values[]{0, 1, 2, 3};
+  int valuesCount = ARRAY_COUNT(values);
+  _RemoveAt((u8*)values, sizeof(*values), 2, &valuesCount);
+  ASSERT(valuesCount == 3);
+  ASSERT(values[0] == 0);
+  ASSERT(values[1] == 1);
+  ASSERT(values[2] == 3);
+  _RemoveAt((u8*)values, sizeof(*values), 0, &valuesCount);
+  ASSERT(valuesCount == 2);
+  ASSERT(values[0] == 1);
+  ASSERT(values[1] == 3);
+}
+
+void _UnstableRemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
   ASSERT(i >= 0);
   ASSERT(i < *count);
 
@@ -1515,6 +1542,20 @@ void UnstableRemoveAt_(u8* base, size_t stride, const int i, int* count) {  ///
     memcpy(base + stride * i, base + stride * (*count - 1), stride);
 
   (*count)--;
+}
+
+TEST_CASE ("_UnstableRemoveAt") {  ///
+  int values[]{0, 1, 2, 3};
+  int valuesCount = ARRAY_COUNT(values);
+  _UnstableRemoveAt((u8*)values, sizeof(*values), 2, &valuesCount);
+  ASSERT(valuesCount == 3);
+  ASSERT(values[0] == 0);
+  ASSERT(values[1] == 1);
+  ASSERT(values[2] == 3);
+  _UnstableRemoveAt((u8*)values, sizeof(*values), 0, &valuesCount);
+  ASSERT(valuesCount == 2);
+  ASSERT(values[0] == 3);
+  ASSERT(values[1] == 1);
 }
 
 #define ARRAY_PUSH(array, arrayCount, arrayMaxCount, value) \
@@ -1711,8 +1752,12 @@ struct View {
     return IndexOf(value) != -1;
   }
 
+  void RemoveAt(const int i) {  ///
+    _RemoveAt((u8*)base, sizeof(*base), i, &count);
+  }
+
   void UnstableRemoveAt(const int i) {  ///
-    UnstableRemoveAt_((u8*)base, sizeof(*base), i, &count);
+    _UnstableRemoveAt((u8*)base, sizeof(*base), i, &count);
   }
 
   T* begin() {  ///
@@ -1781,19 +1826,77 @@ struct Array {
   }
 };
 
-TEST_CASE ("UnstableRemoveAt_") {  ///
-  int values[]{0, 1, 2, 3};
-  int valuesCount = ARRAY_COUNT(values);
-  UnstableRemoveAt_((u8*)values, sizeof(*values), 2, &valuesCount);
-  ASSERT(valuesCount == 3);
-  ASSERT(values[0] == 0);
-  ASSERT(values[1] == 1);
-  ASSERT(values[2] == 3);
-  UnstableRemoveAt_((u8*)values, sizeof(*values), 0, &valuesCount);
-  ASSERT(valuesCount == 2);
-  ASSERT(values[0] == 3);
-  ASSERT(values[1] == 1);
-}
+template <typename T, int _maxCount>
+struct PushableArray {
+  T                _base[_maxCount] = {};
+  static const int maxCount         = _maxCount;
+  int              count            = {};
+
+  T& operator[](int index) {  ///
+    ASSERT(index >= 0);
+    ASSERT(index < count);
+    return _base[index];
+  }
+
+  const T& operator[](int index) const {  ///
+    ASSERT(index >= 0);
+    ASSERT(index < count);
+    return _base[index];
+  }
+
+  void Zeroify() {  ///
+    ASSERT(count > 0);
+    memset(_base, 0, sizeof(T) * count);
+  }
+
+  int IndexOf(const T& value) const {  ///
+    FOR_RANGE (int, i, count) {
+      auto& v = _base[i];
+      if (v == value)
+        return i;
+    }
+
+    return -1;
+  }
+
+  T* Add() {  ///
+    ASSERT(count < maxCount);
+    count++;
+    return _base + (count - 1);
+  }
+
+  T Pop() {  ///
+    count--;
+    return _base[count];
+  }
+
+  bool Contains(const T& value) const {  ///
+    return IndexOf(value) != -1;
+  }
+
+  void RemoveAt(const int i) {  ///
+    _RemoveAt((u8*)_base, sizeof(*_base), i, &count);
+  }
+
+  void UnstableRemoveAt(const int i) {  ///
+    _UnstableRemoveAt((u8*)_base, sizeof(*_base), i, &count);
+  }
+
+  T* begin() {  ///
+    return _base;
+  }
+
+  T* end() {  ///
+    return _base + count;
+  }
+
+  View<T> ToView() const {  ///
+    return {
+      .count = count,
+      .base  = (T*)_base,
+    };
+  }
+};
 
 template <typename T>
 struct Vector {
@@ -1858,21 +1961,11 @@ struct Vector {
   }
 
   void RemoveAt(const int i) {  ///
-    ASSERT(i >= 0);
-    ASSERT(i < count);
-
-    auto moveFromRightCount = count - i - 1;
-    ASSERT(moveFromRightCount >= 0);
-
-    if (moveFromRightCount > 0) {
-      memmove((void*)(base + i), (void*)(base + i + 1), sizeof(T) * moveFromRightCount);
-    }
-
-    count--;
+    _RemoveAt((u8*)base, sizeof(*base), i, &count);
   }
 
   void UnstableRemoveAt(const int i) {  ///
-    UnstableRemoveAt_((u8*)base, sizeof(*base), i, &count);
+    _UnstableRemoveAt((u8*)base, sizeof(*base), i, &count);
   }
 
   // Remove value + ensure there's no of the same value remaining.
