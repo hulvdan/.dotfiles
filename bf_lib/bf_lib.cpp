@@ -3167,6 +3167,8 @@ PeekFiletimeResult PeekFiletime(const char* filename) {  ///
   return res;
 }
 
+#endif
+
 void* TryLoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
   size_t size{};
   auto   data = SDL_LoadFile(filepath, &size);
@@ -3174,14 +3176,14 @@ void* TryLoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
     return nullptr;
   if (outSize)
     *outSize = size;
-#  if BF_DEBUG
+#if BF_DEBUG
   auto data2 = BF_ALLOC(size + 1);
   memcpy(data2, data, size + 1);
   SDL_free(data);
   return data2;
-#  else
+#else
   return data;
-#  endif
+#endif
 }
 
 void* LoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
@@ -3192,13 +3194,11 @@ void* LoadFile(const char* filepath, size_t* outSize = nullptr) {  ///
 
 void UnloadFile(void* data) {  ///
   ASSERT(data);
-#  if BF_DEBUG
+#if BF_DEBUG
   BF_FREE(data);
-#  else
+#else
   SDL_free(data);
-#  endif
-}
-
 #endif
+}
 
 ///
