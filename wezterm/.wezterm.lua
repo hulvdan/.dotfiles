@@ -22,7 +22,7 @@ config.font_rules = {
   { intensity = "Normal", italic = false, font = config.font },
 }
 config.colors = {
-  background = "#0c1016",
+  background = "#141414",
 }
 
 config.enable_csi_u_key_encoding = true

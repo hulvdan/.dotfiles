@@ -1978,6 +1978,14 @@ struct Vector {
     return result;
   }
 
+  T Pop() {  ///
+    ASSERT(base);
+    ASSERT(count > 0);
+    auto result = base[count - 1];
+    count--;
+    return result;
+  }
+
   void RemoveAt(const int i) {  ///
     _RemoveAt((u8*)base, sizeof(T), i, &count);
   }

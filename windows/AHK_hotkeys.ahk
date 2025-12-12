@@ -189,7 +189,8 @@ F24 & .::Send, >
 ; Alt + ` (tilda button) - Open launcher
 !`::fnLauncher()
 
-*XButton1::Send {alt down}{printscreen}{alt up}
+*XButton1::Shift
+; *XButton1::Send {alt down}{printscreen}{alt up}
 *XButton2::Send {alt down}{printscreen}{alt up}
 
 ;-----------------------------------------------------------------------------------------
