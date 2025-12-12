@@ -1507,7 +1507,10 @@ inline void Deallocate_(Arena* arena, size_t size) {  ///
 // ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║██║██║ ╚████║███████╗██║  ██║███████║
 //  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚══════╝
 
-void _RemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
+void _RemoveAt(u8* base, size_t stride, int i, int* count) {  ///
+  ASSERT(base);
+  ASSERT(count);
+  ASSERT(stride > 0);
   ASSERT(i >= 0);
   ASSERT(i < *count);
 
@@ -1515,26 +1518,39 @@ void _RemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
   ASSERT(moveFromRightCount >= 0);
 
   if (moveFromRightCount > 0)
-    memmove(base + stride * i, base + stride * (i + 1), stride);
+    memmove(base + stride * i, base + stride * (i + 1), moveFromRightCount * stride);
 
   *count -= 1;
 }
 
 TEST_CASE ("_RemoveAt") {  ///
-  int values[]{0, 1, 2, 3};
-  int valuesCount = ARRAY_COUNT(values);
+  int values[]{0, 1, 2, 3, 4};
+  int valuesCount = 4;
+
+  // 0123 -> 013
   _RemoveAt((u8*)values, sizeof(*values), 2, &valuesCount);
   ASSERT(valuesCount == 3);
   ASSERT(values[0] == 0);
   ASSERT(values[1] == 1);
   ASSERT(values[2] == 3);
+  ASSERT(values[3] == 3);
+
+  // 013 -> 13
   _RemoveAt((u8*)values, sizeof(*values), 0, &valuesCount);
   ASSERT(valuesCount == 2);
   ASSERT(values[0] == 1);
   ASSERT(values[1] == 3);
+
+  // 13 -> 1
+  _RemoveAt((u8*)values, sizeof(*values), 1, &valuesCount);
+  ASSERT(valuesCount == 1);
+  ASSERT(values[0] == 1);
 }
 
-void _UnstableRemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
+void _UnstableRemoveAt(u8* base, size_t stride, int i, int* count) {  ///
+  ASSERT(base);
+  ASSERT(count);
+  ASSERT(stride > 0);
   ASSERT(i >= 0);
   ASSERT(i < *count);
 
@@ -1547,12 +1563,14 @@ void _UnstableRemoveAt(u8* base, size_t stride, const int i, int* count) {  ///
 TEST_CASE ("_UnstableRemoveAt") {  ///
   int values[]{0, 1, 2, 3};
   int valuesCount = ARRAY_COUNT(values);
-  _UnstableRemoveAt((u8*)values, sizeof(*values), 2, &valuesCount);
+
+  _UnstableRemoveAt((u8*)values, sizeof(int), 2, &valuesCount);
   ASSERT(valuesCount == 3);
   ASSERT(values[0] == 0);
   ASSERT(values[1] == 1);
   ASSERT(values[2] == 3);
-  _UnstableRemoveAt((u8*)values, sizeof(*values), 0, &valuesCount);
+
+  _UnstableRemoveAt((u8*)values, sizeof(int), 0, &valuesCount);
   ASSERT(valuesCount == 2);
   ASSERT(values[0] == 3);
   ASSERT(values[1] == 1);
@@ -1753,11 +1771,11 @@ struct View {
   }
 
   void RemoveAt(const int i) {  ///
-    _RemoveAt((u8*)base, sizeof(*base), i, &count);
+    _RemoveAt((u8*)base, sizeof(T), i, &count);
   }
 
   void UnstableRemoveAt(const int i) {  ///
-    _UnstableRemoveAt((u8*)base, sizeof(*base), i, &count);
+    _UnstableRemoveAt((u8*)base, sizeof(T), i, &count);
   }
 
   T* begin() {  ///
@@ -1875,11 +1893,11 @@ struct PushableArray {
   }
 
   void RemoveAt(const int i) {  ///
-    _RemoveAt((u8*)_base, sizeof(*_base), i, &count);
+    _RemoveAt((u8*)_base, sizeof(T), i, &count);
   }
 
   void UnstableRemoveAt(const int i) {  ///
-    _UnstableRemoveAt((u8*)_base, sizeof(*_base), i, &count);
+    _UnstableRemoveAt((u8*)_base, sizeof(T), i, &count);
   }
 
   T* begin() {  ///
@@ -1961,11 +1979,11 @@ struct Vector {
   }
 
   void RemoveAt(const int i) {  ///
-    _RemoveAt((u8*)base, sizeof(*base), i, &count);
+    _RemoveAt((u8*)base, sizeof(T), i, &count);
   }
 
   void UnstableRemoveAt(const int i) {  ///
-    _UnstableRemoveAt((u8*)base, sizeof(*base), i, &count);
+    _UnstableRemoveAt((u8*)base, sizeof(T), i, &count);
   }
 
   // Remove value + ensure there's no of the same value remaining.
