@@ -193,6 +193,63 @@ F24 & .::Send, >
 ; *XButton1::Send {alt down}{printscreen}{alt up}
 *XButton2::Send {alt down}{printscreen}{alt up}
 
+; Эмуляция магнитного колеса мыши.
+; Зажатый F24 (Caps) + скролл = бесконечная прокрутка,
+; пока не нажмёшь F24 или не крутанёшь колесо мыши.
+F24 & WheelUp::fnMagneticWheelUp()
+F24 & WheelDown::fnMagneticWheelDown()
+
+*$WheelUp::fnOnWheelUp()
+*$WheelDown::fnOnWheelDown()
+*$F24::fnOnF24()
+
+custom_wheeling := 0
+
+fnResetMagneticWheeling() {
+    global custom_wheeling
+    custom_wheeling = 0
+}
+
+fnOnF24() {
+    fnResetMagneticWheeling()
+    Send, {F24}
+}
+
+fnOnWheelUp() {
+    fnResetMagneticWheeling()
+    Send, {WheelUp}
+}
+
+fnOnWheelDown() {
+    fnResetMagneticWheeling()
+    Send, {WheelDown}
+}
+
+fnSendWheelWhileMagneticWheeling() {
+    global custom_wheeling
+
+    if (custom_wheeling == 1)
+        Send, {WheelUp}
+    else if (custom_wheeling == -1)
+        Send, {WheelDown}
+
+    if (custom_wheeling != 0)
+        SetTimer, fnSendWheelWhileMagneticWheeling, -16
+}
+
+fnMagneticWheelUp() {
+    global custom_wheeling
+    custom_wheeling := 1
+    SetTimer, fnSendWheelWhileMagneticWheeling, -1
+}
+
+fnMagneticWheelDown() {
+    global custom_wheeling
+    custom_wheeling := -1
+    SetTimer, fnSendWheelWhileMagneticWheeling, -1
+}
+
+
 ;-----------------------------------------------------------------------------------------
 ; Установление breakpoint-а в Visual Studio с помощью дополнительных кнопок на мышке.
 ;-----------------------------------------------------------------------------------------
