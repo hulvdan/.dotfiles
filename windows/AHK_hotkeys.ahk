@@ -212,26 +212,26 @@ fnResetMagneticWheeling() {
 
 fnOnF24() {
     fnResetMagneticWheeling()
-    Send, {F24}
+    Send, {Blind}{F24}
 }
 
 fnOnWheelUp() {
     fnResetMagneticWheeling()
-    Send, {WheelUp}
+    Send, {Blind}{WheelUp}
 }
 
 fnOnWheelDown() {
     fnResetMagneticWheeling()
-    Send, {WheelDown}
+    Send, {Blind}{WheelDown}
 }
 
 fnSendWheelWhileMagneticWheeling() {
     global custom_wheeling
 
     if (custom_wheeling == 1)
-        Send, {WheelUp}
+        Send, {Blind}{WheelUp}
     else if (custom_wheeling == -1)
-        Send, {WheelDown}
+        Send, {Blind}{WheelDown}
 
     if (custom_wheeling != 0)
         SetTimer, fnSendWheelWhileMagneticWheeling, -16
