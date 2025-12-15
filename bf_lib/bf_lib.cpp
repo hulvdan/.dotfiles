@@ -13,7 +13,12 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-#define LOGI(...) SDL_Log(__VA_ARGS__)
+#define LOGD(...)                                              \
+  STATEMENT({                                                  \
+    if (BF_DEBUG)                                              \
+      SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__); \
+  })
+#define LOGI(...) SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 #define LOGW(...) SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 #define LOGE(...) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 
