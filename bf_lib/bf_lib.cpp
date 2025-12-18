@@ -8,6 +8,7 @@
 #include "bf_lib_instrument.cpp"
 
 #include "doctest.h"
+#include "base91.h"
 
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL.h>
@@ -3172,6 +3173,84 @@ TEST_CASE ("EncodeToHex / DecodeFromHex") {  ///
 
   auto t      = EncodeToHex(bytes, 256, &arena);
   auto result = DecodeFromHex(t, &arena);
+  ASSERT(!memcmp(result, bytes, 256));
+}
+
+const char* EncodeToBase91(
+  const void* toEncodeLittleEndian,
+  size_t      size,
+  Arena*      arena,
+  size_t*     outStringLen = nullptr
+) {  ///
+  ASSERT(toEncodeLittleEndian);
+  ASSERT(arena);
+
+  basE91 b{};
+  basE91_init(&b);
+
+  // NOTE: Max overhead of base91 is 23%. Allocating x2 memory to be safe.
+  // Some end portion of it won't be used at all.
+  //
+  // NOTE: `+1` because basE91_decode_end writes at most 1 byte.
+  const size_t allocated = (size + sizeof(size_t)) * 2 + 1;
+
+  char* buf = ALLOCATE_ARRAY(arena, char, allocated);
+
+  size_t usedSize = 0;
+  usedSize += basE91_encode(&b, &size, sizeof(size_t), &usedSize);
+  usedSize += basE91_encode_end(&b, &usedSize);
+
+  ASSERT(usedSize <= allocated);
+
+  if (outStringLen)
+    *outStringLen = strlen(buf);
+
+  return (const char*)buf;
+}
+
+void* DecodeFromBase91(
+  const char* encoded,
+  Arena*      arena,
+  size_t*     outBufSize = nullptr
+) {  ///
+  ASSERT(encoded);
+  ASSERT(arena);
+
+  basE91 b{};
+  basE91_init(&b);
+
+  size_t size{};
+  basE91_decode(&b, encoded, sizeof(size_t), &size);
+
+  size_t realDecodedSize{};
+
+  void* outBuf = nullptr;
+
+  if (size) {
+    outBuf = (void*)ALLOCATE_ARRAY(arena, u8, size);
+    realDecodedSize += basE91_decode(&b, encoded, size, outBuf);
+    realDecodedSize += basE91_decode_end(&b, outBuf);
+    ASSERT(size == realDecodedSize);
+  }
+
+  if (outBufSize)
+    *outBufSize = size;
+
+  return outBuf;
+}
+
+TEST_CASE ("EncodeToBase91 / DecodeFromBase91") {  ///
+  auto arena = MakeArena(260 * 4);
+
+  u8* bytes = (u8*)BF_ALLOC(256);
+  u8  prev  = 0;
+  FOR_RANGE (int, i, 256)
+    bytes[i] = prev++;
+
+  auto   t      = EncodeToBase91(bytes, 256, &arena);
+  size_t l      = 0;
+  auto   result = DecodeFromBase91(t, &arena, &l);
+  ASSERT(l == 256);
   ASSERT(!memcmp(result, bytes, 256));
 }
 
