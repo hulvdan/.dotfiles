@@ -9,9 +9,6 @@
 
 #include "doctest.h"
 
-#define BASE91_IMPLEMENTATION
-#include "base91.h"
-
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
@@ -225,6 +222,10 @@ static volatile int _g_enable_asserts_work = 0;
 #  define ZoneScopedN(_)
 #  define FrameMark
 #endif
+
+#define BASE91_ASSERT ASSERT
+#define BASE91_IMPLEMENTATION
+#include "base91.h"
 
 // Defer.
 // ------------------------------------------------------------
@@ -3182,67 +3183,50 @@ const char* EncodeToAscii(
   const void* toEncodeLittleEndian,
   size_t      size,
   Arena*      arena,
-  size_t*     outStringLen = nullptr
+  size_t*     outStringLen_ = nullptr
 ) {  ///
   ASSERT(toEncodeLittleEndian);
   ASSERT(arena);
 
-  base91_base91 b{};
-  base91_init(&b);
+  const auto outStringMaxSize = ceil((f64)size * 8.0 / 6.5) + 1;
+  char*      outString        = ALLOCATE_ARRAY(arena, char, outStringMaxSize);
+  const auto outStringSize    = base91_encode(toEncodeLittleEndian, size, outString);
 
-  // NOTE: Max overhead of base91 is 23%. Allocating x2 memory to be safe.
-  // Some end portion of it won't be used at all.
-  //
-  // NOTE: `+1` because base91_decode_end writes at most 1 byte.
-  const size_t allocated = (size + sizeof(size_t)) * 2 + 1;
+  ASSERT(outStringSize <= outStringMaxSize);
+  ASSERT_FALSE(*(outString + outStringSize));
+  ASSERT(outStringSize == strlen(outString));
 
-  char* buf = ALLOCATE_ARRAY(arena, char, allocated);
+  if (outStringLen_)
+    *outStringLen_ = outStringSize;
 
-  size_t usedSize = 0;
-  usedSize += base91_encode(&b, &size, sizeof(size_t), &usedSize);
-  usedSize += base91_encode_end(&b, &usedSize);
-
-  ASSERT(usedSize <= allocated);
-
-  if (outStringLen)
-    *outStringLen = strlen(buf);
-
-  return (const char*)buf;
+  return (const char*)outString;
 }
 
 void* DecodeFromAscii(
   const char* encoded,
   Arena*      arena,
-  size_t*     outBufSize = nullptr
+  size_t*     outBufSize_ = nullptr
 ) {  ///
   ASSERT(encoded);
   ASSERT(arena);
 
-  base91_base91 b{};
-  base91_init(&b);
+  const auto outBufMaxSize = strlen(encoded);
+  auto       outBuf        = ALLOCATE_ARRAY(arena, u8, outBufMaxSize);
+  auto       outBufSize    = base91_decode(encoded, outBufMaxSize, outBuf);
 
-  size_t size{};
-  base91_decode(&b, encoded, sizeof(size_t), &size);
+  ASSERT(outBufSize <= outBufMaxSize);
 
-  size_t realDecodedSize{};
-
-  void* outBuf = nullptr;
-
-  if (size) {
-    outBuf = (void*)ALLOCATE_ARRAY(arena, u8, size);
-    realDecodedSize += base91_decode(&b, encoded, size, outBuf);
-    realDecodedSize += base91_decode_end(&b, outBuf);
-    ASSERT(size == realDecodedSize);
-  }
-
-  if (outBufSize)
-    *outBufSize = size;
+  if (outBufSize_)
+    *outBufSize_ = outBufSize;
 
   return outBuf;
 }
 
 TEST_CASE ("EncodeToAscii / DecodeFromAscii") {  ///
   auto arena = MakeArena(260 * 4);
+  DEFER {
+    DeinitArena(&arena);
+  };
 
   u8* bytes = (u8*)BF_ALLOC(256);
   u8  prev  = 0;
