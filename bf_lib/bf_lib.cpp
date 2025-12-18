@@ -8,6 +8,8 @@
 #include "bf_lib_instrument.cpp"
 
 #include "doctest.h"
+
+#define BASE91_IMPLEMENTATION
 #include "base91.h"
 
 #define SDL_MAIN_USE_CALLBACKS
@@ -3185,8 +3187,8 @@ const char* EncodeToBase91(
   ASSERT(toEncodeLittleEndian);
   ASSERT(arena);
 
-  basE91 b{};
-  basE91_init(&b);
+  base91__basE91 b{};
+  base91__init(&b);
 
   // NOTE: Max overhead of base91 is 23%. Allocating x2 memory to be safe.
   // Some end portion of it won't be used at all.
@@ -3197,8 +3199,8 @@ const char* EncodeToBase91(
   char* buf = ALLOCATE_ARRAY(arena, char, allocated);
 
   size_t usedSize = 0;
-  usedSize += basE91_encode(&b, &size, sizeof(size_t), &usedSize);
-  usedSize += basE91_encode_end(&b, &usedSize);
+  usedSize += base91__encode(&b, &size, sizeof(size_t), &usedSize);
+  usedSize += base91__encode_end(&b, &usedSize);
 
   ASSERT(usedSize <= allocated);
 
@@ -3216,11 +3218,11 @@ void* DecodeFromBase91(
   ASSERT(encoded);
   ASSERT(arena);
 
-  basE91 b{};
-  basE91_init(&b);
+  base91__basE91 b{};
+  base91__init(&b);
 
   size_t size{};
-  basE91_decode(&b, encoded, sizeof(size_t), &size);
+  base91__decode(&b, encoded, sizeof(size_t), &size);
 
   size_t realDecodedSize{};
 
@@ -3228,8 +3230,8 @@ void* DecodeFromBase91(
 
   if (size) {
     outBuf = (void*)ALLOCATE_ARRAY(arena, u8, size);
-    realDecodedSize += basE91_decode(&b, encoded, size, outBuf);
-    realDecodedSize += basE91_decode_end(&b, outBuf);
+    realDecodedSize += base91__decode(&b, encoded, size, outBuf);
+    realDecodedSize += base91__decode_end(&b, outBuf);
     ASSERT(size == realDecodedSize);
   }
 
