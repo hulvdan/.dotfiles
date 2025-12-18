@@ -24,6 +24,7 @@
 
 #if defined(SDL_PLATFORM_EMSCRIPTEN)
 #  include <emscripten.h>
+#  include <emscripten/bind.h>
 #endif
 
 #include "glm/glm.hpp"
