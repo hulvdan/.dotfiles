@@ -108,31 +108,37 @@ end
 vim.g.hulvdan_run_command = hulvdan_run_command
 vim.g.hulvdan_tasks = hulvdan_tasks
 
-vim.fn.execute("colorscheme rams")
-vim.fn.execute("hi! link NeoTreeGitAdded Default")
-vim.fn.execute("hi! link NeoTreeGitConflict Default")
-vim.fn.execute("hi! link NeoTreeGitDeleted Default")
-vim.fn.execute("hi! link NeoTreeGitIgnored Default")
-vim.fn.execute("hi! link NeoTreeGitModified Default")
-vim.fn.execute("hi! link NeoTreeGitUntracked Default")
-vim.fn.execute("hi! EndOfBuffer guifg=bg")
-vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
-vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b8b" })
-vim.fn.execute("hi! clear CursorLine")
-vim.fn.execute("hi Folded guibg=#4b4b4b")
-vim.fn.execute("hi CursorLine guifg=clear guibg=#49490c")
-vim.fn.execute("hi! markdownerror guibg=clear")
+if false then
+    vim.fn.execute("colorscheme rams")
+    vim.fn.execute("hi! link NeoTreeGitAdded Default")
+    vim.fn.execute("hi! link NeoTreeGitConflict Default")
+    vim.fn.execute("hi! link NeoTreeGitDeleted Default")
+    vim.fn.execute("hi! link NeoTreeGitIgnored Default")
+    vim.fn.execute("hi! link NeoTreeGitModified Default")
+    vim.fn.execute("hi! link NeoTreeGitUntracked Default")
+    vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b8b" })
+    vim.fn.execute("hi! clear CursorLine")
+    vim.fn.execute("hi Folded guibg=#4b4b4b")
+    vim.fn.execute("hi CursorLine guifg=clear guibg=#49490c")
+    vim.fn.execute("hi! Comment guifg=#b8bb26")
+    vim.fn.execute("hi! link quickfixline Folded")
+else
+    vim.fn.execute("colorscheme naysayer")
+    vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b8b" })
+end
 
-vim.fn.execute("hi! Comment guifg=#b8bb26")
+vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
+
+vim.fn.execute("hi! EndOfBuffer guifg=bg")
 vim.fn.execute("hi clear Todo")
 vim.fn.execute("hi! link Todo comment")
 vim.fn.execute("hi! link comment.error comment")
 vim.fn.execute("hi! link comment.warning comment")
 vim.fn.execute("hi! link comment.note comment")
-vim.fn.execute("hi! link quickfixline Folded")
 vim.fn.execute("hi! bufferlinefill guibg=clear")
 vim.fn.execute("hi! bufferlineseparator guibg=clear")
 vim.fn.execute("hi! bufferlinebackground guibg=clear")
+vim.fn.execute("hi! markdownerror guibg=clear")
 
 vim.fn.execute([[set fillchars+=fold:\ ]])
 

@@ -563,10 +563,21 @@ return {
         end,
     },
 
+    { "stefanvanburen/rams.vim", version = "2.0.0", lazy = false },
     {
-        "stefanvanburen/rams.vim",
-        version = "2.0.0",
+        "alljokecake/naysayer-theme.nvim",
         lazy = false,
+        config = function()
+            require("naysayer").setup({
+                variant = "main",
+                dark_variant = "main",
+                bold_vert_split = false,
+                dim_nc_background = false,
+                disable_background = true,
+                disable_float_background = true,
+                disable_italics = true,
+            })
+        end,
     },
 
     {
@@ -608,8 +619,5 @@ return {
         end,
     },
 
-    {
-        "PeterRincker/vim-argumentative",
-        lazy = false,
-    },
+    { "PeterRincker/vim-argumentative", lazy = false },
 }
