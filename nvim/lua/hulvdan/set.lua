@@ -125,6 +125,7 @@ if false then
 else
     vim.fn.execute("colorscheme naysayer")
     vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b8b" })
+    vim.fn.execute("hi! link Folded LspReferenceRead")
 end
 
 vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
