@@ -124,8 +124,8 @@ if false then
     vim.fn.execute("hi! link quickfixline Folded")
 else
     vim.fn.execute("colorscheme naysayer")
-    vim.api.nvim_set_hl(0, "MiniCursorword", { fg = "#ebebeb", bg = "#4b4b8b" })
     vim.fn.execute("hi! link Folded LspReferenceRead")
+    vim.fn.execute("hi! MiniCursorword guibg=#0a616b gui=NONE")
 end
 
 vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
