@@ -13,6 +13,12 @@
 #include <memory>
 #include <vector>
 
+// #define ZPL_IMPLEMENTATION
+// #define ZPL_PICO
+// #include "zpl.h"
+
+#define BF_RESTRICT
+
 #include "bf_lib_instrument.cpp"
 
 #include "doctest.h"
@@ -87,14 +93,6 @@ using Vector4Int = glm::ivec4;
   const auto name_ = [&] arguments BF_FORCE_INLINE_LAMBDA -> returnType_
 
 #define INLINE_LAMBDA [&]() BF_FORCE_INLINE_LAMBDA
-
-#if defined(_MSC_VER)
-#  define BF_RESTRICT __restrict
-#elif defined(__GNUC__) || defined(__clang__)
-#  define BF_RESTRICT __restrict__
-#else
-#  define BF_RESTRICT
-#endif
 
 #define BF_RELEASE (BF_DEBUG == 0)
 
@@ -1418,39 +1416,53 @@ BF_FORCE_INLINE void unmapped_free(void* ptr) {  ///
 
 // Arena.
 // ------------------------------------------------------------
-#if 1
+#if 0
 
 struct Arena {  ///
-  zpl_arena arena = {};
-  // size_t used    = 0;
-  // size_t size    = 0;
-  // u8*    base    = nullptr;
-  size_t maxUsed = 0;
+  zpl_arena arena   = {};
+  size_t    maxUsed = 0;
 };
 
-Arena MakeArena(size_t size) {  ///
+BF_FORCE_INLINE Arena MakeArena(size_t size) {  ///
   Arena result{};
   zpl_arena_init_from_memory(&result.arena, BF_ALLOC(size), size);
   return result;
-  // return {.size = size, .base = (u8*)};
 }
 
-void DeinitArena(Arena* arena) {  ///
+BF_FORCE_INLINE void DeinitArena(Arena* arena) {  ///
   BF_FREE(arena->arena.physical_start);
   *arena = {};
 }
 
+BF_FORCE_INLINE u8*
+Allocate_(Arena* arena, size_t size, size_t alignment) {  ///
+  ASSERT(arena->arena.physical_start);
+  ASSERT(arena);
+  ASSERT(size > 0);
+  ASSERT(alignment > 0);
+  auto result = (u8*)zpl_alloc_align(zpl_arena_allocator(&arena->arena), size, alignment);
+  ASSERT(result);
+  arena->maxUsed = MAX(arena->arena.total_allocated, arena->maxUsed);
+  return result;
+}
+
+#  define TEMP_USAGE_WITH_COUNTER_(arena_, counter_)                              \
+    const auto _arenaSnap##counter_ = zpl_arena_snapshot_begin(&(arena_)->arena); \
+    DEFER {                                                                       \
+      zpl_arena_snapshot_end(_arenaSnap##counter_);                               \
+    };
+
 #else
 
 struct Arena {  ///
-  size_t used    = 0;
-  size_t size    = 0;
-  u8*    base    = nullptr;
-  size_t maxUsed = 0;
+  ptrdiff_t used    = 0;
+  ptrdiff_t size    = 0;
+  void*     base    = nullptr;
+  ptrdiff_t maxUsed = 0;
 };
 
 Arena MakeArena(size_t size) {  ///
-  return {.size = size, .base = (u8*)BF_ALLOC(size)};
+  return {.size = (ptrdiff_t)size, .base = (u8*)BF_ALLOC(size)};
 }
 
 void DeinitArena(Arena* arena) {  ///
@@ -1458,65 +1470,63 @@ void DeinitArena(Arena* arena) {  ///
   *arena = {};
 }
 
-#  define ALLOCATE_FOR(arena, type) (type*)(Allocate_(arena, sizeof(type)))
-#  define ALLOCATE_ARRAY(arena, type, count) \
-    (type*)(Allocate_(arena, sizeof(type) * (count)))
-
-#  define ALLOCATE_ZEROS_FOR(arena, type) (type*)(AllocateZeros_(arena, sizeof(type)))
-#  define ALLOCATE_ZEROS_ARRAY(arena, type, count) \
-    (type*)(AllocateZeros_(arena, sizeof(type) * (count)))
-
-// NOLINTBEGIN(bugprone-macro-parentheses)
-#  define ALLOCATE_FOR_AND_INITIALIZE(arena, type)        \
-    (INLINE_LAMBDA {                                      \
-      auto ptr = (type*)(Allocate_(arena, sizeof(type))); \
-      std::construct_at(ptr);                             \
-      return ptr;                                         \
-    }())
-// NOLINTEND(bugprone-macro-parentheses)
-
-// NOLINTBEGIN(bugprone-macro-parentheses)
-#  define ALLOCATE_ARRAY_AND_INITIALIZE(arena, type, count)         \
-    (INLINE_LAMBDA {                                                \
-      auto ptr = (type*)(Allocate_(arena, sizeof(type) * (count))); \
-      FOR_RANGE (int, i, (count)) {                                 \
-        std::construct_at(ptr + i);                                 \
-      }                                                             \
-      return ptr;                                                   \
-    }())
-// NOLINTEND(bugprone-macro-parentheses)
-
-#  define DEALLOCATE_ARRAY(arena, type, count) Deallocate_(arena, sizeof(type) * (count))
-
-//
-// TODO: Introduce the notion of `alignment` here!
-// NOTE: Refer to Casey's memory allocation functions
-// https://youtu.be/MvDUe2evkHg?list=PLEMXAbCVnmY6Azbmzj3BiC3QRYHE9QoG7&t=2121
-//
-inline u8* Allocate_(Arena* arena, size_t size) {  ///
+inline void* Allocate_(Arena* arena, size_t size, size_t alignment) {  ///
+  ASSERT(arena);
+  ASSERT(arena->base);
   ASSERT(size > 0);
   ASSERT(arena->size >= size);
   ASSERT(arena->used <= arena->size - size);
 
-  u8* result = arena->base + arena->used;
+  u8* result = (u8*)arena->base + arena->used;
   arena->used += size;
   arena->maxUsed = MAX(arena->used, arena->maxUsed);
   return result;
 }
 
-inline u8* AllocateZeros_(Arena* arena, size_t size) {  ///
-  auto result = Allocate_(arena, size);
+#  define TEMP_USAGE_WITH_COUNTER_(arena, counter)     \
+    auto _arena##counter##Used_ = (arena)->used;       \
+    DEFER {                                            \
+      ASSERT((arena)->used >= _arena##counter##Used_); \
+      (arena)->used = _arena##counter##Used_;          \
+    };
+
+#endif
+
+BF_FORCE_INLINE void* AllocateZeros_(Arena* arena, size_t size, size_t alignment) {  ///
+  auto result = Allocate_(arena, size, alignment);
   memset(result, 0, size);
   return result;
 }
 
-inline void Deallocate_(Arena* arena, size_t size) {  ///
-  ASSERT(size > 0);
-  ASSERT(arena->used >= size);
-  arena->used -= size;
-}
+#define ALLOCATE_FOR(arena_, type_) \
+  (type_*)(Allocate_(arena_, sizeof(type_), alignof(type_)))
+#define ALLOCATE_ARRAY(arena_, type_, count) \
+  (type_*)(Allocate_(arena_, sizeof(type_) * (count), alignof(type_)))
 
-#endif
+#define ALLOCATE_ZEROS_FOR(arena_, type_) \
+  (type_*)(AllocateZeros_(arena_, sizeof(type_), alignof(type_)))
+#define ALLOCATE_ZEROS_ARRAY(arena_, type_, count) \
+  (type_*)(AllocateZeros_(arena_, sizeof(type_) * (count), alignof(type_)))
+
+// NOLINTBEGIN(bugprone-macro-parentheses)
+#define ALLOCATE_FOR_AND_INITIALIZE(arena_, type_)                         \
+  (INLINE_LAMBDA {                                                         \
+    auto ptr = (type_*)(Allocate_(arena_, sizeof(type_), alignof(type_))); \
+    std::construct_at(ptr);                                                \
+    return ptr;                                                            \
+  }())
+// NOLINTEND(bugprone-macro-parentheses)
+
+// NOLINTBEGIN(bugprone-macro-parentheses)
+#define ALLOCATE_ARRAY_AND_INITIALIZE(arena_, type_, count)                          \
+  (INLINE_LAMBDA {                                                                   \
+    auto ptr = (type_*)(Allocate_(arena_, sizeof(type_) * (count), alignof(type_))); \
+    FOR_RANGE (int, i, (count)) {                                                    \
+      std::construct_at(ptr + i);                                                    \
+    }                                                                                \
+    return ptr;                                                                      \
+  }())
+// NOLINTEND(bugprone-macro-parentheses)
 
 // TEMP_USAGE используется для временного использования арены.
 // При вызове TEMP_USAGE запоминается текущее количество занятого
@@ -1533,14 +1543,8 @@ inline void Deallocate_(Arena* arena, size_t size) {  ///
 //     ASSERT(trash_arena->used == X);
 //
 
-#define TEMP_USAGE_WITH_COUNTER_(arena, counter)     \
-  auto _arena##counter##Used_ = (arena)->used;       \
-  DEFER {                                            \
-    ASSERT((arena)->used >= _arena##counter##Used_); \
-    (arena)->used = _arena##counter##Used_;          \
-  };
-#define TEMP_USAGE_(arena, counter) TEMP_USAGE_WITH_COUNTER_(arena, counter)
-#define TEMP_USAGE(arena) TEMP_USAGE_(arena, __COUNTER__)
+#define TEMP_USAGE_(arena_, counter) TEMP_USAGE_WITH_COUNTER_(arena_, counter)
+#define TEMP_USAGE(arena_) TEMP_USAGE_(arena_, __COUNTER__)
 
 // !banner: containers
 //  ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗ ██╗███╗   ██╗███████╗██████╗ ███████╗
