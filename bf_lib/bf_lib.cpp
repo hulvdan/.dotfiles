@@ -13,11 +13,11 @@
 #include <memory>
 #include <vector>
 
-// #define ZPL_IMPLEMENTATION
-// #define ZPL_PICO
-// #include "zpl.h"
+#define ZPL_IMPLEMENTATION
+#define ZPL_PICO
+#include "zpl.h"
 
-#define BF_RESTRICT
+#define BF_RESTRICT ZPL_RESTRICT
 
 #include "bf_lib_instrument.cpp"
 
@@ -1416,44 +1416,6 @@ BF_FORCE_INLINE void unmapped_free(void* ptr) {  ///
 
 // Arena.
 // ------------------------------------------------------------
-#if 0
-
-struct Arena {  ///
-  zpl_arena arena   = {};
-  size_t    maxUsed = 0;
-};
-
-BF_FORCE_INLINE Arena MakeArena(size_t size) {  ///
-  Arena result{};
-  zpl_arena_init_from_memory(&result.arena, BF_ALLOC(size), size);
-  return result;
-}
-
-BF_FORCE_INLINE void DeinitArena(Arena* arena) {  ///
-  BF_FREE(arena->arena.physical_start);
-  *arena = {};
-}
-
-BF_FORCE_INLINE u8*
-Allocate_(Arena* arena, size_t size, size_t alignment) {  ///
-  ASSERT(arena->arena.physical_start);
-  ASSERT(arena);
-  ASSERT(size > 0);
-  ASSERT(alignment > 0);
-  auto result = (u8*)zpl_alloc_align(zpl_arena_allocator(&arena->arena), size, alignment);
-  ASSERT(result);
-  arena->maxUsed = MAX(arena->arena.total_allocated, arena->maxUsed);
-  return result;
-}
-
-#  define TEMP_USAGE_WITH_COUNTER_(arena_, counter_)                              \
-    const auto _arenaSnap##counter_ = zpl_arena_snapshot_begin(&(arena_)->arena); \
-    DEFER {                                                                       \
-      zpl_arena_snapshot_end(_arenaSnap##counter_);                               \
-    };
-
-#else
-
 struct Arena {  ///
   ptrdiff_t used    = 0;
   ptrdiff_t size    = 0;
@@ -1476,21 +1438,33 @@ inline void* Allocate_(Arena* arena, size_t size, size_t alignment) {  ///
   ASSERT(size > 0);
   ASSERT(arena->size >= size);
   ASSERT(arena->used <= arena->size - size);
+  ASSERT(alignment > 0);
 
-  u8* result = (u8*)arena->base + arena->used;
-  arena->used += size;
+  auto result = (u8*)arena->base + arena->used;
+  ASSERT(zpl_ptr_diff(result, zpl_align_forward(result, alignment)) <= alignment);
+
+  result = (u8*)zpl_align_forward(result, alignment);
+
+  auto newUsed = zpl_ptr_diff(arena->base, zpl_ptr_add(result, size));
+  ASSERT(newUsed > 0);
+
+  if (newUsed > arena->size) {
+    INVALID_PATH;
+    return nullptr;
+  }
+
+  arena->used    = newUsed;
   arena->maxUsed = MAX(arena->used, arena->maxUsed);
+  ASSERT(arena->maxUsed > 0);
   return result;
 }
 
-#  define TEMP_USAGE_WITH_COUNTER_(arena, counter)     \
-    auto _arena##counter##Used_ = (arena)->used;       \
-    DEFER {                                            \
-      ASSERT((arena)->used >= _arena##counter##Used_); \
-      (arena)->used = _arena##counter##Used_;          \
-    };
-
-#endif
+#define TEMP_USAGE_WITH_COUNTER_(arena, counter)  \
+  auto _arenaUsed##counter = (arena)->used;       \
+  DEFER {                                         \
+    ASSERT((arena)->used >= _arenaUsed##counter); \
+    (arena)->used = _arenaUsed##counter;          \
+  };
 
 BF_FORCE_INLINE void* AllocateZeros_(Arena* arena, size_t size, size_t alignment) {  ///
   auto result = Allocate_(arena, size, alignment);
@@ -1545,6 +1519,57 @@ BF_FORCE_INLINE void* AllocateZeros_(Arena* arena, size_t size, size_t alignment
 
 #define TEMP_USAGE_(arena_, counter) TEMP_USAGE_WITH_COUNTER_(arena_, counter)
 #define TEMP_USAGE(arena_) TEMP_USAGE_(arena_, __COUNTER__)
+
+// ZPL_DEF_INLINE zpl_allocator zpl_bf_allocator() {
+//   // nocheckin
+//   return {};
+// }
+//
+// ZPL_DEF ZPL_ALLOCATOR_PROC(zpl_bf_allocator_proc) {
+//   zpl_unused(allocator_data);
+//   zpl_unused(old_size);
+//   if (!alignment)
+//     alignment = ZPL_DEFAULT_MEMORY_ALIGNMENT;
+//
+//   switch (type) {
+//   case ZPL_ALLOCATION_ALLOC: {
+//     auto result = zpl_align_forward(BF_ALLOC(size + alignment), alignment);
+//
+//   } break;
+//
+//   case ZPL_ALLOCATION_FREE: {
+//     BF_FREE(old_memory);
+//   } break;
+//
+//   case ZPL_ALLOCATION_RESIZE: {
+//     zpl_allocator a = zpl_heap_allocator();
+//     ptr             = zpl_default_resize_align(a, old_memory, old_size, size,
+//     alignment);
+//   } break;
+// #else
+//   case ZPL_ALLOCATION_ALLOC: {
+//     posix_memalign(&ptr, alignment, size);
+//
+//   } break;
+//
+//   case ZPL_ALLOCATION_FREE: {
+//     free(old_memory);
+//   } break;
+//
+//   case ZPL_ALLOCATION_RESIZE: {
+//     zpl_allocator a = zpl_heap_allocator();
+//     ptr             = zpl_default_resize_align(a, old_memory, old_size, size,
+//     alignment);
+//   } break;
+// #endif
+//
+//   case ZPL_ALLOCATION_FREE_ALL: {
+//     INVALID_PATH;
+//   } break;
+//   }
+//
+//   return nullptr;
+// }
 
 // !banner: containers
 //  ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗ ██╗███╗   ██╗███████╗██████╗ ███████╗
