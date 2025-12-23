@@ -1,5 +1,13 @@
 #pragma once
 
+// !banner: based
+// ██████╗  █████╗ ███████╗███████╗██████╗
+// ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
+// ██████╔╝███████║███████╗█████╗  ██║  ██║
+// ██╔══██╗██╔══██║╚════██║██╔══╝  ██║  ██║
+// ██████╔╝██║  ██║███████║███████╗██████╔╝
+// ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═════╝
+
 #include <cmath>
 #include <cstdarg>
 #include <memory>
@@ -25,6 +33,7 @@
 #if defined(SDL_PLATFORM_EMSCRIPTEN)
 #  include <emscripten.h>
 #  include <emscripten/bind.h>
+#  include <emscripten/html5.h>
 #endif
 
 #include "glm/glm.hpp"
@@ -35,14 +44,6 @@ using Vector4    = glm::vec4;
 using Vector2Int = glm::ivec2;
 using Vector3Int = glm::ivec3;
 using Vector4Int = glm::ivec4;
-
-// !banner: based
-// ██████╗  █████╗ ███████╗███████╗██████╗
-// ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
-// ██████╔╝███████║███████╗█████╗  ██║  ██║
-// ██╔══██╗██╔══██║╚════██║██╔══╝  ██║  ██║
-// ██████╔╝██║  ██║███████║███████╗██████╔╝
-// ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═════╝
 
 #include <stdint.h>
 #include <limits>
@@ -111,7 +112,9 @@ using Vector4Int = glm::ivec4;
 
 #define ARRAY_COUNT(a) (int)(sizeof(a) / sizeof((a)[0]))
 
-#define EMPTY_STATEMENT ((void)0)
+#define EMPTY_STATEMENT \
+  do {                  \
+  } while (0)
 
 // #define CONTINUE_LABEL_DANGER(name)           \
 //   /*NOLINTBEGIN(bugprone-macro-parentheses)*/ \
@@ -223,7 +226,7 @@ static volatile int _g_enable_asserts_work = 0;
 #  define FrameMark
 #endif
 
-#define BASE91_ASSERT ASSERT
+#define BASE91_ASSERT(x) ASSERT(x)
 #define BASE91_IMPLEMENTATION
 #include "base91.h"
 
@@ -1262,6 +1265,10 @@ Vector2 Vector2Rotate(Vector2 v, f32 angle) {  ///
   return {v.x * c - v.y * s, v.x * s + v.y * c};
 }
 
+Vector2 Vector2RotateAround(Vector2 what, Vector2 aroundWhat, f32 angle) {  ///
+  return aroundWhat + Vector2Rotate(what - aroundWhat, angle);
+}
+
 bool Vector2Equals(Vector2 v1, Vector2 v2) {  ///
   return FloatEquals(v1.x, v2.x) && FloatEquals(v1.y, v2.y);
 }
@@ -1411,6 +1418,30 @@ BF_FORCE_INLINE void unmapped_free(void* ptr) {  ///
 
 // Arena.
 // ------------------------------------------------------------
+#if 1
+
+struct Arena {  ///
+  zpl_arena arena = {};
+  // size_t used    = 0;
+  // size_t size    = 0;
+  // u8*    base    = nullptr;
+  size_t maxUsed = 0;
+};
+
+Arena MakeArena(size_t size) {  ///
+  Arena result{};
+  zpl_arena_init_from_memory(&result.arena, BF_ALLOC(size), size);
+  return result;
+  // return {.size = size, .base = (u8*)};
+}
+
+void DeinitArena(Arena* arena) {  ///
+  BF_FREE(arena->arena.physical_start);
+  *arena = {};
+}
+
+#else
+
 struct Arena {  ///
   size_t used    = 0;
   size_t size    = 0;
@@ -1427,35 +1458,35 @@ void DeinitArena(Arena* arena) {  ///
   *arena = {};
 }
 
-#define ALLOCATE_FOR(arena, type) (type*)(Allocate_(arena, sizeof(type)))
-#define ALLOCATE_ARRAY(arena, type, count) \
-  (type*)(Allocate_(arena, sizeof(type) * (count)))
+#  define ALLOCATE_FOR(arena, type) (type*)(Allocate_(arena, sizeof(type)))
+#  define ALLOCATE_ARRAY(arena, type, count) \
+    (type*)(Allocate_(arena, sizeof(type) * (count)))
 
-#define ALLOCATE_ZEROS_FOR(arena, type) (type*)(AllocateZeros_(arena, sizeof(type)))
-#define ALLOCATE_ZEROS_ARRAY(arena, type, count) \
-  (type*)(AllocateZeros_(arena, sizeof(type) * (count)))
+#  define ALLOCATE_ZEROS_FOR(arena, type) (type*)(AllocateZeros_(arena, sizeof(type)))
+#  define ALLOCATE_ZEROS_ARRAY(arena, type, count) \
+    (type*)(AllocateZeros_(arena, sizeof(type) * (count)))
 
 // NOLINTBEGIN(bugprone-macro-parentheses)
-#define ALLOCATE_FOR_AND_INITIALIZE(arena, type)        \
-  (INLINE_LAMBDA {                                      \
-    auto ptr = (type*)(Allocate_(arena, sizeof(type))); \
-    std::construct_at(ptr);                             \
-    return ptr;                                         \
-  }())
+#  define ALLOCATE_FOR_AND_INITIALIZE(arena, type)        \
+    (INLINE_LAMBDA {                                      \
+      auto ptr = (type*)(Allocate_(arena, sizeof(type))); \
+      std::construct_at(ptr);                             \
+      return ptr;                                         \
+    }())
 // NOLINTEND(bugprone-macro-parentheses)
 
 // NOLINTBEGIN(bugprone-macro-parentheses)
-#define ALLOCATE_ARRAY_AND_INITIALIZE(arena, type, count)         \
-  (INLINE_LAMBDA {                                                \
-    auto ptr = (type*)(Allocate_(arena, sizeof(type) * (count))); \
-    FOR_RANGE (int, i, (count)) {                                 \
-      std::construct_at(ptr + i);                                 \
-    }                                                             \
-    return ptr;                                                   \
-  }())
+#  define ALLOCATE_ARRAY_AND_INITIALIZE(arena, type, count)         \
+    (INLINE_LAMBDA {                                                \
+      auto ptr = (type*)(Allocate_(arena, sizeof(type) * (count))); \
+      FOR_RANGE (int, i, (count)) {                                 \
+        std::construct_at(ptr + i);                                 \
+      }                                                             \
+      return ptr;                                                   \
+    }())
 // NOLINTEND(bugprone-macro-parentheses)
 
-#define DEALLOCATE_ARRAY(arena, type, count) Deallocate_(arena, sizeof(type) * (count))
+#  define DEALLOCATE_ARRAY(arena, type, count) Deallocate_(arena, sizeof(type) * (count))
 
 //
 // TODO: Introduce the notion of `alignment` here!
@@ -1484,6 +1515,8 @@ inline void Deallocate_(Arena* arena, size_t size) {  ///
   ASSERT(arena->used >= size);
   arena->used -= size;
 }
+
+#endif
 
 // TEMP_USAGE используется для временного использования арены.
 // При вызове TEMP_USAGE запоминается текущее количество занятого
@@ -2453,6 +2486,38 @@ struct Color {  ///
   }
 };
 
+constexpr Color ColorFromRGB(Vector3 color) {  ///
+  ASSERT(color.x >= 0);
+  ASSERT(color.y >= 0);
+  ASSERT(color.z >= 0);
+  ASSERT(color.x <= 1);
+  ASSERT(color.y <= 1);
+  ASSERT(color.z <= 1);
+  return {
+    (u8)(color.x * 255),
+    (u8)(color.y * 255),
+    (u8)(color.z * 255),
+    255,
+  };
+}
+
+constexpr Color ColorFromRGBA(Vector4 color) {  ///
+  ASSERT(color.x >= 0);
+  ASSERT(color.y >= 0);
+  ASSERT(color.z >= 0);
+  ASSERT(color.a >= 0);
+  ASSERT(color.x <= 1);
+  ASSERT(color.y <= 1);
+  ASSERT(color.z <= 1);
+  ASSERT(color.a <= 1);
+  return {
+    (u8)(color.x * 255),
+    (u8)(color.y * 255),
+    (u8)(color.z * 255),
+    (u8)(color.a * 255),
+  };
+}
+
 constexpr Color ColorFromRGB(u32 color) {  ///
   Color color_{
     .r = (u8)((color & (0xff << 16)) >> 16),
@@ -2688,6 +2753,10 @@ Color ColorFromHSV(f32 hue, f32 saturation, f32 value) {  ///
   color.b = (unsigned char)((value - value * saturation * k) * 255.0f);
 
   return color;
+}
+
+BF_FORCE_INLINE Color ColorFromHSV(Vector3 hsv) {  ///
+  return ColorFromHSV(hsv.x, hsv.y, hsv.z);
 }
 
 // Get color multiplied with another color
@@ -3179,6 +3248,17 @@ TEST_CASE ("EncodeToHex / DecodeFromHex") {  ///
   ASSERT(!memcmp(result, bytes, 256));
 }
 
+constexpr int  BF_ASCII_ENCODER_VERSION    = 1;
+constexpr int  BF_ASCII_ENCODER_MAGIC_SIZE = 6;
+constexpr char BF_ASCII_ENCODER_MAGIC[BF_ASCII_ENCODER_MAGIC_SIZE]{
+  'H',
+  'D',
+  'A',
+  'S',
+  '0' + (BF_ASCII_ENCODER_VERSION / 64),
+  '0' + (BF_ASCII_ENCODER_VERSION % 64)
+};
+
 const char* EncodeToAscii(
   const void* toEncodeLittleEndian,
   size_t      size,
@@ -3188,12 +3268,22 @@ const char* EncodeToAscii(
   ASSERT(toEncodeLittleEndian);
   ASSERT(arena);
 
-  const auto outStringMaxSize = ceil((f64)size * 8.0 / 6.5) + 1;
-  char*      outString        = ALLOCATE_ARRAY(arena, char, outStringMaxSize);
-  const auto outStringSize    = base91_encode(toEncodeLittleEndian, size, outString);
+  const auto outStringMaxSize
+    = BF_ASCII_ENCODER_MAGIC_SIZE + ceil((f64)size * 8.0 / 6.5) + 1;
+  char* outString = ALLOCATE_ARRAY(arena, char, outStringMaxSize);
+
+  // Version.
+  auto versionString = outString;
+  for (auto c : BF_ASCII_ENCODER_MAGIC) {
+    *versionString = c;
+    versionString++;
+  }
+
+  size_t outStringSize = BF_ASCII_ENCODER_MAGIC_SIZE
+                         + base91_encode(toEncodeLittleEndian, size, versionString);
 
   ASSERT(outStringSize <= outStringMaxSize);
-  ASSERT_FALSE(*(outString + outStringSize));
+  ASSERT_FALSE(outString[outStringSize]);
   ASSERT(outStringSize == strlen(outString));
 
   if (outStringLen_)
@@ -3202,7 +3292,7 @@ const char* EncodeToAscii(
   return (const char*)outString;
 }
 
-void* DecodeFromAscii(
+u8* DecodeFromAscii(
   const char* encoded,
   Arena*      arena,
   size_t*     outBufSize_ = nullptr
@@ -3210,9 +3300,16 @@ void* DecodeFromAscii(
   ASSERT(encoded);
   ASSERT(arena);
 
-  const auto outBufMaxSize = strlen(encoded);
+  // Version.
+  FOR_RANGE (int, i, BF_ASCII_ENCODER_MAGIC_SIZE - 2)
+    ASSERT(encoded[i] == BF_ASCII_ENCODER_MAGIC[i]);
+  const int decodingFromVersion = (int)(encoded[4] - '0') * 64 + (int)(encoded[5] - '0');
+  ASSERT(decodingFromVersion == 1);
+
+  const auto outBufMaxSize = strlen(encoded + BF_ASCII_ENCODER_MAGIC_SIZE);
   auto       outBuf        = ALLOCATE_ARRAY(arena, u8, outBufMaxSize);
-  auto       outBufSize    = base91_decode(encoded, outBufMaxSize, outBuf);
+  auto       outBufSize
+    = base91_decode(encoded + BF_ASCII_ENCODER_MAGIC_SIZE, outBufMaxSize, outBuf);
 
   ASSERT(outBufSize <= outBufMaxSize);
 
