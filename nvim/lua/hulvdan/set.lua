@@ -108,7 +108,7 @@ end
 vim.g.hulvdan_run_command = hulvdan_run_command
 vim.g.hulvdan_tasks = hulvdan_tasks
 
-if false then
+if true then
     vim.fn.execute("colorscheme rams")
     vim.fn.execute("hi! link NeoTreeGitAdded Default")
     vim.fn.execute("hi! link NeoTreeGitConflict Default")
