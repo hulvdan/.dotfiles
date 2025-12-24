@@ -314,3 +314,7 @@ vim.keymap.set("n", "<leader>0", function()
         vim.api.nvim_input("hl0$`z")
     end
 end, opts)
+
+vim.keymap.set("n", "gD", "<C-w>o:vs<CR>gd", opts)
+vim.keymap.set("n", "<leader>C", "o  continue;<ESC>", opts)
+vim.keymap.set("n", "<leader>B", "o  break;<ESC>", opts)

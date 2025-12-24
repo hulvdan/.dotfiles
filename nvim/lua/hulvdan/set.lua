@@ -108,7 +108,9 @@ end
 vim.g.hulvdan_run_command = hulvdan_run_command
 vim.g.hulvdan_tasks = hulvdan_tasks
 
-if true then
+theme = 0
+
+if theme == 0 then
     vim.fn.execute("colorscheme rams")
     vim.fn.execute("hi! link NeoTreeGitAdded Default")
     vim.fn.execute("hi! link NeoTreeGitConflict Default")
@@ -124,8 +126,10 @@ if true then
     vim.fn.execute("hi! link quickfixline Folded")
 else
     vim.fn.execute("colorscheme naysayer")
+    vim.fn.execute("hi! Normal guibg=#011315")
+    vim.fn.execute("hi! Visual guibg=#278d7a")
     vim.fn.execute("hi! link Folded LspReferenceRead")
-    vim.fn.execute("hi! MiniCursorword guibg=#0a616b gui=NONE")
+    vim.fn.execute("hi! MiniCursorword guibg=#074b53 gui=NONE")
 end
 
 vim.fn.execute("hi! link MiniCursorwordCurrent MiniCursorword")
@@ -140,6 +144,8 @@ vim.fn.execute("hi! bufferlinefill guibg=clear")
 vim.fn.execute("hi! bufferlineseparator guibg=clear")
 vim.fn.execute("hi! bufferlinebackground guibg=clear")
 vim.fn.execute("hi! markdownerror guibg=clear")
+vim.fn.execute("hi! BufferlineBufferSelected guibg=clear")
+vim.fn.execute("hi! BufferlineBufferVisible guibg=clear")
 
 vim.fn.execute([[set fillchars+=fold:\ ]])
 
