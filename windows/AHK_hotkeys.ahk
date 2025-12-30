@@ -119,8 +119,8 @@ SendMode Input
 
 ; `Right Ctrl + Right Shift` для кнопки вызова окна контекста,
 ; т.к. у меня на клавиатуре её нет. Использую редко.
-RShift & RControl::Send {AppsKey}
-RControl & RShift::Send {AppsKey}
+RShift & RControl::send {AppsKey}
+RControl & RShift::send {AppsKey}
 
 ; `Ctrl + Alt + Shift + F12` убирает / возвращает title bar окон.
 ; Я ценю вертикальное пространство и не готов его отдавать под пустоту,
@@ -131,44 +131,44 @@ RControl & RShift::Send {AppsKey}
 ; Набор спецсимволов в удобных местах клавиатуры при печати в слепую.
 ; У AHK немного конченное экранирование символов, поэтому выглядит неконсистентно.
 ;-----------------------------------------------------------------------------------------
-F24 & S::Send, {TEXT}[
-F24 & D::Send, {TEXT}{
-F24 & F::Send, {TEXT}(
+F24 & S::send, {TEXT}[
+F24 & D::send, {TEXT}{
+F24 & F::send, {TEXT}(
 F24 & G::&
 F24 & H::=
-F24 & J::Send, {TEXT})
-F24 & K::Send, {TEXT}}
-F24 & L::Send, {TEXT}]
-F24 & `;::Send, :
+F24 & J::send, {TEXT})
+F24 & K::send, {TEXT}}
+F24 & L::send, {TEXT}]
+F24 & `;::send, :
 
 F24 & W::SendRaw, +
-F24 & E::Send, -
-F24 & T::Send, {U+00AB} ; «
-F24 & Y::Send, {U+00BB} ; »
-F24 & U::Send, \
-F24 & I::Send, *
-F24 & O::Send, /
-F24 & P::Send, |
+F24 & E::send, -
+F24 & T::send, {U+00AB} ; «
+F24 & Y::send, {U+00BB} ; »
+F24 & U::send, \
+F24 & I::send, *
+F24 & O::send, /
+F24 & P::send, |
 
 F24 & V::SendRaw, % "^"
 F24 & M::SendRaw, % "$"
-F24 & ,::Send, <
-F24 & .::Send, >
+F24 & ,::send, <
+F24 & .::send, >
 
 ;-----------------------------------------------------------------------------------------
 ; Эксперименитровал с набором цифр на ряду ниже домашнего.
 ; Не использую, т.к. я слишком слаб :/
 ;-----------------------------------------------------------------------------------------
-; F24 & Z::Send, 1
-; F24 & X::Send, 2
-; F24 & C::Send, 3
-; F24 & V::Send, 4
-; F24 & B::Send, 5
-; F24 & N::Send, 6
-; F24 & M::Send, 7
-; F24 & <::Send, 8
-; F24 & >::Send, 9
-; F24 & /::Send, 0
+; F24 & Z::send, 1
+; F24 & X::send, 2
+; F24 & C::send, 3
+; F24 & V::send, 4
+; F24 & B::send, 5
+; F24 & N::send, 6
+; F24 & M::send, 7
+; F24 & <::send, 8
+; F24 & >::send, 9
+; F24 & /::send, 0
 
 ;-----------------------------------------------------------------------------------------
 ; Раскомментить, чтобы отключить работу спецсимволов по-умолчанию.
@@ -190,8 +190,8 @@ F24 & .::Send, >
 !`::fnLauncher()
 
 *XButton1::Shift
-; *XButton1::Send {alt down}{printscreen}{alt up}
-*XButton2::Send {alt down}{printscreen}{alt up}
+; *XButton1::send {alt down}{printscreen}{alt up}
+*XButton2::send {alt down}{printscreen}{alt up}
 
 ; Эмуляция магнитного колеса мыши.
 ; Зажатый F24 (Caps) + скролл = бесконечная прокрутка,
@@ -206,7 +206,7 @@ fnResetMagneticWheeling() {
 *$F24::
 {
     fnResetMagneticWheeling()
-    Send, {Blind}{F24}
+    send, {Blind}{F24}
 }
 
 custom_wheeling := 0
@@ -230,7 +230,7 @@ fnOnWheelUp() {
         fnMagneticWheelUp()
     else
         fnResetMagneticWheeling()
-    Send, {Blind}{WheelUp}
+    send, {Blind}{WheelUp}
 }
 
 fnOnWheelDown() {
@@ -238,16 +238,16 @@ fnOnWheelDown() {
         fnMagneticWheelDown()
     else
         fnResetMagneticWheeling()
-    Send, {Blind}{WheelDown}
+    send, {Blind}{WheelDown}
 }
 
 fnSendWheelWhileMagneticWheeling() {
     global custom_wheeling
 
     if (custom_wheeling == 1)
-        Send, {Blind}{WheelUp}
+        send, {Blind}{WheelUp}
     else if (custom_wheeling == -1)
-        Send, {Blind}{WheelDown}
+        send, {Blind}{WheelDown}
 
     if (custom_wheeling != 0)
         SetTimer, fnSendWheelWhileMagneticWheeling, -16
@@ -258,31 +258,31 @@ fnSendWheelWhileMagneticWheeling() {
 ; Установление breakpoint-а в Visual Studio с помощью дополнительных кнопок на мышке.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe devenv.exe
-XButton1::SendEvent, {F9}
-XButton2::SendEvent, {F9}
+XButton1::sendevent, {F9}
+XButton2::sendevent, {F9}
 
 ;-----------------------------------------------------------------------------------------
 ; Замена `[` и `{` на `_` при использовании английского языка.
 ;-----------------------------------------------------------------------------------------
 #if fnIsEnglishLayoutActive()
-{::Send, {TEXT}_
-[::Send, {TEXT}_
+{::send, {TEXT}_
+[::send, {TEXT}_
 
 ;-----------------------------------------------------------------------------------------
 ; Adobe Illustrator - TODO.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe illustrator.exe
-^+S::SendEvent, {alt down}f{alt up}e{left}{down}{enter}{space}
+^+S::sendevent, {alt down}f{alt up}e{left}{down}{enter}{space}
 
 ;-----------------------------------------------------------------------------------------
 ; Clip Studio Paint - TODO.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
-; F5::fnClipStudioSaveSingle()
+F6::fnClipStudioSaveSingle()
 F5::fnClipStudioSaveMultiple()
 F4::fnClipStudioCopyPasteTransform()
 
-; *alt up::SendEvent, {alt up}{esc}
+; *alt up::sendevent, {alt up}{esc}
 ; *alt up::SendInput, {alt up}
 
 clipStudioCopyPasting := 0
@@ -291,48 +291,53 @@ fnClipStudioCopyPasteTransform() {
     global clipStudioCopyPasting
     if (clipStudioCopyPasting) {
         clipStudioCopyPasting = 0
-        SendEvent, {enter}{ctrl down}e{ctrl up}
+        sendevent, {enter}{ctrl down}e{ctrl up}
     } else {
         clipStudioCopyPasting = 1
-        SendEvent, {ctrl down}cvt{ctrl up}
+        sendevent, {ctrl down}cvt{ctrl up}
     }
 }
 
 fnClipStudioSaveSingle() {
-    ; TODO RUSSIAN
-    SendEvent, {alt down}f{alt up}rr{right}p
-    sleep 1500
-    SendEvent, {enter}{left}{enter}
-    sleep 1800
-    SendEvent, {enter}
-    sleep 1600
-    SendEvent, {enter}
+    ; Opening save dialog
+    sendevent, {ctrl down}s{ctrl up}
+    sendevent, {alt}{down}
+    loop 9 {
+        sendevent, {down}
+    }
+    sendevent, {right}{down}{down}{enter}
+    sleep 800
+    ; Windows' save dialog opened. Replacing file
+    sendevent, {enter}{left}{enter}
+    sleep 800
+    ; Skipping clip studio export windows
+    sendevent, {enter}{enter}
 }
 
 fnClipStudioSaveMultiple() {
-    SendEvent, {ctrl down}s{ctrl up}
-    SendEvent, {alt}{down}
+    sendevent, {ctrl down}s{ctrl up}
+    sendevent, {alt}{down}
     loop 10 {
-        SendEvent, {down}
+        sendevent, {down}
     }
-    SendEvent, {right}{down}{enter}
+    sendevent, {right}{down}{enter}
     sleep 100
-    SendEvent, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
+    sendevent, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
     sleep 100
-    SendEvent, {enter}
+    sendevent, {enter}
     sleep 500
-    SendEvent, {enter}
+    sendevent, {enter}
 }
 
 ;-----------------------------------------------------------------------------------------
 ; Audacity - F5 для экспортирования WAV.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
-f5::SendEvent, {alt down}f{alt up}e
-f6::SendEvent, {alt down}f{alt up}er
-=::SendEvent, {alt down}c{alt up}v{up}{enter}{enter}
--::SendEvent, {alt down}c{alt up}f{right}{up}{up}{enter}
-; +::SendEvent, {alt down}c{alt up}f{right}{down}{down}{down}
+f5::sendevent, {alt down}f{alt up}e
+f6::sendevent, {alt down}f{alt up}er
+=::sendevent, {alt down}c{alt up}v{up}{enter}{enter}
+-::sendevent, {alt down}c{alt up}f{right}{up}{up}{enter}
+; +::sendevent, {alt down}c{alt up}f{right}{down}{down}{down}
 
 ;-----------------------------------------------------------------------------------------
 ; Reaper - F5 для экспортирования.
@@ -345,54 +350,54 @@ xbutton1::delete
 
 fnReaperSave() {
     fnReaperSetSubprojectPreset()
-    SendEvent, {enter}{enter}
+    sendevent, {enter}{enter}
 }
 
 fnReaperSetSubprojectPreset() {
     ; - opening render dialog
-    SendEvent, {ctrl down}{alt down}r{alt up}{ctrl up}
+    sendevent, {ctrl down}{alt down}r{alt up}{ctrl up}
     WinWait, Render to File
     click 700 60
     ; - Selecting the first preset in ALL SETTINGS
-    SendEvent, {space}{up}{right}{enter}
+    sendevent, {space}{up}{right}{enter}
     ; - Activating save settings button
     click 190 800
     ; - Closing dialog
-    SendEvent, {space}
+    sendevent, {space}
 
-    SendEvent, {ctrl down}s{ctrl up}
+    sendevent, {ctrl down}s{ctrl up}
     WinWait, Rendering to file...
     WinWaitClose, Rendering to file...
 }
 
 fnReaperNewSubproject() {
     ; YOU MUST SELECT CURRENT TRACK'S NAME !!!
-    SendEvent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
+    sendevent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
     sleep 200
-    SendEvent, {ctrl down}v{ctrl up}{enter}
+    sendevent, {ctrl down}v{ctrl up}{enter}
     sleep 3000
-    SendEvent, {ctrl down}s{shift down}{tab}{shift up}{ctrl up}
+    sendevent, {ctrl down}s{shift down}{tab}{shift up}{ctrl up}
 
     fnReaperSetSubprojectPreset()
 
     ; Creating tracks
-    SendEvent, {ctrl down}tttttttttttttt{ctrl up}
+    sendevent, {ctrl down}tttttttttttttt{ctrl up}
 
     ; Saving
-    SendEvent, {ctrl down}s{ctrl up}
+    sendevent, {ctrl down}s{ctrl up}
 }
 
 ;-----------------------------------------------------------------------------------------
 ; Aseprite - F5 TODO.
 ;-----------------------------------------------------------------------------------------
 #ifWinActive, ahk_exe aseprite.exe
-f5::SendEvent, {ctrl down}cn{ctrl up}{enter}{ctrl down}v{ctrl up}{alt down}s{alt up}t{ctrl down}d{tab}{ctrl up}
+f5::sendevent, {ctrl down}cn{ctrl up}{enter}{ctrl down}v{ctrl up}{alt down}s{alt up}t{ctrl down}d{tab}{ctrl up}
 f6::fnAseFastSaving()
 
 fnAseFastSaving() {
-    SendEvent, {enter}{enter}
+    sendevent, {enter}{enter}
     sleep 300
-    SendEvent, {ctrl down}wsv{ctrl up}{left}{left}{left}{left}
+    sendevent, {ctrl down}wsv{ctrl up}{left}{left}{left}{left}
 }
 
 fnIsEnglishLayoutActive() {
@@ -414,4 +419,16 @@ fnToggleTitleBar() {
 
 fnLauncher() {
     Run, C:\Users\user\dev\home\launcher\.venv\Scripts\python.exe C:\Users\user\dev\home\launcher\main.py,,Max
+}
+
+;-----------------------------------------------------------------------------------------
+; Davinci Resolve.
+;-----------------------------------------------------------------------------------------
+#ifWinActive, ahk_exe Resolve.exe
+x::fnResolveRippleDelete()
+
+fnResolveRippleDelete() {
+    send, b{click}a
+    MouseMove -20, 0, 0, R
+    send, {click}{del}
 }

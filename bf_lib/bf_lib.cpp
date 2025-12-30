@@ -14,7 +14,7 @@
 #include <vector>
 
 #define ZPL_IMPLEMENTATION
-#define ZPL_PICO
+#define ZPL_NANO
 #include "zpl.h"
 
 #define BF_RESTRICT ZPL_RESTRICT
@@ -3152,14 +3152,14 @@ char* FormatSignedFloatDot1WithoutLeadingZeros(f32 v) {  ///
   return StripLeadingZerosInFloat(FormatSignedFloatDot1(v));
 }
 
-const char* PushTextToArena(Arena* arena, const char* text, int* outLen = nullptr) {  ///
+char* PushTextToArena(Arena* arena, const char* text, int* outLen = nullptr) {  ///
   size_t len = strlen(text);
   auto   s   = ALLOCATE_ARRAY(arena, u8, len + 1);
   memcpy(s, text, len);
   s[len] = 0;
   if (outLen)
     *outLen = (int)len;
-  return (const char*)s;
+  return (char*)s;
 }
 
 // clang-format off
