@@ -2550,7 +2550,7 @@ struct Color {  ///
   }
 };
 
-constexpr Color ColorFromRGB(Vector3 color) {  ///
+Color ColorFromRGB(Vector3 color) {  ///
   ASSERT(color.x >= 0);
   ASSERT(color.y >= 0);
   ASSERT(color.z >= 0);
@@ -2565,7 +2565,7 @@ constexpr Color ColorFromRGB(Vector3 color) {  ///
   };
 }
 
-constexpr Color ColorFromRGBA(Vector4 color) {  ///
+Color ColorFromRGBA(Vector4 color) {  ///
   ASSERT(color.x >= 0);
   ASSERT(color.y >= 0);
   ASSERT(color.z >= 0);
