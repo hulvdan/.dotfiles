@@ -19,8 +19,6 @@
 
 #define BF_RESTRICT ZPL_RESTRICT
 
-#include "bf_lib_instrument.cpp"
-
 #include "doctest.h"
 
 #define SDL_MAIN_USE_CALLBACKS
@@ -215,9 +213,44 @@ static volatile int _g_enable_asserts_work = 0;
 #endif
 
 #if BF_PROFILING && defined(DOCTEST_CONFIG_DISABLE)
-#  define TRACY_ONLY_LOCALHOST
-#  define TRACY_NO_BROADCAST
-#  include "tracy/Tracy.hpp"
+#  ifdef BF_PLATFORM_Web
+
+struct _ProfilingZone {  ///
+  const char* name;
+
+  _ProfilingZone(const char* n)
+      : name(n) {
+    EM_ASM({ performance.mark(UTF8ToString($0) + "_begin"); }, name);
+  }
+
+  ~_ProfilingZone() {
+    EM_ASM(
+      {
+        const name = UTF8ToString($0);
+        performance.mark(name + "_end");
+        performance.measure(name, name + "_begin", name + "_end");
+      },
+      name
+    );
+  }
+};
+
+#    define WEBPERF_CONCAT_IMPL(a, b) a##b
+#    define WEBPERF_CONCAT(a, b) WEBPERF_CONCAT_IMPL(a, b)
+#    define ZoneScoped \
+      _ProfilingZone WEBPERF_CONCAT(_webperf_zone_, __LINE__)(__FUNCTION__)
+#    define ZoneScopedN(name_) \
+      _ProfilingZone WEBPERF_CONCAT(_webperf_zone_, __LINE__)(name_)
+#    define FrameMark
+
+#  else
+
+#    define TRACY_ONLY_LOCALHOST
+#    define TRACY_NO_BROADCAST
+#    include "tracy/Tracy.hpp"
+
+#  endif
+
 #else
 #  define ZoneScoped
 #  define ZoneScopedN(_)
@@ -348,6 +381,8 @@ struct IteratorFacade {  ///
     return copy;
   }
 };
+
+#include "bf_lib_instrument.cpp"
 
 // !banner: math
 // ███╗   ███╗ █████╗ ████████╗██╗  ██╗
