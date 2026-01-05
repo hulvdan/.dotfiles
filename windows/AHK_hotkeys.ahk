@@ -11,6 +11,18 @@
 ;
 ; Добавленные сочетания клавиш:
 ;
+;   (верхний ряд, левая рука)
+;     CAPS + W -> +
+;     CAPS + E -> -
+;     CAPS + T -> «
+;
+;   (верхний ряд, правая рука)
+;     CAPS + Y -> »
+;     CAPS + U -> \
+;     CAPS + I -> *
+;     CAPS + O -> /
+;     CAPS + P -> |
+;
 ;   (основной ряд, левая рука)
 ;     CAPS + S -> [
 ;     CAPS + D -> {
@@ -23,18 +35,6 @@
 ;     CAPS + K -> }
 ;     CAPS + L -> ]
 ;     CAPS + ; -> :
-;
-;   (верхний ряд, левая рука)
-;     CAPS + W -> +
-;     CAPS + E -> -
-;     CAPS + T -> «
-;
-;   (верхний ряд, правая рука)
-;     CAPS + Y -> »
-;     CAPS + U -> \
-;     CAPS + I -> *
-;     CAPS + O -> /
-;     CAPS + P -> |
 ;
 ;   (нижний ряд, левая рука)
 ;     CAPS + V -> ^
@@ -131,29 +131,43 @@ RControl & RShift::send {AppsKey}
 ; Набор спецсимволов в удобных местах клавиатуры при печати в слепую.
 ; У AHK немного конченное экранирование символов, поэтому выглядит неконсистентно.
 ;-----------------------------------------------------------------------------------------
-F24 & S::send, {TEXT}[
-F24 & D::send, {TEXT}{
-F24 & F::send, {TEXT}(
+F24 & 1::send, {blind}{f1}
+F24 & 2::send, {blind}{f2}
+F24 & 3::send, {blind}{f3}
+F24 & 4::send, {blind}{f4}
+F24 & 5::send, {blind}{f5}
+F24 & 6::send, {blind}{f6}
+F24 & 7::send, {blind}{f7}
+F24 & 8::send, {blind}{f8}
+F24 & 9::send, {blind}{f9}
+F24 & 0::send, {blind}{f10}
+F24 & backspace::send, {blind}{f11}
+F24 & -::send, {blind}{f12}
+
+F24 & tab::send, {blind}``
+F24 & W::SendRaw, +
+F24 & E::send, {blind}-
+F24 & T::send, {blind}{U+00AB} ; «
+F24 & Y::send, {blind}{U+00BB} ; »
+F24 & U::send, {blind}\
+F24 & I::send, {blind}*
+F24 & O::send, {blind}/
+F24 & P::send, {blind}|
+
+F24 & S::send, {blind}{TEXT}[
+F24 & D::send, {blind}{TEXT}{
+F24 & F::send, {blind}{TEXT}(
 F24 & G::&
 F24 & H::=
-F24 & J::send, {TEXT})
-F24 & K::send, {TEXT}}
-F24 & L::send, {TEXT}]
-F24 & `;::send, :
-
-F24 & W::SendRaw, +
-F24 & E::send, -
-F24 & T::send, {U+00AB} ; «
-F24 & Y::send, {U+00BB} ; »
-F24 & U::send, \
-F24 & I::send, *
-F24 & O::send, /
-F24 & P::send, |
+F24 & J::send, {blind}{TEXT})
+F24 & K::send, {blind}{TEXT}}
+F24 & L::send, {blind}{TEXT}]
+F24 & `;::send, {blind}:
 
 F24 & V::SendRaw, % "^"
 F24 & M::SendRaw, % "$"
-F24 & ,::send, <
-F24 & .::send, >
+F24 & ,::send, {blind}<
+F24 & .::send, {blind}>
 
 ;-----------------------------------------------------------------------------------------
 ; Эксперименитровал с набором цифр на ряду ниже домашнего.
