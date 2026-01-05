@@ -36,6 +36,7 @@
 
 #if defined(SDL_PLATFORM_EMSCRIPTEN)
 #  include <emscripten.h>
+#  include <emscripten/fetch.h>
 #  include <emscripten/bind.h>
 #  include <emscripten/html5.h>
 #endif
