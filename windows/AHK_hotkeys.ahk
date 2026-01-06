@@ -357,9 +357,9 @@ f6::sendevent, {alt down}f{alt up}er
 ; Reaper - F5 для экспортирования.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe reaper.exe
-f5::fnReaperSave()
-f4::fnReaperNewSubproject()
-f3::fnReaperSetSubprojectPreset()
+*f5::fnReaperSave()
+*f4::fnReaperNewSubproject()
+*f3::fnReaperSetSubprojectPreset()
 xbutton1::delete
 
 fnReaperSave() {
