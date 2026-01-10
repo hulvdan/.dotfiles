@@ -42,6 +42,10 @@
 #endif
 
 #include "glm/glm.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/transform.hpp"
+#include <glm/gtx/matrix_transform_2d.hpp>
 
 using Vector2    = glm::vec2;
 using Vector3    = glm::vec3;
@@ -157,6 +161,8 @@ constexpr i64 i64_min = std::numeric_limits<i64>::min();
 
 constexpr f32 f32_inf = std::numeric_limits<f32>::infinity();
 constexpr f64 f64_inf = std::numeric_limits<f64>::infinity();
+
+#include "bf_lib_instrument.cpp"
 
 // NOLINTBEGIN(bugprone-macro-parentheses)
 #define FOR_RANGE(type, variable_name, max_value_exclusive) \
@@ -383,8 +389,6 @@ struct IteratorFacade {  ///
   }
 };
 
-#include "bf_lib_instrument.cpp"
-
 // !banner: math
 // ███╗   ███╗ █████╗ ████████╗██╗  ██╗
 // ████╗ ████║██╔══██╗╚══██╔══╝██║  ██║
@@ -392,6 +396,8 @@ struct IteratorFacade {  ///
 // ██║╚██╔╝██║██╔══██║   ██║   ██╔══██║
 // ██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║
 // ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+#define SQR(x) ((x) * (x))
 
 constexpr auto SQRT_2        = 1.41421356237f;
 constexpr auto SQRT_2_OVER_2 = 0.70710678f;
@@ -1531,9 +1537,8 @@ BF_FORCE_INLINE void* AllocateZeros_(Arena* arena, size_t size, size_t alignment
 #define ALLOCATE_ARRAY_AND_INITIALIZE(arena_, type_, count)                          \
   (INLINE_LAMBDA {                                                                   \
     auto ptr = (type_*)(Allocate_(arena_, sizeof(type_) * (count), alignof(type_))); \
-    FOR_RANGE (int, i, (count)) {                                                    \
+    FOR_RANGE (int, i, (count))                                                      \
       std::construct_at(ptr + i);                                                    \
-    }                                                                                \
     return ptr;                                                                      \
   }())
 // NOLINTEND(bugprone-macro-parentheses)
@@ -2008,11 +2013,23 @@ struct PushableArray {
     _UnstableRemoveAt((u8*)_base, sizeof(T), i, &count);
   }
 
+  void Reset() {  ///
+    count = 0;
+  }
+
   T* begin() {  ///
     return _base;
   }
 
   T* end() {  ///
+    return _base + count;
+  }
+
+  const T* begin() const {  ///
+    return _base;
+  }
+
+  const T* end() const {  ///
     return _base + count;
   }
 
@@ -2160,11 +2177,11 @@ struct Vector {
     maxCount = 0;
   }
 
-  T* begin() {  ///
+  T* begin() const {  ///
     return base;
   }
 
-  T* end() {  ///
+  T* end() const {  ///
     return base + count;
   }
 };
@@ -2307,8 +2324,13 @@ struct Random {
   }
 
   // [0; 1)
+  f64 FRand64() {
+    return (f64)Rand() / (f64)((u64)u32_max + 1);
+  }
+
+  // [0; 1]
   f32 FRand() {  ///
-    return (f32)((f64)Rand() / (f64)((u64)u32_max + 1));
+    return FRand64();
   }
 
   // [-1; 1)
@@ -2324,38 +2346,41 @@ struct Random {
   // [a; b]
   int RandInt(int a, int b) {  ///
     ASSERT(a <= b);
-    auto r = (int)(FRand() * (f32)(b - a + 1));
+    auto r = (int)(FRand64() * (f64)(b - a + 1));
     ASSERT(r >= 0);
     return a + r;
   }
 
+  // [a; b]
   int RandInt(uint a, uint b) {  ///
     ASSERT(a <= b);
-    int r = (int)(FRand() * (f32)(b - a + 1));
+    int r = (int)(FRand64() * (f64)(b - a + 1));
     ASSERT(r >= 0);
     return (int)a + r;
   }
 
+  // [0; b)
   int RandInt(int b) {  ///
-    return MIN((int)(FRand() * b), b);
+    ASSERT(b >= 0);
+    return (int)(FRand64() * (f64)b);
   }
 
+  // [0; b)
   int RandInt(uint b) {  ///
-    auto r = FRand() * (f32)b;
-    ASSERT(r >= 0);
-    return MIN((int)r, (int)b);
+    return (int)(FRand64() * (f64)b);
   }
 
   template <typename T>
   void Shuffle(T* array, size_t n) {  ///
-    if (n > 1) {
-      for (size_t i = n - 1; i > 0; i--) {
-        size_t j = Rand() % (i + 1);
+    if (!n)
+      return;
 
-        T temp   = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-      }
+    for (size_t i = n - 1; i > 0; i--) {
+      size_t j = Rand() % (i + 1);
+
+      T temp   = array[i];
+      array[i] = array[j];
+      array[j] = temp;
     }
   }
 };
