@@ -1102,6 +1102,24 @@ BF_FORCE_INLINE f32 EaseBounceSmallSmooth(f32 p) {  ///
   return Bezier({0, 0}, {0.8f, 1.8f}, {0.8f, 0.9f}, {1, 1}, p).y;
 }
 
+BF_FORCE_INLINE Vector2 InfinitySymbol(f32 t) {  ///
+  f32 c = cosf(t * 2 * PI32);
+  f32 s = sinf(t * 2 * PI32);
+  return {s, c * s};
+}
+
+BF_FORCE_INLINE Vector2 InfinitySymbolSlope(f32 t) {  ///
+  f32 th = t * 2 * PI32;
+  f32 s  = sinf(th);
+  f32 c  = cosf(th);
+  return {-s, c * c - s * s};
+}
+
+BF_FORCE_INLINE f32 InfinitySymbolRotation(f32 t) {  ///
+  auto v = InfinitySymbolSlope(t);
+  return atan2f(v.y, v.x);
+}
+
 #define OFFSET_IN_DIRECTION_OF_ANGLE_RAD(offset, angleRad) \
   (Vector2Rotate(Vector2((offset), 0), (angleRad)))
 #define OFFSET_IN_DIRECTION_OF_ANGLE_DEG(offset, angleDeg) \
@@ -2559,13 +2577,12 @@ struct Color {  ///
   u8 a = u8_max;
 
   Color operator*(const Color& v) {
-    Color result{
+    return {
       (u8)(v.r * r / 255),
       (u8)(v.g * g / 255),
       (u8)(v.b * b / 255),
       (u8)(v.a * a / 255),
     };
-    return result;
   }
 
   bool operator==(const Color& other) const {
@@ -2711,18 +2728,6 @@ Color ColorLerp(Color v1, Color v2, f32 p) {  ///
   return result;
 }
 
-constexpr bool ColorIsEqual(Color col1, Color col2) {  ///
-  bool result = false;
-
-  if ((col1.r == col2.r)     //
-      && (col1.g == col2.g)  //
-      && (col1.b == col2.b)  //
-      && (col1.a == col2.a))
-    result = true;
-
-  return result;
-}
-
 constexpr int ColorToHex(Color color) {  ///
   int result = 0;
 
@@ -2847,6 +2852,11 @@ Color ColorFromHSV(f32 hue, f32 saturation, f32 value) {  ///
 
 BF_FORCE_INLINE Color ColorFromHSV(Vector3 hsv) {  ///
   return ColorFromHSV(hsv.x, hsv.y, hsv.z);
+}
+
+Color TextifyColor(Color color) {  ///
+  auto v = ColorToHSV(color);
+  return ColorFromHSV(v.x, MIN(1, v.y * 1.0f), MIN(1, v.z * 1.3f));
 }
 
 // Get color multiplied with another color
@@ -3043,6 +3053,12 @@ Color ColorAlphaBlend(Color dst, Color src, Color tint) {  ///
 // ██║   ██║   ██║   ██║██║     ╚════██║
 // ╚██████╔╝   ██║   ██║███████╗███████║
 //  ╚═════╝    ╚═╝   ╚═╝╚══════╝╚══════╝
+
+int ProgressToIndex(f32 p, int count) {  ///
+  ASSERT(p >= 0);
+  ASSERT(p <= 1);
+  return MIN(count - 1, count * p);
+}
 
 char* TextFormat(const char* text, ...) {  ///
   // Maximum number of static buffers for text formatting.

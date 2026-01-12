@@ -1,5 +1,14 @@
 return {
     {
+        "brenoprata10/nvim-highlight-colors",
+        lazy = false,
+        config = function()
+            vim.opt.termguicolors = true
+            require("nvim-highlight-colors").setup({})
+        end,
+    },
+
+    {
         "hat0uma/csvview.nvim",
         lazy = false,
         opts = {
