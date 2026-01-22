@@ -837,6 +837,10 @@ BF_FORCE_INLINE Vector2 Vector2Lerp(Vector2 v1, Vector2 v2, f32 amount) {  ///
   return v1 + (v2 - v1) * amount;
 }
 
+BF_FORCE_INLINE Vector2 Vector2Swap(Vector2 v) {  ///
+  return {v.y, v.x};
+}
+
 BF_FORCE_INLINE Vector2
 Bezier(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, f32 t) {  ///
   ASSERT(t >= 0);
@@ -2452,13 +2456,17 @@ TEST_CASE ("Shuffle") {  ///
   }
 }
 
-/*
 struct PerlinParams {  ///
   int octaves    = {};
   f32 smoothness = {};
+
+  bool operator==(const PerlinParams& other) const {
+    return (octaves == other.octaves) && (smoothness == other.smoothness);
+  }
 };
 
 void CycledPerlin2D(
+  Random&      rand,
   View<u16>    output,
   Arena*       trashArena,
   PerlinParams params,
@@ -2490,7 +2498,7 @@ void CycledPerlin2D(
   auto accumulator = ALLOCATE_ARRAY(trashArena, f32, totalPixels);
 
   FOR_RANGE (u64, i, (u64)totalPixels) {
-    *(cover + i)       = FRand();
+    *(cover + i)       = rand.FRand();
     *(accumulator + i) = 0;
   }
 
@@ -2560,7 +2568,6 @@ void CycledPerlin2D(
     }
   }
 }
-*/
 
 // !banner: colors
 //  ██████╗ ██████╗ ██╗      ██████╗ ██████╗ ███████╗
@@ -2852,6 +2859,17 @@ Color ColorFromHSV(f32 hue, f32 saturation, f32 value) {  ///
 
 BF_FORCE_INLINE Color ColorFromHSV(Vector3 hsv) {  ///
   return ColorFromHSV(hsv.x, hsv.y, hsv.z);
+}
+
+Color ColorEnhance(Color color, f32 saturationScale, f32 valueScale) {  ///
+  ASSERT(saturationScale >= 0);
+  ASSERT(valueScale >= 0);
+  auto hsv = ColorToHSV(color);
+  hsv.y *= saturationScale;
+  hsv.z *= valueScale;
+  hsv.y = MIN(1, hsv.y);
+  hsv.z = MIN(1, hsv.z);
+  return ColorFromHSV(hsv);
 }
 
 Color TextifyColor(Color color) {  ///

@@ -3,7 +3,6 @@ syntax on
 filetype plugin on
 set nocompatible
 
-
 set laststatus=3
 set statusline=%<%f\ %h%m%r%=\ %y\ %l:%c\ \[%{fnamemodify(getcwd(),':t')}\]
 
