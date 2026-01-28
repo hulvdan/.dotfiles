@@ -110,6 +110,9 @@
 #SingleInstance force
 #NoEnv
 
+HKL := DllCall("LoadKeyboardLayout", "Str", "00000409", "UInt", 1)
+PostMessage, 0x50, 0, HKL,, A   ; 0x50 = WM_INPUTLANGCHANGEREQUEST
+
 CoordMode, Mouse, Relative
 SetKeyDelay, 50, 50
 SendMode Input
