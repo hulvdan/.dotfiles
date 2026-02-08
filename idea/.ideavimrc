@@ -31,6 +31,7 @@ map <leader><leader>g <Action>(Annotate)
 vmap K <Action>(MoveLineUp)
 vmap J <Action>(MoveLineDown)
 
+
 map <leader>e <Action>(ActivateProjectToolWindow)
 
 map [d <Action>(GotoPreviousError)
@@ -85,8 +86,10 @@ map <leader>jen <Action>(Inline)
 map <leader>jeo <Action>(OverrideMethods)
 
 map <leader>k <Action>(QuickJavaDoc)
-imap <C-s> <Action>(ParameterInfo)
-map <C-s> <Action>(ParameterInfo)
+" imap <C-s> <Action>(ParameterInfo)
+" map <C-s> <Action>(ParameterInfo)
+" nnoremap <C-s> <Action>(SaveAll)
+" inoremap <C-s> <Action>(SaveAll)
 map <leader>s <Action>(GotoSymbol)
 map <leader>S <Action>(GotoSymbol)
 
@@ -120,7 +123,7 @@ vmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
 xmap <C-/> <Action>(CommentByLineComment)<esc>`>j^
 nmap <C-/> mz<Action>(CommentByLineComment)`zj^
 
-nmap <C-n> o# TODO(a.chistov): <esc>
+nmap <C-n> o# nocheckin <esc>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq

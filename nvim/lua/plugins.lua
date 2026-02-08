@@ -453,6 +453,7 @@ return {
                     python = { "ruff_isort", "ruff" },
                     go = { "gofmt" },
                     gdscript = { "gdscript-formatter" },
+                    proto = { "proto" },
                     -- markdown = { "mdslw", "mdformat" },
                     -- Use a sub-list to run only the first available formatter
                     -- javascript = { { "prettierd", "prettier" } },
@@ -477,6 +478,11 @@ return {
                         command = [[c:\Users\user\dev\ref\ols\odinfmt.exe]],
                         args = { "-stdin" },
                         stdin = true,
+                    },
+                    proto = {
+                        command = "buf",
+                        args = { "format", "$FILENAME", "-w" },
+                        stdin = false,
                     },
                 },
                 format_on_save = {
