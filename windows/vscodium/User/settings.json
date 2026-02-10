@@ -61,4 +61,5 @@
         "asvetliakov.vscode-neovim": 1
     },
     "vim.vimrc.enable": true,
+    "redhat.telemetry.enabled": false
 }

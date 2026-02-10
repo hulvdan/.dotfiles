@@ -86,5 +86,25 @@
     {
         "key": "ctrl+shift+w",
         "command": "-workbench.action.closeWindow"
+    },
+    {
+        "key": "alt+m",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "alt+v",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "alt+q",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "shift+alt+v",
+        "command": "workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "shift+alt+m",
+        "command": "workbench.action.moveEditorRightInGroup"
     }
 ]
