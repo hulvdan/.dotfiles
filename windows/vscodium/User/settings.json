@@ -50,7 +50,6 @@
     "ruff.format.backend": "uv",
     "editor.formatOnSave": true,
     "editor.lineNumbers": "off",
-    "workbench.statusBar.visible": false,
     "window.density.editorTabHeight": "compact",
     "window.zoomPerWindow": false,
     "git.openRepositoryInParentFolders": "never",
@@ -68,4 +67,26 @@
     "git.autofetch": true,
     "window.title": "${rootName}${separator}${profileName}${separator}${appName}",
     "lldb.suppressUpdateNotifications": true,
+    "[gdscript]": {
+        "editor.glyphMargin": false,
+        "editor.codeLens": false
+    },
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [
+                "J"
+            ],
+            "commands": [
+                "editor.action.moveLinesDownAction"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.moveLinesUpAction"
+            ]
+        }
+    ],
 }
