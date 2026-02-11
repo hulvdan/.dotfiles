@@ -106,5 +106,40 @@
     {
         "key": "shift+alt+m",
         "command": "workbench.action.moveEditorRightInGroup"
-    }
+    },
+    {
+        "key": "ctrl+p",
+        "command": "editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    // {
+    //     "key": "alt+n",
+    //     "command": "vim.normalModeKeyBindings",
+    //     "args": {
+    //         "after": [
+    //             "*"
+    //         ]
+    //     },
+    //     "when": "editorTextFocus && vim.mode == 'Normal'"
+    // },
+    {
+        "key": "alt+n",
+        "command": "vim.remap",
+        "when": "editorTextFocus && vim.mode == 'Normal'",
+        "args": {
+            "after": [
+                "*"
+            ]
+        }
+    },
+    {
+        "key": "alt+shift+n",
+        "command": "vim.remap",
+        "when": "editorTextFocus && vim.mode == 'Normal'",
+        "args": {
+            "after": [
+                "#"
+            ]
+        }
+    },
 ]
