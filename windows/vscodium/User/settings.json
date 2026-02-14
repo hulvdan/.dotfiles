@@ -68,7 +68,6 @@
   "window.title": "${rootName}${separator}${profileName}${separator}${appName}",
   "lldb.suppressUpdateNotifications": true,
   "[gdscript]": {
-    "editor.glyphMargin": false,
     "editor.codeLens": false,
   },
   "vim.leader": "<space>",
@@ -119,4 +118,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "json.format.enable": false,
+  "workbench.editor.showIcons": false,
+  "workbench.editor.tabSizing": "shrink",
 }
