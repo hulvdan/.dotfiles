@@ -220,11 +220,13 @@ fnResetMagneticWheeling() {
 
 *$WheelUp::fnOnWheelUp()
 *$WheelDown::fnOnWheelDown()
-*$F24::
-{
+
+fnOnCaps() {
     fnResetMagneticWheeling()
     send, {Blind}{F24}
 }
+
+*$F24::fnOnCaps()
 
 custom_wheeling := 0
 
