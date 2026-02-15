@@ -75,6 +75,22 @@
   "vim.highlightedyank.color": "rgba(255,255,0,0.4)",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["<C-u>"],
+      "after": ["1", "2", "g", "k"],
+    },
+    {
+      "before": ["<C-d>"],
+      "after": ["1", "2", "g", "j"],
+    },
+    {
+      "before": ["<leader>", "c"],
+      "after": ["o", "c", "o", "n", "t", "i", "n", "u", "e", "<ESC>"],
+    },
+    {
+      "before": ["<leader>", "b"],
+      "after": ["o", "b", "r", "e", "a", "k", "<ESC>"],
+    },
+    {
       "before": ["j"],
       "after": ["g", "j"],
     },
@@ -120,4 +136,24 @@
   "json.format.enable": false,
   "workbench.editor.showIcons": false,
   "workbench.editor.tabSizing": "shrink",
+  "chat.fontSize": 12,
+  "editor.foldingStrategy": "auto",
+  "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
+  "foldOnOpen.targets": ["All"],
+  "explicitFolding.rules": {
+    "*": {
+      "begin": "##",
+      "end": "##",
+    },
+  },
+  "[proto]": {
+    "explicitFolding.rules": [
+      {
+        "begin": "///",
+        "end": "///",
+      },
+    ],
+  },
+  "explicitFolding.autoFold": "all",
+  "explicitFolding.notification": "none",
 }

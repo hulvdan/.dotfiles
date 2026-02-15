@@ -173,4 +173,18 @@
     "key": "f1",
     "command": "-workbench.action.showCommands",
   },
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    "when": "!activeEditorGroupEmpty",
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+    "when": "inEditorsPicker && inQuickOpen",
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.togglePanel",
+  },
 ]
