@@ -75,6 +75,14 @@
   "vim.highlightedyank.color": "rgba(255,255,0,0.4)",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["z", "E"],
+      "commands": [
+        {
+          "command": "editor.unfoldAll",
+        },
+      ],
+    },
+    {
       "before": ["<C-u>"],
       "after": ["1", "2", "g", "k"],
     },
@@ -97,6 +105,33 @@
     {
       "before": ["k"],
       "after": ["g", "k"],
+    },
+    {
+      "before": ["$"],
+      "after": ["$"],
+      "commands": [
+        {
+          "command": "editor.unfold",
+        },
+      ],
+    },
+    {
+      "before": ["^"],
+      "after": ["^"],
+      "commands": [
+        {
+          "command": "editor.unfold",
+        },
+      ],
+    },
+    {
+      "before": ["0"],
+      "after": ["0"],
+      "commands": [
+        {
+          "command": "editor.unfold",
+        },
+      ],
     },
     {
       "before": ["l"],
@@ -149,8 +184,8 @@
   "[proto]": {
     "explicitFolding.rules": [
       {
-        "begin": "///",
-        "end": "///",
+        "begin": "{",
+        "end": "}",
       },
     ],
   },
