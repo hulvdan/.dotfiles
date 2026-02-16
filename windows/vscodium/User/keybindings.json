@@ -187,4 +187,30 @@
     "key": "ctrl+tab",
     "command": "workbench.action.togglePanel",
   },
+  {
+    "key": "shift+f6",
+    "command": "-workbench.action.focusPreviousPart",
+  },
+  {
+    "key": "f2",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "f2",
+    "command": "-editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "ctrl+/",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "ctrl+/",
+    "command": "runCommands",
+    "args": {
+      "commands": ["editor.action.commentLine", "cursorDown"],
+    },
+  },
 ]

@@ -91,6 +91,24 @@
       "after": ["1", "2", "g", "j"],
     },
     {
+      "before": ["<C-n>"],
+      "after": [
+        "o",
+        "#",
+        " ",
+        "n",
+        "o",
+        "c",
+        "h",
+        "e",
+        "c",
+        "k",
+        "i",
+        "n",
+        "<ESC>",
+      ],
+    },
+    {
       "before": ["<leader>", "c"],
       "after": ["o", "c", "o", "n", "t", "i", "n", "u", "e", "<ESC>"],
     },
@@ -191,4 +209,15 @@
   },
   "explicitFolding.autoFold": "all",
   "explicitFolding.notification": "none",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": ["comment", "punctuation.definition.comment"],
+        "settings": {
+          "foreground": "#dc9824",
+          "fontStyle": "",
+        },
+      },
+    ],
+  },
 }
