@@ -69,6 +69,10 @@
   "lldb.suppressUpdateNotifications": true,
   "[gdscript]": {
     "editor.codeLens": false,
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
   },
   "vim.leader": "<space>",
   "vim.highlightedyank.enable": true,
@@ -220,4 +224,5 @@
       },
     ],
   },
+  "godotTools.inlayHints.gdscript": true,
 }

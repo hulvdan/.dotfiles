@@ -213,4 +213,9 @@
       "commands": ["editor.action.commentLine", "cursorDown"],
     },
   },
+  {
+    "key": "shift+alt+2",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active",
+  },
 ]
