@@ -218,4 +218,18 @@
     "command": "workbench.action.terminal.toggleTerminal",
     "when": "terminal.active",
   },
+  {
+    "key": "f8",
+    "command": "-editor.action.marker.nextInFiles",
+    "when": "editorFocus",
+  },
+  {
+    "key": "f8",
+    "command": "editor.action.marker.nextInFiles",
+  },
+  {
+    "key": "shift+f1",
+    "command": "editor.action.marker.prev",
+    "when": "editorFocus",
+  },
 ]

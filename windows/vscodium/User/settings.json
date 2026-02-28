@@ -48,7 +48,6 @@
   "workbench.welcomePage.walkthroughs.openOnInstall": false,
   "workbench.tips.enabled": false,
   "ruff.format.backend": "uv",
-  "editor.formatOnSave": true,
   "editor.lineNumbers": "off",
   "window.density.editorTabHeight": "compact",
   "window.zoomPerWindow": false,
@@ -225,4 +224,5 @@
     ],
   },
   "godotTools.inlayHints.gdscript": true,
+  "editor.formatOnSave": true,
 }
