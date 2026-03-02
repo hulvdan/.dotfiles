@@ -224,5 +224,4 @@
     ],
   },
   "godotTools.inlayHints.gdscript": true,
-  "editor.formatOnSave": true,
 }
