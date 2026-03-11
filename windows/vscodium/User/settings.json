@@ -27,7 +27,7 @@
     "**/.svn": true,
     "**/.DS_Store": true,
     "**/__pycache__/": true,
-    "**/.pytest_cache/": true,
+    "**/.pytest_cache/": true
   },
   "terminal.integrated.fontFamily": "Input Mono Condensed",
   "terminal.integrated.fontSize": 12,
@@ -54,7 +54,7 @@
   "git.openRepositoryInParentFolders": "never",
   "workbench.secondarySideBar.showLabels": false,
   "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1,
+    "asvetliakov.vscode-neovim": 1
   },
   "vim.vimrc.enable": true,
   "redhat.telemetry.enabled": false,
@@ -71,7 +71,7 @@
     "editor.defaultFormatter": null,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
-    "editor.formatOnType": false,
+    "editor.formatOnType": false
   },
   "vim.leader": "<space>",
   "vim.highlightedyank.enable": true,
@@ -81,17 +81,17 @@
       "before": ["z", "E"],
       "commands": [
         {
-          "command": "editor.unfoldAll",
-        },
-      ],
+          "command": "editor.unfoldAll"
+        }
+      ]
     },
     {
       "before": ["<C-u>"],
-      "after": ["1", "2", "g", "k"],
+      "after": ["1", "2", "g", "k"]
     },
     {
       "before": ["<C-d>"],
-      "after": ["1", "2", "g", "j"],
+      "after": ["1", "2", "g", "j"]
     },
     {
       "before": ["<C-n>"],
@@ -108,86 +108,86 @@
         "k",
         "i",
         "n",
-        "<ESC>",
-      ],
+        "<ESC>"
+      ]
     },
     {
       "before": ["<leader>", "c"],
-      "after": ["o", "c", "o", "n", "t", "i", "n", "u", "e", "<ESC>"],
+      "after": ["o", "c", "o", "n", "t", "i", "n", "u", "e", "<ESC>"]
     },
     {
       "before": ["<leader>", "b"],
-      "after": ["o", "b", "r", "e", "a", "k", "<ESC>"],
+      "after": ["o", "b", "r", "e", "a", "k", "<ESC>"]
     },
     {
       "before": ["j"],
-      "after": ["g", "j"],
+      "after": ["g", "j"]
     },
     {
       "before": ["k"],
-      "after": ["g", "k"],
+      "after": ["g", "k"]
     },
     {
       "before": ["$"],
       "after": ["$"],
       "commands": [
         {
-          "command": "editor.unfold",
-        },
-      ],
+          "command": "editor.unfold"
+        }
+      ]
     },
     {
       "before": ["^"],
       "after": ["^"],
       "commands": [
         {
-          "command": "editor.unfold",
-        },
-      ],
+          "command": "editor.unfold"
+        }
+      ]
     },
     {
       "before": ["0"],
       "after": ["0"],
       "commands": [
         {
-          "command": "editor.unfold",
-        },
-      ],
+          "command": "editor.unfold"
+        }
+      ]
     },
     {
       "before": ["l"],
       "after": ["l"],
       "commands": [
         {
-          "command": "editor.unfold",
-        },
-      ],
+          "command": "editor.unfold"
+        }
+      ]
     },
     {
       "before": ["<C-j>"],
-      "after": ["}"],
+      "after": ["}"]
     },
     {
       "before": ["<C-k>"],
-      "after": ["{"],
+      "after": ["{"]
     },
     {
       "before": ["<leader>", "0"],
-      "commands": ["editor.foldLevel1"],
-    },
+      "commands": ["editor.foldLevel1"]
+    }
   ],
   "vim.visualModeKeyBindings": [
     {
       "before": ["J"],
-      "commands": ["editor.action.moveLinesDownAction"],
+      "commands": ["editor.action.moveLinesDownAction"]
     },
     {
       "before": ["K"],
-      "commands": ["editor.action.moveLinesUpAction"],
-    },
+      "commands": ["editor.action.moveLinesUpAction"]
+    }
   ],
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "json.format.enable": false,
   "workbench.editor.showIcons": false,
@@ -199,29 +199,34 @@
   "explicitFolding.rules": {
     "*": {
       "begin": "##",
-      "end": "##",
-    },
+      "end": "##"
+    }
   },
   "[proto]": {
     "explicitFolding.rules": [
       {
         "begin": "{",
-        "end": "}",
-      },
-    ],
+        "end": "}"
+      }
+    ]
   },
   "explicitFolding.autoFold": "all",
   "explicitFolding.notification": "none",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
+      // asdfaslkdflaskjdflasjdfksfdj
       {
         "scope": ["comment", "punctuation.definition.comment"],
         "settings": {
           "foreground": "#dc9824",
-          "fontStyle": "",
-        },
-      },
-    ],
+          "fontStyle": ""
+        }
+      }
+    ]
   },
   "godotTools.inlayHints.gdscript": true,
+  "window.openFoldersInNewWindow": "on",
+  "debug.onTaskErrors": "showErrors",
+  "python.analysis.diagnosticMode": "workspace",
+  "workbench.editor.enablePreview": false
 }
