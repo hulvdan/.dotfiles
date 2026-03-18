@@ -441,7 +441,7 @@ fnToggleTitleBar() {
 }
 
 fnLauncher() {
-    Run, C:\Users\user\dev\home\launcher\.venv\Scripts\python.exe C:\Users\user\dev\home\launcher\main.py,,Max
+    Run, C:\Users\user\dev\home2\launcher\.venv\Scripts\python.exe C:\Users\user\dev\home2\launcher\main.py,,Max
 }
 
 ;-----------------------------------------------------------------------------------------

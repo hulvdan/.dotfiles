@@ -72,3 +72,16 @@ Get-AppxPackage -AllUsers *Microsoft.XboxGamingOverlay* | Remove-AppxPackage
 https://superuser.com/questions/232362/how-to-convert-ppk-key-to-openssh-key-under-linux
 
     puttygen id_dsa.ppk -O public-openssh -o id_dsa.pub
+
+Сменить авторство git
+
+```
+uv run git filter-repo --commit-callback '
+commit.author_name = b"user"
+commit.author_email = b"email"
+commit.committer_name = b"user"
+commit.committer_email = b"email"
+' --force
+git remote add origin git@github2:user/repo.git
+git push --set-upstream origin BRANCH --force
+```
