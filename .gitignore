@@ -7,3 +7,4 @@ nvim/plugin/packer_compiled.lua
 /windows/vscodium/**/*.backup
 /windows/vscodium/User/workspaceStorage
 /windows/vscodium/User/themes
+windows/_.bat
