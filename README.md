@@ -35,16 +35,18 @@ zsh/install.sh
 # UNIX
 ln -s $(pwd)/nvim ~/.config/nvim
 
-# WINDOWS. Powershell с правами админа:
-ni C:\Users\user\.vimrc -i SymbolicLink -ta C:\Users\user\dev\.dotfiles\idea\.vimrc
-ni C:\Users\user\.ideavimrc -i SymbolicLink -ta C:\Users\user\dev\.dotfiles\idea\.ideavimrc
-ni C:\Users\user\.wezterm.lua -i SymbolicLink -ta C:\Users\user\dev\.dotfiles\wezterm\.wezterm.lua
-ni C:\Users\user\AppData\Local\nvim -i SymbolicLink -ta C:\Users\user\dev\.dotfiles\nvim
-ni c:\Users\user\AppData\Roaming\VSCodium\User -i SymbolicLink -ta c:\Users\user\dev\.dotfiles\windows\vscodium\User
+# WINDOWS:
+mklink C:\Users\user\.vimrc C:\Users\user\dev\.dotfiles\idea\.vimrc
+mklink C:\Users\user\.ideavimrc C:\Users\user\dev\.dotfiles\idea\.ideavimrc
+mklink C:\Users\user\.wezterm.lua C:\Users\user\dev\.dotfiles\wezterm\.wezterm.lua
+mklink /D C:\Users\user\AppData\Local\nvim C:\Users\user\dev\.dotfiles\nvim
 
-ni "e:\Media\SFX\Wildfunk - Video Game Sounds" -i SymbolicLink -ta "e:\Downloads\_torrent\Wildfunk - Video Game Sounds"
-ni "e:\Media\SFX\Advanced Game Sounds" -i SymbolicLink -ta "e:\Downloads\_torrent\Advanced Game Sounds"
-ni "e:\Media\SFX\" -i SymbolicLink -ta "e:\Downloads\_torrent\"
+mklink c:\Users\user\AppData\Roaming\Code\User\settings.json c:\Users\user\dev\.dotfiles\vscode\settings.json
+mklink c:\Users\user\AppData\Roaming\Code\User\keybindings.json c:\Users\user\dev\.dotfiles\vscode\keybindings.json
+
+mklink /D "e:\Media\SFX\Wildfunk - Video Game Sounds" "e:\Downloads\_torrent\Wildfunk - Video Game Sounds"
+mklink /D "e:\Media\SFX\Advanced Game Sounds" "e:\Downloads\_torrent\Advanced Game Sounds"
+mklink /D "e:\Media\SFX\" "e:\Downloads\_torrent\"
 ```
 
 ## Windows Setup
