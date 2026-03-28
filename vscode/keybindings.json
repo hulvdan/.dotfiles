@@ -224,10 +224,6 @@
     "when": "editorFocus"
   },
   {
-    "key": "f8",
-    "command": "editor.action.marker.nextInFiles"
-  },
-  {
     "key": "shift+f1",
     "command": "editor.action.marker.prev",
     "when": "editorFocus"
@@ -303,7 +299,7 @@
     "when": "fileMatchOrMatchFocus && searchViewletVisible"
   },
   {
-    "key": "ctrl+alt+j",
+    "key": "shift+alt+j",
     "command": "addCursorsAtSearchResults"
   },
   {
@@ -350,5 +346,46 @@
     "key": "f5",
     "command": "launches.run_f5",
     "when": "workspaceFolder =~ .*(\\|/)game3(\\|/).*"
+  },
+  {
+    "key": "alt+f8",
+    "command": "-editor.action.marker.next",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+f8",
+    "command": "-editor.action.marker.prevInFiles",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+alt+f8",
+    "command": "-editor.action.marker.prev",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+f8",
+    "command": "-go-to-problem.1.next",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+alt+f8",
+    "command": "-go-to-problem.1.prev",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "go-to-problem.1.nextInWorkspace"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "go-to-problem.1.prevInWorkspace"
+  },
+  {
+    "key": "shift+f8",
+    "command": "-go-to-problem.1.prevInWorkspace"
+  },
+  {
+    "key": "f8",
+    "command": "-go-to-problem.1.nextInWorkspace"
   }
 ]
