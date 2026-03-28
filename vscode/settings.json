@@ -80,6 +80,14 @@
       "commands": ["editor.unfoldAll"]
     },
     {
+      "before": ["<C-u>"],
+      "after": ["1", "2", "g", "k"]
+    },
+    {
+      "before": ["<C-d>"],
+      "after": ["1", "2", "g", "j"]
+    },
+    {
       "before": ["<C-n>"],
       "after": [
         "o",
@@ -410,5 +418,4 @@
     "[0-9a-fA-F]{6}", // ignoring hex colors
   ],
   "editor.comments.ignoreEmptyLines": false,
-  "vim.foldfix": true
 }
