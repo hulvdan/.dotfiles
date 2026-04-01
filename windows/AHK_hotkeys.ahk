@@ -132,7 +132,7 @@ RControl & RShift::send {AppsKey}
 
 ;-----------------------------------------------------------------------------------------
 ; Набор спецсимволов в удобных местах клавиатуры при печати в слепую.
-; У AHK немного конченное экранирование символов, поэтому выглядит неконсистентно.
+; У AHK немного конченное экранирование символов, поэтому выглядит не консистентно.
 ;-----------------------------------------------------------------------------------------
 F21::send {U+1F7E2}{space} ; 🟢
 F22::send {U+1F7E1}{space} ; 🟡
@@ -177,7 +177,7 @@ F24 & ,::send, {blind}<
 F24 & .::send, {blind}>
 
 ;-----------------------------------------------------------------------------------------
-; Эксперименитровал с набором цифр на ряду ниже домашнего.
+; Экспериментировал с набором цифр на ряду ниже домашнего.
 ; Не использую, т.к. я слишком слаб :/
 ;-----------------------------------------------------------------------------------------
 ; F24 & Z::send, 1
@@ -363,19 +363,18 @@ f6::sendevent, {alt down}f{alt up}er
 ; +::sendevent, {alt down}c{alt up}f{right}{down}{down}{down}
 
 ;-----------------------------------------------------------------------------------------
-; Reaper - F5 для экспортирования.
+; Reaper.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe reaper.exe
-*f5::fnReaperSave()
-*f4::fnReaperNewSubproject()
-*f3::fnReaperSetSubprojectPreset()
 xbutton1::delete
 
+*f5::fnReaperSave()
 fnReaperSave() {
     fnReaperSetSubprojectPreset()
     sendevent, {enter}{enter}
 }
 
+*f3::fnReaperSetSubprojectPreset()
 fnReaperSetSubprojectPreset() {
     ; - opening render dialog
     sendevent, {ctrl down}{alt down}r{alt up}{ctrl up}
@@ -393,6 +392,7 @@ fnReaperSetSubprojectPreset() {
     WinWaitClose, Rendering to file...
 }
 
+*f4::fnReaperNewSubproject()
 fnReaperNewSubproject() {
     ; YOU MUST SELECT CURRENT TRACK'S NAME !!!
     sendevent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
