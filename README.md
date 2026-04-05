@@ -78,6 +78,7 @@ https://superuser.com/questions/232362/how-to-convert-ppk-key-to-openssh-key-und
 Сменить авторство git
 
 ```
+uv add git filter-repo
 uv run git filter-repo --commit-callback '
 commit.author_name = b"user"
 commit.author_email = b"email"
@@ -86,4 +87,5 @@ commit.committer_email = b"email"
 ' --force
 git remote add origin git@github2:user/repo.git
 git push --set-upstream origin BRANCH --force
+uv remove git filter-repo
 ```
