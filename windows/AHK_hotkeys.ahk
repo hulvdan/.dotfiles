@@ -461,3 +461,32 @@ fnResolveRippleDelete() {
 ;-----------------------------------------------------------------------------------------
 #ifWinActive, ahk_exe Pencil.exe
 MButton::delete
+
+;-----------------------------------------------------------------------------------------
+; Minecraft
+;-----------------------------------------------------------------------------------------
+#ifWinActive, Minecraft
+xbutton1::send, {rbutton down}
+xbutton2::send, {lbutton down}
+
+minecraft_clicking_r := 0
+minecraft_clicking_l := 0
+
+LControl & xbutton1::fnStartClickingR()
+
+fnStartClickingR() {
+    minecraft_clicking_r = 1
+    fnClickingR()
+}
+
+fnClickingR() {
+    send, {rbutton}
+    SetTimer, fnClickingR, -100
+}
+
+; ctrl + shift + alt + space = hold space
+^+!space::send, {space down}
+
+; ctrl + shift + alt + w = hold w
+^+!w::send, {w down}
+
