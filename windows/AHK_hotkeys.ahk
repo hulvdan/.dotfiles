@@ -212,7 +212,7 @@ F24 & .::send, {blind}>
 
 *XButton1::Shift
 ; *XButton1::send {alt down}{printscreen}{alt up}
-*XButton2::send {alt down}{printscreen}{alt up}
+*XButton2::sendevent, {alt down}{printscreen}{alt up}
 
 ; Эмуляция магнитного колеса мыши.
 ; Зажатый F24 (Caps) + скролл = бесконечная прокрутка,
