@@ -490,3 +490,41 @@ fnClickingR() {
 ; ctrl + shift + alt + w = hold w
 ^+!w::send, {w down}
 
+;-----------------------------------------------------------------------------------------
+; Aquaria
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe Aquaria.exe
+
+*xbutton1::aquariaStartRightClicking()
+*xbutton1 up::aquariaStopRightClicking()
+; *xbutton1::Send {LButton down}
+*xbutton2::aquariaHoldAttack()
++lbutton::send {lbutton down}
+
+aquariaHoldAttack() {
+    send {RButton down}
+    sleep 1580
+    send {RButton up}
+}
+
+aquariaRightClicking = 0
+aquariaStartRightClicking() {
+    global aquariaRightClicking
+
+    aquariaRightClicking = 1
+    aquariaRightClick()
+}
+
+aquariaRightClick() {
+    global aquariaRightClicking
+    if (aquariaRightClicking) {
+        sendevent, {RButton}
+        SetTimer, aquariaRightClick, -20
+    }
+}
+
+aquariaStopRightClicking() {
+    global aquariaRightClicking
+    aquariaRightClicking = 0
+}
+

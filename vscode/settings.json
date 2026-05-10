@@ -309,6 +309,7 @@
     "aiohttp",
     "Aleksei",
     "anyio",
+    "arsen",
     "Aseprite",
     "astc",
     "asyncio",
@@ -411,6 +412,7 @@
     "gunicorn",
     "HADI",
     "healthcheck",
+    "highload",
     "hitbox",
     "HOOKABLE",
     "Horripilant",
@@ -623,6 +625,7 @@
     "дебаг",
     "дебага",
     "декомпозировал",
+    "денормализацию",
     "Денормализовал",
     "деталок",
     "дозаполняется",
@@ -707,6 +710,7 @@
     "стартанет",
     "стикерах",
     "стриггерив",
+    "тайлинга",
     "тайлов",
     "тиктоков",
     "трекал",
@@ -724,7 +728,8 @@
     "чеклист",
     "чеклиста",
     "челы",
-    "Чистов"
+    "Чистов",
+    "ютубе"
   ],
   "cSpell.ignoreRegExpList": [
     "[0-9a-fA-F]{6}", // ignoring hex colors
@@ -757,4 +762,7 @@
   },
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "claudeCode.preferredLocation": "panel",
+  "[csharp]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+  },
 }
