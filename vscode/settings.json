@@ -3,6 +3,9 @@
   "problems.autoReveal": false,
   "git.autorefresh": false,
   "workbench.colorTheme": "Black++ Nord Stream",
+  "workbench.colorCustomizations": {
+    "terminal.selectionBackground": "#264F78"
+  },
   "extensions.autoCheckUpdates": false,
   "extensions.autoUpdate": false,
   "update.enableWindowsBackgroundUpdates": false,
