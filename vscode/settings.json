@@ -4,7 +4,13 @@
   "git.autorefresh": false,
   "workbench.colorTheme": "Black++ Nord Stream",
   "workbench.colorCustomizations": {
-    "terminal.selectionBackground": "#264F78"
+    "terminal.selectionBackground": "#264F78",
+    "editorGutter.addedBackground": "#7cc736",
+    "editorGutter.modifiedBackground": "#dc9824",
+    "editorGutter.deletedBackground": "#e74c3c",
+    "editorGutter.addedSecondaryBackground": "#7cc736",
+    "editorGutter.modifiedSecondaryBackground": "#dc9824",
+    "editorGutter.deletedSecondaryBackground": "#e74c3c"
   },
   "extensions.autoCheckUpdates": false,
   "extensions.autoUpdate": false,
@@ -411,6 +417,7 @@
     "googleapiclient",
     "GORM",
     "Grath",
+    "grpcio",
     "guizmo",
     "gunicorn",
     "HADI",
@@ -525,6 +532,7 @@
     "randf",
     "randint",
     "Raylib",
+    "readchar",
     "reapeaks",
     "Referer",
     "regen",
@@ -533,6 +541,7 @@
     "removeprefix",
     "rignore",
     "ROLLABLE",
+    "rstrip",
     "runserver",
     "rutracker",
     "scons",
@@ -561,6 +570,7 @@
     "tilesets",
     "timepoint",
     "tombi",
+    "tqdm",
     "tscn",
     "tuplify",
     "typer",
@@ -768,4 +778,6 @@
   "[csharp]": {
     "editor.defaultFormatter": "csharpier.csharpier-vscode"
   },
+  "scm.countBadge": "off",
+  "scm.diffDecorationsGutterWidth": 4,
 }
