@@ -328,6 +328,7 @@
     "autostash",
     "autotests",
     "autouse",
+    "Balashikha",
     "Beehave",
     "Benard",
     "bgfx",
@@ -339,9 +340,11 @@
     "bptc",
     "Brotato",
     "Carmack",
+    "ceili",
     "certifi",
     "cfgv",
     "Chistov",
+    "clampi",
     "clocktower",
     "cmdln",
     "codegen",
@@ -357,6 +360,7 @@
     "copyto",
     "createsuperuser",
     "creationflags",
+    "crits",
     "datefmt",
     "Davinci",
     "deepdiff",
@@ -510,6 +514,7 @@
     "pluggy",
     "pomodoro",
     "poolclass",
+    "popleft",
     "printerr",
     "Profitbase",
     "protoc",
@@ -595,6 +600,7 @@
     "vimrc",
     "virtualenv",
     "vscodevim",
+    "Vuetify",
     "WASD",
     "watchfiles",
     "watchmedo",
@@ -785,5 +791,7 @@
     "editor.defaultFormatter": "csharpier.csharpier-vscode"
   },
   "scm.countBadge": "off",
-  "scm.diffDecorationsGutterWidth": 4
+  "scm.diffDecorationsGutterWidth": 4,
+  "editor.accessibilitySupport": "off",
+  "testing.automaticallyOpenTestResults": "openOnTestFailure"
 }
