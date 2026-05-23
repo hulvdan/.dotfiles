@@ -528,3 +528,33 @@ aquariaStopRightClicking() {
     aquariaRightClicking = 0
 }
 
+;-----------------------------------------------------------------------------------------
+; Find Matt's Cats
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe Find Matt's Cats.exe
+
+*xbutton1::mattStartRightClicking()
+*xbutton1 up::mattStopRightClicking()
+
+mattRightClicking = 0
+mattStartRightClicking() {
+    global mattRightClicking
+
+    mattRightClicking = 1
+    mattRightClick()
+}
+
+mattRightClick() {
+    global mattRightClicking
+    if (mattRightClicking) {
+        sendevent, {LButton}
+        SetTimer, mattRightClick, -40
+    }
+}
+
+mattStopRightClicking() {
+    global mattRightClicking
+    mattRightClicking = 0
+}
+
+
