@@ -115,6 +115,16 @@
       ]
     },
     {
+      "before": ["<leader>", "c", "p"],
+      "commands": [
+        "extension.changeCase.pascal",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
       "before": ["<leader>", "d"],
       "after": ["o", "<ESC>"],
       "commands": [
@@ -251,6 +261,16 @@
       "before": ["<leader>", "c", "s"],
       "commands": [
         "extension.changeCase.snake",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "c", "p"],
+      "commands": [
+        "extension.changeCase.pascal",
         {
           "command": "type",
           "args": { "text": "<Esc>" }
