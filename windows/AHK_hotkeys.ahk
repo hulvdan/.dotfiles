@@ -327,15 +327,23 @@ fnClipStudioSavePsd() {
     ; Confirming
     sendevent {enter}
     sleep 1000
+    ; Switching to changing "save as" format
     sendevent {tab}
-    loop 10
-        sendevent {right}
-    sendevent {enter}{enter}{left}{enter}
+    ; Selecting psd
+    sendevent {right}{end}
+    ; loop 10
+    ; sendevent {right}
+    sendevent {enter}
+    ; Saving
+    ; sleep 300
+    sendevent {enter}
+    ; If it's replace confirmation -> replace
+    sleep 300
+    if WinActive("Confirm Save As")
+        sendevent {left}{enter}
+    ; Export
     sleep 300
     sendevent {enter}
-    ; sendevent {down down}
-    ; sleep 3000
-    ; sendevent {down up}
 }
 
 clipStudioCopyPasting := 0
