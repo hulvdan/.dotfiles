@@ -110,12 +110,24 @@
 #SingleInstance force
 #NoEnv
 
-HKL := DllCall("LoadKeyboardLayout", "Str", "00000409", "UInt", 1)
-PostMessage, 0x50, 0, HKL,, A   ; 0x50 = WM_INPUTLANGCHANGEREQUEST
-
 CoordMode, Mouse, Relative
 SetKeyDelay, 50, 50
 SendMode Input
+
+; Auto-reload on file change
+lastModTime := 0
+FileGetTime, lastModTime, %A_ScriptFullPath%
+
+fnCheckFileChange() {
+    global lastModTime
+    FileGetTime, currModTime, %A_ScriptFullPath%
+    if (currModTime != lastModTime) {
+        lastModTime = currModTime
+        fnReload()
+    }
+}
+
+SetTimer, fnCheckFileChange, 1000
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ^!+f9::fnReload()
@@ -301,12 +313,24 @@ XButton2::sendevent, {F9}
 ; Clip Studio Paint - TODO.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
-F6::fnClipStudioSaveSingle()
-F5::fnClipStudioSaveMultiple()
-F4::fnClipStudioCopyPasteTransform()
+*F6::fnClipStudioSaveSingle()
+*F5::fnClipStudioSaveMultiple()
+*F4::fnClipStudioCopyPasteTransform()
+*F3::fnClipStudioSavePsd()
 
 ; *alt up::sendevent, {alt up}{esc}
 ; *alt up::SendInput, {alt up}
+
+fnClipStudioSavePsd() {
+    sendevent {ctrl down}{shift down}s{shift up}{ctrl up}{enter}
+    sleep 1000
+    sendevent {tab}{right down}
+    sleep 1000
+    sendevent {right up}
+    ; sendevent {down down}
+    ; sleep 3000
+    ; sendevent {down up}
+}
 
 clipStudioCopyPasting := 0
 

@@ -344,7 +344,6 @@
   "workbench.editor.enablePreview": false,
   "extensions.ignoreRecommendations": true,
   "window.menuBarVisibility": "toggle",
-  "chat.disableAIFeatures": true,
   "workbench.notifications.showInTitleBar": false,
   "chat.agent.thinking.generateTitles": false,
   "chat.extensionUnification.enabled": false,
@@ -935,5 +934,7 @@
   "editor.accessibilitySupport": "off",
   "testing.automaticallyOpenTestResults": "openOnTestFailure",
   "workbench.activityBar.location": "top",
-  "window.zoomLevel": -1
+  "window.zoomLevel": -1,
+  "claudeCode.enableNewConversationShortcut": true,
+  "claudeCode.hideOnboarding": true
 }
