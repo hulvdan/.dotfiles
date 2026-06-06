@@ -557,4 +557,108 @@ mattStopRightClicking() {
     mattRightClicking = 0
 }
 
+;-----------------------------------------------------------------------------------------
+; Hollow Knight
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe Hollow Knight.exe
 
+*space::k
+*j::hkStartAttack()
+*j up::hkStopAttack()
+*shift::hkStartDash()
+*shift up::hkStopDash()
+
+hkAttack = 0
+hkStartAttack() {
+    global hkAttack
+
+    hkAttack = 1
+    hkAttack()
+}
+
+hkAttack() {
+    global hkAttack
+    if (hkAttack) {
+        sendevent, j
+        SetTimer, hkAttack, -40
+    }
+}
+
+hkStopAttack() {
+    global hkAttack
+    hkAttack = 0
+}
+
+hkDash = 0
+hkStartDash() {
+    global hkDash
+
+    hkDash = 1
+    hkDash()
+}
+
+hkDash() {
+    global hkDash
+    if (hkDash) {
+        sendevent, {shift}
+        SetTimer, hkDash, -40
+    }
+}
+
+hkStopDash() {
+    global hkDash
+    hkDash = 0
+}
+
+;-----------------------------------------------------------------------------------------
+; SilkSong
+;-----------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe Hollow Knight Silksong.exe
+
+*space::k
+*j::hksStartAttack()
+*j up::hksStopAttack()
+; *shift::hksStartDash()
+; *shift up::hksStopDash()
+
+hksAttack = 0
+hksStartAttack() {
+    global hksAttack
+
+    hksAttack = 1
+    hksAttack()
+}
+
+hksAttack() {
+    global hksAttack
+    if (hksAttack) {
+        sendevent, j
+        SetTimer, hksAttack, -40
+    }
+}
+
+hksStopAttack() {
+    global hksAttack
+    hksAttack = 0
+}
+
+hksDash = 0
+hksStartDash() {
+    global hksDash
+
+    hksDash = 1
+    hksDash()
+}
+
+hksDash() {
+    global hksDash
+    if (hksDash) {
+        sendevent, {shift}
+        SetTimer, hksDash, -40
+    }
+}
+
+hksStopDash() {
+    global hksDash
+    hksDash = 0
+}
