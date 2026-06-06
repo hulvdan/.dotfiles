@@ -85,6 +85,36 @@
   "vim.highlightedyank.color": "rgba(255,255,0,0.4)",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["<leader>", "c", "c"],
+      "commands": [
+        "extension.changeCase.camel",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "c", "C"],
+      "commands": [
+        "extension.changeCase.constant",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "c", "s"],
+      "commands": [
+        "extension.changeCase.snake",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
       "before": ["<leader>", "d"],
       "after": ["o", "<ESC>"],
       "commands": [
@@ -196,6 +226,36 @@
     {
       "before": ["K"],
       "commands": ["editor.action.moveLinesUpAction"]
+    },
+    {
+      "before": ["<leader>", "c", "c"],
+      "commands": [
+        "extension.changeCase.camel",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "c", "C"],
+      "commands": [
+        "extension.changeCase.constant",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "c", "s"],
+      "commands": [
+        "extension.changeCase.snake",
+        {
+          "command": "type",
+          "args": { "text": "<Esc>" }
+        }
+      ]
     }
   ],
   "json.format.enable": false,
@@ -673,6 +733,7 @@
     "дамага",
     "дебаг",
     "дебага",
+    "дебафф",
     "декомпозировал",
     "денормализацию",
     "Денормализовал",
@@ -687,6 +748,7 @@
     "закоммитить",
     "заспавнили",
     "заспавнилось",
+    "заспавнить",
     "затестить",
     "заюзано",
     "Здоровенье",
