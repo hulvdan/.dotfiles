@@ -121,15 +121,13 @@ FileGetTime, lastModTime, %A_ScriptFullPath%
 fnCheckFileChange() {
     global lastModTime
     FileGetTime, currModTime, %A_ScriptFullPath%
-    if (currModTime != lastModTime) {
+    if (lastModTime != currModTime) {
+        lastModTime := currModTime
         fnReload()
-        return
     }
-
-    SetTimer, fnCheckFileChange, -2000
 }
 
-SetTimer, fnCheckFileChange, -2000
+SetTimer, fnCheckFileChange, 2000
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ^!+f9::fnReload()
