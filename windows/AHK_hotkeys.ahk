@@ -122,12 +122,14 @@ fnCheckFileChange() {
     global lastModTime
     FileGetTime, currModTime, %A_ScriptFullPath%
     if (currModTime != lastModTime) {
-        lastModTime = currModTime
         fnReload()
+        return
     }
+
+    SetTimer, fnCheckFileChange, -2000
 }
 
-SetTimer, fnCheckFileChange, 2000
+SetTimer, fnCheckFileChange, -2000
 
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ^!+f9::fnReload()
@@ -322,11 +324,17 @@ XButton2::sendevent, {F9}
 ; *alt up::SendInput, {alt up}
 
 fnClipStudioSavePsd() {
-    sendevent {ctrl down}{shift down}s{shift up}{ctrl up}{enter}
+    ; Pressing CTRL SHIFT S
+    sendevent {ctrl down}{shift down}s{shift up}{ctrl up}
+    ; Confirming
+    sendevent {enter}
     sleep 1000
-    sendevent {tab}{right down}
-    sleep 1000
-    sendevent {right up}
+    sendevent {tab}
+    loop 10
+        sendevent {right}
+    sendevent {enter}{enter}{left}{enter}
+    sleep 300
+    sendevent {enter}
     ; sendevent {down down}
     ; sleep 3000
     ; sendevent {down up}
