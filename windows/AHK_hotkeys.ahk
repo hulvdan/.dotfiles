@@ -110,8 +110,7 @@
 #SingleInstance force
 #NoEnv
 
-; nocheckin
-WinActivate, ahk_exe CLIPStudioPaint.exe
+; WinActivate, ahk_exe CLIPStudioPaint.exe
 
 CoordMode, Mouse, Relative
 SetKeyDelay, 50, 50
