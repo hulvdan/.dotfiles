@@ -110,6 +110,9 @@
 #SingleInstance force
 #NoEnv
 
+; nocheckin
+WinActivate, ahk_exe CLIPStudioPaint.exe
+
 CoordMode, Mouse, Relative
 SetKeyDelay, 50, 50
 SendMode Input
@@ -129,6 +132,7 @@ fnCheckFileChange() {
 
 SetTimer, fnCheckFileChange, 2000
 
+
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ^!+f9::fnReload()
 
@@ -142,13 +146,14 @@ RControl & RShift::send {AppsKey}
 ; занимаемую title bar-ом.
 ^!+f12::fnToggleTitleBar()
 
+f21::send {U+1F7E2}{space} ; 🟢
+f22::send {U+1F7E1}{space} ; 🟡
+f23::send {U+1F534}{space} ; 🔴
+
 ;-----------------------------------------------------------------------------------------
 ; Набор спецсимволов в удобных местах клавиатуры при печати в слепую.
 ; У AHK немного конченное экранирование символов, поэтому выглядит не консистентно.
 ;-----------------------------------------------------------------------------------------
-f21::send {U+1F7E2}{space} ; 🟢
-f22::send {U+1F7E1}{space} ; 🟡
-f23::send {U+1F534}{space} ; 🔴
 
 f24 & 1::send, {blind}{f1}
 f24 & 2::send, {blind}{f2}
@@ -164,27 +169,27 @@ f24 & backspace::send, {blind}{f11}
 f24 & -::send, {blind}{f12}
 
 f24 & tab::send, {blind}``
-f24 & W::SendRaw, +
-f24 & E::send, {blind}-
-f24 & T::send, {blind}{U+00AB} ; «
-f24 & Y::send, {blind}{U+00BB} ; »
-f24 & U::send, {blind}\
-f24 & I::send, {blind}*
-f24 & O::send, {blind}/
-f24 & P::send, {blind}|
+f24 & w::sendraw, +
+f24 & e::send, {blind}-
+f24 & t::send, {blind}{U+00AB} ; «
+f24 & y::send, {blind}{U+00BB} ; »
+f24 & u::send, {blind}\
+f24 & i::send, {blind}*
+f24 & o::send, {blind}/
+f24 & p::send, {blind}|
 
-f24 & S::send, {blind}{TEXT}[
-f24 & D::send, {blind}{TEXT}{
-f24 & F::send, {blind}{TEXT}(
-f24 & G::&
-f24 & H::=
-f24 & J::send, {blind}{TEXT})
-f24 & K::send, {blind}{TEXT}}
-f24 & L::send, {blind}{TEXT}]
+f24 & s::send, {blind}{TEXT}[
+f24 & d::send, {blind}{TEXT}{
+f24 & f::send, {blind}{TEXT}(
+f24 & g::&
+f24 & h::=
+f24 & j::send, {blind}{TEXT})
+f24 & k::send, {blind}{TEXT}}
+f24 & l::send, {blind}{TEXT}]
 f24 & `;::send, {blind}:
 
-f24 & V::SendRaw, % "^"
-f24 & M::SendRaw, % "$"
+f24 & v::sendraw, % "^"
+f24 & m::sendraw, % "$"
 f24 & ,::send, {blind}<
 f24 & .::send, {blind}>
 
@@ -310,56 +315,71 @@ XButton2::sendevent, {f9}
 ^+S::sendevent, {alt down}f{alt up}e{left}{down}{enter}{space}
 
 ;-----------------------------------------------------------------------------------------
-; Clip Studio Paint - TODO.
+; Clip Studio Paint.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
 
-f24 & 1::sendevent, {f1}
-f24 & 2::sendevent, {f2}
-f24 & 3::sendevent, {f3}
-f24 & 4::sendevent, {f4}
-f24 & 5::sendevent, {f5}
-f24 & 6::sendevent, {f6}
-f24 & 7::sendevent, {f7}
-f24 & 8::sendevent, {f8}
-f24 & 9::sendevent, {f9}
-f24 & 0::sendevent, {f10}
-f24 & backspace::sendevent, {f11}
-f24 & -::sendevent, {f12}
+SendMode Event
 
-*f6::fnClipStudioSaveSingle()
-*f5::fnClipStudioSaveMultiple()
-*f4::fnClipStudioCopyPasteTransform()
+; f1::
+; f24 & 1::
+
+; f2::
+; f24 & 2::
+
 *f3::fnClipStudioSavePsd()
-; f24 & 3::fnClipStudioSavePsd()
+f24 & 3::fnClipStudioSavePsd()
 
+f4::fnClipStudioCopyPasteTransform()
+f24 & 4::fnClipStudioCopyPasteTransform()
 
-; *alt up::sendevent, {alt up}{esc}
-; *alt up::SendInput, {alt up}
+f5::fnClipStudioSaveMultiple()
+f24 & 5::fnClipStudioSaveMultiple()
+
+f6::fnClipStudioSaveSingle()
+f24 & 6::fnClipStudioSaveSingle()
+
+; f7::
+; f24 & 7::
+
+; f8::
+; f24 & 8::
+
+; f9::
+; f24 & 9::
+
+; f10::
+; f24 & 0::
+
+; f11::
+; f24 & backspace::
+
+; f12::
+; f24 & -::
 
 fnClipStudioSavePsd() {
     ; Pressing CTRL SHIFT S
-    sendevent {ctrl down}{shift down}s{shift up}{ctrl up}
+    send {ctrl down}{shift down}s{shift up}{ctrl up}
     ; Confirming
-    sendevent {enter}
+    send {enter}
     sleep 1000
     ; Switching to changing "save as" format
-    sendevent {tab}
+    send {tab}
     ; Selecting psd
-    sendevent {right}{end}
+    send {right}{end}
     ; loop 10
-    ; sendevent {right}
-    sendevent {enter}
+    ; send {right}
+    send {enter}
     ; Saving
     ; sleep 300
-    sendevent {enter}
+    send {enter}
     ; If it's replace confirmation -> replace
     sleep 300
     if WinActive("Confirm Save As")
-        sendevent {left}{enter}
+        send {left}{enter}
     ; Export
     sleep 300
-    sendevent {enter}
+    send {enter}
     sleep 500
     Run, uv.exe run python cli/bf_cli.py process_psd, c:/Users/user/dev/home2/game4
 }
@@ -370,80 +390,84 @@ fnClipStudioCopyPasteTransform() {
     global clipStudioCopyPasting
     if (clipStudioCopyPasting) {
         clipStudioCopyPasting = 0
-        sendevent, {enter}{ctrl down}e{ctrl up}
+        send, {enter}{ctrl down}e{ctrl up}
     } else {
         clipStudioCopyPasting = 1
-        sendevent, {ctrl down}cvt{ctrl up}
+        send, {ctrl down}cvt{ctrl up}
     }
 }
 
 fnClipStudioSaveSingle() {
     ; Opening save dialog
-    sendevent, {ctrl down}s{ctrl up}
-    sendevent, {alt}{down}
-    loop 9 {
-        sendevent, {down}
-    }
-    sendevent, {right}{down}{down}{enter}
+    send, {ctrl down}s{ctrl up}
+    send, {alt}{down}
+    loop 9
+        send, {down}
+    send, {right}{down}{down}{enter}
     sleep 800
     ; Windows' save dialog opened. Replacing file
-    sendevent, {enter}{left}{enter}
+    send, {enter}{left}{enter}
     sleep 800
     ; Skipping clip studio export windows
-    sendevent, {enter}{enter}
+    send, {enter}{enter}
 }
 
 fnClipStudioSaveMultiple() {
-    sendevent, {ctrl down}s{ctrl up}
-    sendevent, {alt}{down}
-    loop 10 {
-        sendevent, {down}
-    }
-    sendevent, {right}{down}{enter}
+    send, {ctrl down}s{ctrl up}
+    send, {alt}{down}
+    loop 10
+        send, {down}
+    send, {right}{down}{enter}
     sleep 100
-    sendevent, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
+    send, {tab}{tab}{tab}{tab}{tab}{tab}{up}{enter}
     sleep 100
-    sendevent, {enter}
+    send, {enter}
     sleep 500
-    sendevent, {enter}
+    send, {enter}
 }
 
 ;-----------------------------------------------------------------------------------------
 ; Audacity - f5 для экспортирования WAV.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
-f5::sendevent, {alt down}f{alt up}e
-f6::sendevent, {alt down}f{alt up}er
-=::sendevent, {alt down}c{alt up}v{up}{enter}{enter}
--::sendevent, {alt down}c{alt up}f{right}{up}{up}{enter}
-; +::sendevent, {alt down}c{alt up}f{right}{down}{down}{down}
+
+sendmode event
+
+f5::send, {alt down}f{alt up}e
+f6::send, {alt down}f{alt up}er
+=::send, {alt down}c{alt up}v{up}{enter}{enter}
+-::send, {alt down}c{alt up}f{right}{up}{up}{enter}
+; +::send, {alt down}c{alt up}f{right}{down}{down}{down}
 
 ;-----------------------------------------------------------------------------------------
 ; Reaper.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe reaper.exe
+
+sendmode event
+
 xbutton1::delete
 
 *f5::fnReaperSave()
 fnReaperSave() {
     fnReaperSetSubprojectPreset()
-    sendevent, {enter}{enter}
+    send, {enter}{enter}
 }
 
 *f3::fnReaperSetSubprojectPreset()
 fnReaperSetSubprojectPreset() {
     ; - opening render dialog
-    sendevent, {ctrl down}{alt down}r{alt up}{ctrl up}
+    send, {ctrl down}{alt down}r{alt up}{ctrl up}
     WinWait, Render to File
     click 700 60
     ; - Selecting the first preset in ALL SETTINGS
-    sendevent, {space}{up}{right}{enter}
+    send, {space}{up}{right}{enter}
     ; - Activating save settings button
     click 190 800
     ; - Closing dialog
-    sendevent, {space}
+    send, {space}
 
-    sendevent, {ctrl down}s{ctrl up}
+    send, {ctrl down}s{ctrl up}
     WinWait, Rendering to file...
     WinWaitClose, Rendering to file...
 }
@@ -451,19 +475,19 @@ fnReaperSetSubprojectPreset() {
 *f4::fnReaperNewSubproject()
 fnReaperNewSubproject() {
     ; YOU MUST SELECT CURRENT TRACK'S NAME !!!
-    sendevent, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
+    send, {ctrl down}ac{ctrl up}{enter}w{alt down}i{alt up}{down}{down}{down}{down}{down}{enter}
     sleep 200
-    sendevent, {ctrl down}v{ctrl up}{enter}
+    send, {ctrl down}v{ctrl up}{enter}
     sleep 3000
-    sendevent, {ctrl down}s{shift down}{tab}{shift up}{ctrl up}
+    send, {ctrl down}s{shift down}{tab}{shift up}{ctrl up}
 
     fnReaperSetSubprojectPreset()
 
     ; Creating tracks
-    sendevent, {ctrl down}tttttttttttttt{ctrl up}
+    send, {ctrl down}tttttttttttttt{ctrl up}
 
     ; Saving
-    sendevent, {ctrl down}s{ctrl up}
+    send, {ctrl down}s{ctrl up}
 }
 
 ;-----------------------------------------------------------------------------------------
@@ -718,3 +742,4 @@ hksStopDash() {
     global hksDash
     hksDash = 0
 }
+
