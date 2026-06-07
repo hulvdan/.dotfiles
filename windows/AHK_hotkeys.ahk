@@ -356,6 +356,7 @@ f24 & 6::fnClipStudioSaveSingle()
 ; f24 & -::
 
 fnClipStudioSavePsd() {
+    MouseMove, 0, 0
     Run, uv.exe run python cli/bf_cli.py process_psd --wait-for-change, c:/Users/user/dev/home2/game4
     sleep 300
     WinActivate, ahk_exe CLIPStudioPaint.exe
@@ -365,24 +366,24 @@ fnClipStudioSavePsd() {
     send {enter}
     sleep 1000
     ; Switching to changing "save as" format
+    while not WinActive("Save as")
+        sleep 250
     send {tab}
     ; Selecting psd
     send {right}{end}
-    ; loop 10
-    ; send {right}
     send {enter}
     ; Saving
-    ; sleep 300
+    sleep 1000
     send {enter}
     ; If it's replace confirmation -> replace
-    sleep 500
+    sleep 1000
     if WinActive("Confirm Save As") {
         send {left}
         sleep 200
         send {enter}
     }
     ; Export
-    sleep 500
+    sleep 1000
     send {enter}
     WinActivate, ahk_exe uv.exe
 }
