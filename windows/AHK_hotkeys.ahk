@@ -2,8 +2,8 @@
 ; Это моя надстройка на Windows для удобного набора спецсимволов слепой печатью,
 ; и тучи всего для повышения удобства / скорости использования различного софта.
 ;
-; Для слепой печати я переназначаю `Caps Lock` на `F24` (с помощью PowerToys)
-; и проставляю тут набор сочетаний клавиш `F24 + {что-то ещё}`.
+; Для слепой печати я переназначаю `Caps Lock` на `f24` (с помощью PowerToys)
+; и проставляю тут набор сочетаний клавиш `f24 + {что-то ещё}`.
 ;
 ; NOTE: Раньше я переназначал `Caps Lock` на `Ctrl`, чтобы vim / tmux
 ;       было удобнее использовать. Но в итоге пришёл к этому варианту
@@ -58,13 +58,13 @@
 ;     Клавиша `{` (т.е. `shift + [`) всегда набирает `_`.
 ;
 ; Как использовать (на момент 2024-07-27):
-;   1. Переназначить `Caps Lock` на `F24`.
+;   1. Переназначить `Caps Lock` на `f24`.
 ;      - Установить PowerToys.
 ;        https://learn.microsoft.com/en-us/windows/powertoys/install
 ;      - Запустить.
 ;      - Перейти в `Keyboard Manager`.
 ;      - `Remap a key`.
-;      - `Caps lock` на `F24`.
+;      - `Caps lock` на `f24`.
 ;   2. Установить AutoHotkey v2. https://www.autohotkey.com/
 ;   3. Убедиться, что сейчас активна английская раскладка.
 ;   4. Запустить этот скрипт от имени админа.
@@ -137,71 +137,71 @@ SetTimer, fnCheckFileChange, 2000
 RShift & RControl::send {AppsKey}
 RControl & RShift::send {AppsKey}
 
-; `Ctrl + Alt + Shift + F12` убирает / возвращает title bar окон.
+; `Ctrl + Alt + Shift + f12` убирает / возвращает title bar окон.
 ; Я ценю вертикальное пространство и не готов его отдавать под пустоту,
 ; занимаемую title bar-ом.
-^!+F12::fnToggleTitleBar()
+^!+f12::fnToggleTitleBar()
 
 ;-----------------------------------------------------------------------------------------
 ; Набор спецсимволов в удобных местах клавиатуры при печати в слепую.
 ; У AHK немного конченное экранирование символов, поэтому выглядит не консистентно.
 ;-----------------------------------------------------------------------------------------
-F21::send {U+1F7E2}{space} ; 🟢
-F22::send {U+1F7E1}{space} ; 🟡
-F23::send {U+1F534}{space} ; 🔴
+f21::send {U+1F7E2}{space} ; 🟢
+f22::send {U+1F7E1}{space} ; 🟡
+f23::send {U+1F534}{space} ; 🔴
 
-F24 & 1::send, {blind}{f1}
-F24 & 2::send, {blind}{f2}
-F24 & 3::send, {blind}{f3}
-F24 & 4::send, {blind}{f4}
-F24 & 5::send, {blind}{f5}
-F24 & 6::send, {blind}{f6}
-F24 & 7::send, {blind}{f7}
-F24 & 8::send, {blind}{f8}
-F24 & 9::send, {blind}{f9}
-F24 & 0::send, {blind}{f10}
-F24 & backspace::send, {blind}{f11}
-F24 & -::send, {blind}{f12}
+f24 & 1::send, {blind}{f1}
+f24 & 2::send, {blind}{f2}
+f24 & 3::send, {blind}{f3}
+f24 & 4::send, {blind}{f4}
+f24 & 5::send, {blind}{f5}
+f24 & 6::send, {blind}{f6}
+f24 & 7::send, {blind}{f7}
+f24 & 8::send, {blind}{f8}
+f24 & 9::send, {blind}{f9}
+f24 & 0::send, {blind}{f10}
+f24 & backspace::send, {blind}{f11}
+f24 & -::send, {blind}{f12}
 
-F24 & tab::send, {blind}``
-F24 & W::SendRaw, +
-F24 & E::send, {blind}-
-F24 & T::send, {blind}{U+00AB} ; «
-F24 & Y::send, {blind}{U+00BB} ; »
-F24 & U::send, {blind}\
-F24 & I::send, {blind}*
-F24 & O::send, {blind}/
-F24 & P::send, {blind}|
+f24 & tab::send, {blind}``
+f24 & W::SendRaw, +
+f24 & E::send, {blind}-
+f24 & T::send, {blind}{U+00AB} ; «
+f24 & Y::send, {blind}{U+00BB} ; »
+f24 & U::send, {blind}\
+f24 & I::send, {blind}*
+f24 & O::send, {blind}/
+f24 & P::send, {blind}|
 
-F24 & S::send, {blind}{TEXT}[
-F24 & D::send, {blind}{TEXT}{
-F24 & F::send, {blind}{TEXT}(
-F24 & G::&
-F24 & H::=
-F24 & J::send, {blind}{TEXT})
-F24 & K::send, {blind}{TEXT}}
-F24 & L::send, {blind}{TEXT}]
-F24 & `;::send, {blind}:
+f24 & S::send, {blind}{TEXT}[
+f24 & D::send, {blind}{TEXT}{
+f24 & F::send, {blind}{TEXT}(
+f24 & G::&
+f24 & H::=
+f24 & J::send, {blind}{TEXT})
+f24 & K::send, {blind}{TEXT}}
+f24 & L::send, {blind}{TEXT}]
+f24 & `;::send, {blind}:
 
-F24 & V::SendRaw, % "^"
-F24 & M::SendRaw, % "$"
-F24 & ,::send, {blind}<
-F24 & .::send, {blind}>
+f24 & V::SendRaw, % "^"
+f24 & M::SendRaw, % "$"
+f24 & ,::send, {blind}<
+f24 & .::send, {blind}>
 
 ;-----------------------------------------------------------------------------------------
 ; Экспериментировал с набором цифр на ряду ниже домашнего.
 ; Не использую, т.к. я слишком слаб :/
 ;-----------------------------------------------------------------------------------------
-; F24 & Z::send, 1
-; F24 & X::send, 2
-; F24 & C::send, 3
-; F24 & V::send, 4
-; F24 & B::send, 5
-; F24 & N::send, 6
-; F24 & M::send, 7
-; F24 & <::send, 8
-; F24 & >::send, 9
-; F24 & /::send, 0
+; f24 & Z::send, 1
+; f24 & X::send, 2
+; f24 & C::send, 3
+; f24 & V::send, 4
+; f24 & B::send, 5
+; f24 & N::send, 6
+; f24 & M::send, 7
+; f24 & <::send, 8
+; f24 & >::send, 9
+; f24 & /::send, 0
 
 ;-----------------------------------------------------------------------------------------
 ; Раскомментить, чтобы отключить работу спецсимволов по-умолчанию.
@@ -227,8 +227,8 @@ F24 & .::send, {blind}>
 *XButton2::sendevent, {alt down}{printscreen}{alt up}
 
 ; Эмуляция магнитного колеса мыши.
-; Зажатый F24 (Caps) + скролл = бесконечная прокрутка,
-; пока не нажмёшь F24 или не крутанёшь колесо мыши.
+; Зажатый f24 (Caps) + скролл = бесконечная прокрутка,
+; пока не нажмёшь f24 или не крутанёшь колесо мыши.
 fnResetMagneticWheeling() {
     global custom_wheeling
     custom_wheeling = 0
@@ -239,15 +239,15 @@ fnResetMagneticWheeling() {
 
 fnOnCaps() {
     fnResetMagneticWheeling()
-    send, {Blind}{F24}
+    send, {blind}{f24}
 }
 
-*$F24::fnOnCaps()
+*$f24::fnOnCaps()
 
 custom_wheeling := 0
 
-; F24 & WheelUp::fnMagneticWheelUp()
-; F24 & WheelDown::fnMagneticWheelDown()
+; f24 & WheelUp::fnMagneticWheelUp()
+; f24 & WheelDown::fnMagneticWheelDown()
 fnMagneticWheelUp() {
     global custom_wheeling
     custom_wheeling := 1
@@ -293,8 +293,8 @@ fnSendWheelWhileMagneticWheeling() {
 ; Установление breakpoint-а в Visual Studio с помощью дополнительных кнопок на мышке.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe devenv.exe
-XButton1::sendevent, {F9}
-XButton2::sendevent, {F9}
+XButton1::sendevent, {f9}
+XButton2::sendevent, {f9}
 
 ;-----------------------------------------------------------------------------------------
 ; Замена `[` и `{` на `_` при использовании английского языка.
@@ -313,10 +313,26 @@ XButton2::sendevent, {F9}
 ; Clip Studio Paint - TODO.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe CLIPStudioPaint.exe
-*F6::fnClipStudioSaveSingle()
-*F5::fnClipStudioSaveMultiple()
-*F4::fnClipStudioCopyPasteTransform()
-*F3::fnClipStudioSavePsd()
+
+f24 & 1::sendevent, {f1}
+f24 & 2::sendevent, {f2}
+f24 & 3::sendevent, {f3}
+f24 & 4::sendevent, {f4}
+f24 & 5::sendevent, {f5}
+f24 & 6::sendevent, {f6}
+f24 & 7::sendevent, {f7}
+f24 & 8::sendevent, {f8}
+f24 & 9::sendevent, {f9}
+f24 & 0::sendevent, {f10}
+f24 & backspace::sendevent, {f11}
+f24 & -::sendevent, {f12}
+
+*f6::fnClipStudioSaveSingle()
+*f5::fnClipStudioSaveMultiple()
+*f4::fnClipStudioCopyPasteTransform()
+*f3::fnClipStudioSavePsd()
+; f24 & 3::fnClipStudioSavePsd()
+
 
 ; *alt up::sendevent, {alt up}{esc}
 ; *alt up::SendInput, {alt up}
@@ -344,6 +360,8 @@ fnClipStudioSavePsd() {
     ; Export
     sleep 300
     sendevent {enter}
+    sleep 500
+    Run, uv.exe run python cli/bf_cli.py process_psd, c:/Users/user/dev/home2/game4
 }
 
 clipStudioCopyPasting := 0
@@ -391,7 +409,7 @@ fnClipStudioSaveMultiple() {
 }
 
 ;-----------------------------------------------------------------------------------------
-; Audacity - F5 для экспортирования WAV.
+; Audacity - f5 для экспортирования WAV.
 ;-----------------------------------------------------------------------------------------
 #IfWinActive, ahk_exe audacity.exe
 f5::sendevent, {alt down}f{alt up}e
@@ -449,7 +467,7 @@ fnReaperNewSubproject() {
 }
 
 ;-----------------------------------------------------------------------------------------
-; Aseprite - F5 TODO.
+; Aseprite - f5 TODO.
 ;-----------------------------------------------------------------------------------------
 #ifWinActive, ahk_exe aseprite.exe
 f5::sendevent, {ctrl down}cn{ctrl up}{enter}{ctrl down}v{ctrl up}{alt down}s{alt up}t{ctrl down}d{tab}{ctrl up}
