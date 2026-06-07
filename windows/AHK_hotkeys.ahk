@@ -356,6 +356,9 @@ f24 & 6::fnClipStudioSaveSingle()
 ; f24 & -::
 
 fnClipStudioSavePsd() {
+    Run, uv.exe run python cli/bf_cli.py process_psd --wait-for-change, c:/Users/user/dev/home2/game4
+    sleep 300
+    WinActivate, ahk_exe CLIPStudioPaint.exe
     ; Pressing CTRL SHIFT S
     send {ctrl down}{shift down}s{shift up}{ctrl up}
     ; Confirming
@@ -372,14 +375,16 @@ fnClipStudioSavePsd() {
     ; sleep 300
     send {enter}
     ; If it's replace confirmation -> replace
-    sleep 300
-    if WinActive("Confirm Save As")
-        send {left}{enter}
-    ; Export
-    sleep 300
-    send {enter}
     sleep 500
-    Run, uv.exe run python cli/bf_cli.py process_psd, c:/Users/user/dev/home2/game4
+    if WinActive("Confirm Save As") {
+        send {left}
+        sleep 200
+        send {enter}
+    }
+    ; Export
+    sleep 500
+    send {enter}
+    WinActivate, ahk_exe uv.exe
 }
 
 clipStudioCopyPasting := 0
