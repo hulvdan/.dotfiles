@@ -131,7 +131,6 @@ fnCheckFileChange() {
 
 SetTimer, fnCheckFileChange, 2000
 
-
 ; NOTE: Функцию перезагрузки скрипта раскомменчиваю, когда активно работаю над ним.
 ^!+f9::fnReload()
 
