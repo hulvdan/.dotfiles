@@ -373,11 +373,14 @@ fnClipStudioSavePsd() {
     sleep 1000
     send {enter}
     ; If it's replace confirmation -> replace
-    sleep 1000
-    if WinActive("Confirm Save As") {
-        send {left}
-        sleep 200
-        send {enter}
+    loop 40 {
+        if WinActive("Confirm Save As") {
+            send {left}
+            sleep 50
+            send {enter}
+            break
+        } else
+            sleep 100
     }
     ; Export
     sleep 1000
