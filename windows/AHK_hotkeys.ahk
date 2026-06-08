@@ -362,9 +362,6 @@ fnClipStudioSavePsd() {
     WinActivate, ahk_exe CLIPStudioPaint.exe
     ; Pressing CTRL SHIFT S
     send {ctrl down}{shift down}s{shift up}{ctrl up}
-    ; Confirming
-    send {enter}
-    sleep 1000
     ; Switching to changing "save as" format
     while not WinActive("Save as")
         sleep 250
